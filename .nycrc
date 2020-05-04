@@ -1,0 +1,6 @@
+{
+    "extension": [".vue"],
+    "reporter": ["text", "text-summary"],
+    "exclude": ["tests/**/*"]
+}
+
