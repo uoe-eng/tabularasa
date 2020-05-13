@@ -1,0 +1,4 @@
+# Don't lint other project config files
+nightwatch.config.js
+vue.config.js
+webpack.config.js
