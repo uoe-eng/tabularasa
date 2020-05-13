@@ -3,11 +3,11 @@
     <DataTable
       :value="processedRows"
       :class="'listtable-' + type"
-      :paginator="paginator"
-      :paginator-position="paginatorPosition"
+      :paginator="config.paginator"
+      :paginator-position="config.paginatorPosition"
       :lazy="true"
-      :rows="pageLimit"
-      :total-records="totalRecords"
+      :rows="config.pageLimit"
+      :total-records="totalRows"
       selection-mode="single"
       @page="onPage($event)"
       @row-select="onRowSelect"
@@ -42,12 +42,11 @@
 </template>
 
 <script>
-// FIXME: Config from props
+// Default config values
 const CONFIG = {
   pageLimit: 20,
   paginator: true,
   paginatorPosition: 'both',
-
 }
 
 export default {
@@ -57,6 +56,10 @@ export default {
     DataTable: () => import(/* webpackPrefetch: true */ 'primevue/datatable'),
   },
   props: {
+    configuration: {
+      type: Object,
+      default: () => {},
+    },
     // Collection schema data
     collections: {
       type: Object,
@@ -71,17 +74,19 @@ export default {
       type: Array,
       default: () => [],
     },
+    totalRows: {
+      type: Number,
+      default: CONFIG.pageLimit,
+    },
   },
   data() {
+    // Merge defaults with passed-in property
+    let config = Object.assign({}, CONFIG, this.configuration)
     return {
+      config: config,
       filter: {},
       offset: 0,
-      limit: CONFIG.pageLimit,
-      pageLimit: CONFIG.pageLimit,
-      paginator: CONFIG.paginator,
-      paginatorPosition: CONFIG.paginatorPosition,
-      // Set totalRecords to pageLimit on start, until it updates async
-      totalRecords: CONFIG.pageLimit,
+      limit: config.pageLimit,
       // Data object for the selected row
       selectedRow: undefined,
     }
