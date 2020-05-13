@@ -7,8 +7,8 @@ module.exports = {
   },
   test_settings: {
     default: {
-      "desiredCapabilities": {
-        "browserName": "firefox"
+      desiredCapabilities: {
+        browserName: 'firefox',
       },
     },
     Firefox: {
