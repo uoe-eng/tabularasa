@@ -3,6 +3,7 @@
     <DataTable
       :value="processedRows"
       :class="'listtable-' + type"
+      :auto-layout="config.autoLayout"
       :paginator="config.paginator"
       :paginator-position="config.paginatorPosition"
       :lazy="true"
@@ -44,6 +45,7 @@
 <script>
 // Default config values
 const CONFIG = {
+  autoLayout: true,
   pageLimit: 20,
   paginator: true,
   paginatorPosition: 'both',
