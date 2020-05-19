@@ -3,13 +3,8 @@
     <DataTable
       :value="processedRows"
       :class="'listtable-' + type"
-      :auto-layout="config.autoLayout"
-      :paginator="config.paginator"
-      :paginator-position="config.paginatorPosition"
-      :lazy="true"
-      :rows="config.pageLimit"
       :total-records="totalRows"
-      selection-mode="single"
+      v-bind="config.DataTable"
       @page="onPage($event)"
       @row-select="onRowSelect"
     >
@@ -45,10 +40,15 @@
 <script>
 // Default config values
 const CONFIG = {
-  autoLayout: true,
-  pageLimit: 20,
-  paginator: true,
-  paginatorPosition: 'both',
+  // Define properties to be passed 'direct' to DataTable
+  DataTable: {
+    autoLayout: true,
+    lazy: true,
+    paginator: true,
+    paginatorPosition: 'both',
+    rows: 20,
+    selectionMode: 'single',
+  },
 }
 
 export default {
@@ -76,9 +76,11 @@ export default {
       type: Array,
       default: () => [],
     },
+    /* eslint-disable-next-line vue/require-default-prop */
     totalRows: {
       type: Number,
-      default: CONFIG.pageLimit,
+      // Defaults to DataTable's 'value' prop
+      required: false,
     },
   },
   data() {
