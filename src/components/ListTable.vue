@@ -113,7 +113,11 @@ export default {
   methods: {
     fieldDisplay(slotProps) {
       // Undef/null will cause a gap in the table - use empty string instead
-      return slotProps.data[slotProps.column.field] || ''
+      let field = ''
+      if (field != null) {
+        field = slotProps.data[slotProps.column.field]
+      }
+      return field
     },
     onPage(event) {
       this.offset = event.first
