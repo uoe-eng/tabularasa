@@ -122,7 +122,7 @@ export default {
     onPage(event) {
       this.offset = event.first
       this.limit = event.rows
-      this.getData()
+      this.$emit('sld:page', { offset: this.offset, limit: this.limit })
     },
     onRowSelect(event) {
       // Existing data or empty object
@@ -132,6 +132,8 @@ export default {
         this.dialogHeader = 'Edit item'
         this.selectedRow = event.data
       }
+      this.$emit('sld:row-select', this.selectedRow)
+      // FIXME: Launch detail dialog/overlay etc here
     },
   },
 }

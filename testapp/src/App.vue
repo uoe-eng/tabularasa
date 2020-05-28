@@ -11,6 +11,9 @@
         :rows="collectedData[key]"
         :total-rows="totalRows"
         :type="key"
+        @sld:page="sldPage($event)"
+        @sld:reload="sldReload()"
+        @sld:row-select="sldRow($event)"
       />
     </div>
   </div>
@@ -28,8 +31,26 @@ export default {
     return {
       collections: collections,
       totalRows: totalRows,
-      collectedData: fakeData(totalRows),
+      collectedData: [],
     }
+  },
+  created() {
+    console.log('Created')
+    // Populate collectedData
+    this.collectedData = fakeData(this.totalRows)
+  },
+  methods: {
+    sldPage(event) {
+      console.log('sldPage', event)
+    },
+    sldReload() {
+      console.log('sldReload')
+      // Repopulate with fresh fakeData
+      this.collectedData = fakeData(this.totalRows)
+    },
+    sldRow(event) {
+      console.log('sldRow', event)
+    },
   },
 }
 </script>
