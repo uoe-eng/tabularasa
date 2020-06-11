@@ -12,7 +12,7 @@
         v-for="col of columns"
         :key="col.field"
         :field="col.field"
-        :header="col.header"
+        :header="col.label"
       >
         <template #body="slotProps">
           <div>{{ fieldDisplay(slotProps) }}</div>
@@ -99,7 +99,7 @@ export default {
   computed: {
     columns() {
       // Get column metadata from collections
-      return this.collections.columns
+      return this.collections.list
     },
     processedRows() {
       let data = this.rows

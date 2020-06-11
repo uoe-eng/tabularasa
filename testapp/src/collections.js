@@ -1,48 +1,90 @@
 export default {
   people: {
-    columns: [
+    list: [
       {
-        header: 'ID',
+        label: 'ID',
         field: 'id',
       },
       {
-        header: 'First Name',
+        label: 'First Name',
         field: 'first_name',
       },
       {
-        header: 'Last Name',
+        label: 'Last Name',
         field: 'last_name',
       },
       {
-        header: 'Email',
+        label: 'Email',
         field: 'email',
       },
       {
-        header: 'City',
+        label: 'City',
+        field: 'city',
+      },
+    ],
+    detail: [
+      {
+        label: 'ID',
+        field: 'id',
+      },
+      {
+        label: 'First Name',
+        field: 'first_name',
+      },
+      {
+        label: 'Last Name',
+        field: 'last_name',
+      },
+      {
+        label: 'Email',
+        field: 'email',
+      },
+      {
+        label: 'City',
         field: 'city',
       },
     ],
   },
   blogs: {
-    columns: [
+    list: [
       {
-        header: 'ID',
+        label: 'ID',
         field: 'id',
       },
       {
-        header: 'Title',
+        label: 'Title',
+        field: 'title',
+      },
+    ],
+    fields: [
+      {
+        label: 'ID',
+        field: 'id',
+      },
+      {
+        label: 'Title',
         field: 'title',
       },
     ],
   },
   articles: {
-    columns: [
+    list: [
       {
-        header: 'ID',
+        label: 'ID',
         field: 'id',
       },
       {
-        header: 'Title',
+        label: 'Title',
+        field: 'title',
+      },
+    ],
+    fields: [
+      {
+        label: 'ID',
+        field: 'id',
+      },
+      {
+        label: 'Title',
         field: 'title',
       },
     ],
