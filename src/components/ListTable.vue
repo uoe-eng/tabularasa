@@ -1,8 +1,8 @@
 <template>
-  <div :id="'listtable-' + type">
+  <div :id="'listtable-' + name">
     <DataTable
       :value="processedRows"
-      :class="'listtable-' + type"
+      :class="'listtable-' + name"
       :total-records="totalRows"
       v-bind="config.DataTable"
       @page="onPage($event)"
@@ -67,11 +67,12 @@ export default {
       type: Object,
       default: () => {},
     },
-    // Collection type
-    type: {
+    // Collection name
+    name: {
       type: String,
       default: '',
     },
+    // Collection data
     rows: {
       type: Array,
       default: () => [],
@@ -98,7 +99,7 @@ export default {
   computed: {
     columns() {
       // Get column metadata from collections
-      return this.collections[this.type].columns
+      return this.collections.columns
     },
     processedRows() {
       let data = this.rows

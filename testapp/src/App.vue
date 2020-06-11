@@ -1,21 +1,12 @@
 <template>
   <div id="app">
     <h1>Test app</h1>
-    <div
-      v-for="(coln, key) in collections"
-      :key="key"
-    >
-      <h2>{{ coln.name }}</h2>
-      <ListTable
-        :collections="collections"
-        :rows="collectedData[key]"
-        :total-rows="totalRows"
-        :type="key"
-        @sld:page="sldPage($event)"
-        @sld:reload="sldReload()"
-        @sld:row-select="sldRow($event)"
-      />
-    </div>
+    <RootPage
+      :collections="collections"
+      :rows="collectedData"
+      :total-rows="totalRows"
+      :events="events"
+    />
   </div>
 </template>
 
@@ -32,6 +23,11 @@ export default {
       collections: collections,
       totalRows: totalRows,
       collectedData: [],
+      events: {
+        'sld:page': this.sldPage,
+        'sld:reload': this.sldReload,
+        'sld:row-select': this.sldRow,
+      },
     }
   },
   created() {
