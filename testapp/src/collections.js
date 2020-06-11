@@ -26,22 +26,27 @@ export default {
       {
         label: 'ID',
         field: 'id',
+        fieldType: 'TextInput',
       },
       {
         label: 'First Name',
         field: 'first_name',
+        fieldType: 'TextInput',
       },
       {
         label: 'Last Name',
         field: 'last_name',
+        fieldType: 'TextInput',
       },
       {
         label: 'Email',
         field: 'email',
+        fieldType: 'TextInput',
       },
       {
         label: 'City',
         field: 'city',
+        fieldType: 'TextInput',
       },
     ],
   },

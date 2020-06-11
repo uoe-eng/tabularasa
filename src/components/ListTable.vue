@@ -34,6 +34,18 @@
         </button>
       </template>
     </DataTable>
+    <Dialog
+      :visible.sync="dialogVisible"
+      :content-style="{overflow: 'visible'}"
+      :header="dialogHeader"
+    >
+      <DetailCard
+        :collections="collections"
+        :item="selectedRow"
+        :data-type="name"
+        @sld:save="dialogVisible = false"
+      />
+    </Dialog>
   </div>
 </template>
 
@@ -56,6 +68,7 @@ export default {
   components: {
     Column: () => import(/* webpackPrefetch: true */ 'primevue/column'),
     DataTable: () => import(/* webpackPrefetch: true */ 'primevue/datatable'),
+    Dialog: () => import(/* webpackPrefetch: true */ 'primevue/dialog'),
   },
   props: {
     configuration: {
@@ -89,6 +102,8 @@ export default {
     let config = Object.assign({}, CONFIG, this.configuration)
     return {
       config: config,
+      dialogHeader: '',
+      dialogVisible: false,
       filter: {},
       offset: 0,
       limit: config.pageLimit,
@@ -134,7 +149,7 @@ export default {
         this.selectedRow = event.data
       }
       this.$emit('sld:row-select', this.selectedRow)
-      // FIXME: Launch detail dialog/overlay etc here
+      this.dialogVisible = true
     },
   },
 }
