@@ -22,16 +22,31 @@ import faker from 'faker'
     content
     authors: (many) articles -> (many) people
 */
+let COUNT = 100
+let DATA = {}
 
-export default function (count = 100) {
-  const data = {}
+export default function (count) {
+  if (count) {
+    COUNT = count
+  }
   for (let [type, func] of Object.entries(generators)) {
-    data[type] = new Array(count)
-    for (let i = 0; i < count; i++) {
-      data[type][i] = func(i)
+    DATA[type] = new Array(COUNT)
+    for (let i = 0; i < COUNT; i++) {
+      DATA[type][i] = func(i)
     }
   }
-  return data
+  for (let i = 0; i < COUNT; i++) {
+    // Create relationships for every 5th person
+    if (i % 5 === 0) {
+      DATA['people'][i]['blogs'].push(DATA['blogs'][i + 1], DATA['blogs'][i + 2])
+      DATA['people'][i]['articles'].push(DATA['articles'][i + 3], DATA['articles'][i + 4])
+      DATA['blogs'][i + 1]['author'] = DATA['people'][i]
+      DATA['blogs'][i + 2]['author'] = DATA['people'][i]
+      DATA['articles'][i + 3]['author'] = DATA['people'][i]
+      DATA['articles'][i + 4]['author'] = DATA['people'][i]
+    }
+  }
+  return DATA
 }
 
 const generators = {
@@ -44,6 +59,8 @@ const generators = {
     obj.last_name = faker.name.lastName()
     obj.email = faker.internet.email()
     obj.city = faker.address.city()
+    obj.blogs = []
+    obj.articles = []
     /* eslint-enable camelcase */
     return obj
   },
@@ -52,6 +69,7 @@ const generators = {
       id: i,
       title: faker.lorem.words(),
       content: faker.lorem.paragraph(),
+      author: {},
     }
   },
   articles: function (i) {
@@ -59,6 +77,7 @@ const generators = {
       id: i,
       title: faker.lorem.words(),
       content: faker.lorem.paragraph(),
+      authors: [],
     }
   },
 }
