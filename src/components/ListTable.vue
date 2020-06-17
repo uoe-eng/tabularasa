@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import merge from 'lodash.merge'
+
 // Default config values
 const CONFIG = {
   // Define properties to be passed 'direct' to DataTable
@@ -73,12 +75,12 @@ export default {
   props: {
     configuration: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     // Collection schema data
     collections: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     // Collection name
     name: {
@@ -99,7 +101,7 @@ export default {
   },
   data() {
     // Merge defaults with passed-in property
-    let config = Object.assign({}, CONFIG, this.configuration)
+    let config = merge({}, CONFIG, this.configuration)
     return {
       config: config,
       dialogHeader: '',

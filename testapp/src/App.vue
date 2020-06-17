@@ -2,6 +2,7 @@
   <div id="app">
     <h1>Test app</h1>
     <RootPage
+      :configuration="config"
       :collections="collections"
       :rows="collectedData"
       :total-rows="totalRows"
@@ -12,6 +13,7 @@
 
 <script>
 import collections from './collections'
+import config from './config'
 import fakeData from './fakedata'
 
 const totalRows = 100
@@ -21,6 +23,7 @@ export default {
   data() {
     return {
       collections: collections,
+      config: config,
       totalRows: totalRows,
       collectedData: [],
       events: {

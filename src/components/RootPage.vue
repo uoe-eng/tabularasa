@@ -46,7 +46,7 @@ export default {
   methods: {
     getConfig(key) {
       if (this.configuration && Object.prototype.hasOwnProperty.call(this.configuration, key)) {
-        return this.configuration[this.type]
+        return this.configuration[key]
       }
       return {}
     },
