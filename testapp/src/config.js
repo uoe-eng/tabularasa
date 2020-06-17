@@ -1,7 +1,11 @@
-export default {
-  people: {
-    DataTable: {
-      paginatorPosition: 'top',
-    },
+const DATATABLE = {
+  DataTable: {
+    paginatorPosition: 'top',
   },
+}
+
+export default {
+  people: { ...DATATABLE },
+  articles: { ...DATATABLE },
+  blogs: { ...DATATABLE },
 }
