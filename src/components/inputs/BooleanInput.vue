@@ -4,9 +4,10 @@
       <label :for="'input' + field">{{ label }}</label>
     </div>
     <div class="p-col">
-      <InputText
+      <Checkbox
         :id="'input' + field"
-        :value="item[field]"
+        v-model="checked"
+        :binary="true"
         @input="$emit('update', $event)"
       />
     </div>
@@ -15,9 +16,9 @@
 
 <script>
 export default {
-  name: 'TextInput',
+  name: 'BooleanInput',
   components: {
-    InputText: () => import(/* webpackPrefetch: true */ 'primevue/inputtext'),
+    Checkbox: () => import(/* webpackPrefetch: true */ 'primevue/checkbox'),
   },
   props: {
     field: {
@@ -32,6 +33,13 @@ export default {
       type: String,
       default: '',
     },
+  },
+  data() {
+    return {
+      // We must use v-model for Checkbox, so 'copy' the boolean value here
+      // We still rely on the 'update' to modify the data in DetailCard
+      checked: this.item[this.field],
+    }
   },
 }
 </script>

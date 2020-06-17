@@ -1,0 +1,59 @@
+<template>
+  <div class="p-grid">
+    <div class="p-col">
+      <label :for="'input' + field">{{ label }}</label>
+    </div>
+    <div class="p-col">
+      <Calendar
+        :id="'input' + field"
+        v-model="date"
+        date-format="yy-mm-dd"
+        @input="$emit('update', $event)"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'DateInput',
+  components: {
+    Calendar: () => import(/* webpackPrefetch: true */ 'primevue/calendar'),
+  },
+  props: {
+    field: {
+      type: String,
+      default: '',
+    },
+    item: {
+      type: Object,
+      default: () => ({}),
+    },
+    label: {
+      type: String,
+      default: '',
+    },
+  },
+  data() {
+    return {
+      dateValue: this.item[this.field],
+    }
+  },
+  computed: {
+    date: {
+      get() {
+        // Convert date string to date object for Calendar
+        // only if dateValue is defined (Date(undefined) == 'now')
+        let date
+        if (this.dateValue) {
+          date = new Date(this.dateValue)
+        }
+        return date
+      },
+      set(newDate) {
+        this.dateValue = newDate
+      }
+    },
+  },
+}
+</script>

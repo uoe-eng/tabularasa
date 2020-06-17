@@ -1,10 +1,11 @@
 <template>
   <div class="p-grid">
     <div class="p-col">
+      <!-- <span>{{ label }}</span> -->
       <label :for="'input' + field">{{ label }}</label>
     </div>
     <div class="p-col">
-      <InputText
+      <Textarea
         :id="'input' + field"
         :value="item[field]"
         @input="$emit('update', $event)"
@@ -15,9 +16,9 @@
 
 <script>
 export default {
-  name: 'TextInput',
+  name: 'TextArea',
   components: {
-    InputText: () => import(/* webpackPrefetch: true */ 'primevue/inputtext'),
+    Textarea: () => import(/* webpackPrefetch: true */ 'primevue/textarea'),
   },
   props: {
     field: {

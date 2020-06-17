@@ -27,7 +27,10 @@
 export default {
   name: 'DetailCard',
   components: {
+    BooleanInput: () => import(/* webpackPrefetch: true */ './inputs/BooleanInput'),
+    DateInput: () => import(/* webpackPrefetch: true */ './inputs/DateInput'),
     TextInput: () => import(/* webpackPrefetch: true */ './inputs/TextInput'),
+    TextareaInput: () => import(/* webpackPrefetch: true */ './inputs/TextareaInput'),
   },
   props: {
     // Collection schema data
