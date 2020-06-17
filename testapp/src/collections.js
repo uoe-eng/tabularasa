@@ -21,32 +21,48 @@ export default {
         label: 'City',
         field: 'city',
       },
+      {
+        label: 'Blogs',
+        field: 'blogs',
+      },
     ],
     detail: [
       {
         label: 'ID',
         field: 'id',
-        fieldType: 'TextInput',
+        input: 'TextInput',
       },
       {
         label: 'First Name',
         field: 'first_name',
-        fieldType: 'TextInput',
+        input: 'TextInput',
       },
       {
         label: 'Last Name',
         field: 'last_name',
-        fieldType: 'TextInput',
+        input: 'TextInput',
       },
       {
         label: 'Email',
         field: 'email',
-        fieldType: 'TextInput',
+        input: 'TextInput',
       },
       {
         label: 'City',
         field: 'city',
-        fieldType: 'TextInput',
+        input: 'TextInput',
+      },
+      {
+        label: 'Blogs',
+        field: 'blogs',
+        input: 'ChipsInput',
+        relationship: 'TOMANY',
+      },
+      {
+        label: 'Articles',
+        field: 'articles',
+        input: 'ChipsInput',
+        relationship: 'TOMANY',
       },
     ],
   },
@@ -61,14 +77,22 @@ export default {
         field: 'title',
       },
     ],
-    fields: [
+    detail: [
       {
         label: 'ID',
         field: 'id',
+        input: 'TextInput',
       },
       {
         label: 'Title',
         field: 'title',
+        input: 'TextInput',
+      },
+      {
+        label: 'Author',
+        field: 'author',
+        input: 'DropdownInput',
+        relationship: 'TOONE',
       },
     ],
   },
@@ -83,14 +107,22 @@ export default {
         field: 'title',
       },
     ],
-    fields: [
+    detail: [
       {
         label: 'ID',
         field: 'id',
+        input: 'TextInput',
       },
       {
         label: 'Title',
         field: 'title',
+        input: 'TextInput',
+      },
+      {
+        label: 'Authors',
+        field: 'authors',
+        input: 'ChipsInput',
+        relationship: 'TOMANY',
       },
     ],
   },
