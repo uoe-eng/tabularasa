@@ -3,7 +3,6 @@
     <DataTable
       :value="processedRows"
       :class="'listtable-' + name"
-      :total-records="totalRows"
       v-bind="config.DataTable"
       @page="onPage($event)"
       @row-select="onRowSelect"
@@ -50,6 +49,7 @@
 </template>
 
 <script>
+import get from 'lodash.get'
 import merge from 'lodash.merge'
 
 // Default config values
@@ -131,9 +131,12 @@ export default {
   methods: {
     fieldDisplay(slotProps) {
       // Undef/null will cause a gap in the table - use empty string instead
-      let field = ''
-      if (field != null) {
-        field = slotProps.data[slotProps.column.field]
+      let field = get(slotProps.data, slotProps.column.field)
+      if (field === null) {
+        field = ''
+      } else if (typeof field === 'object') {
+        // FIXME: Handle M2M rels properly!
+        field = JSON.stringify(field)
       }
       return field
     },
