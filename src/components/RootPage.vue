@@ -2,15 +2,13 @@
   <div>
     <TabView>
       <TabPanel
-        v-for="(coln, key) in collections"
+        v-for="(conf, key) in configuration"
         :key="key"
         :header="key"
       >
         <ListTable
-          :collections="collections[key]"
-          :configuration="getConfig(key)"
+          :configuration="conf.ListTable"
           :name="key"
-          :rows="rows[key]"
           v-on="events"
         />
       </TabPanel>
@@ -30,25 +28,9 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    collections: {
-      type: Object,
-      default: () => ({}),
-    },
     events: {
       type: Object,
       default: () => ({}),
-    },
-    rows: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  methods: {
-    getConfig(key) {
-      if (this.configuration && Object.prototype.hasOwnProperty.call(this.configuration, key)) {
-        return this.configuration[key]
-      }
-      return {}
     },
   },
 }

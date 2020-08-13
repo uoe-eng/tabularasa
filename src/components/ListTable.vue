@@ -3,7 +3,7 @@
     <DataTable
       :value="processedRows"
       :class="'listtable-' + name"
-      v-bind="config.DataTable"
+      v-bind="dtProps"
       @page="onPage($event)"
       @row-select="onRowSelect"
     >
@@ -39,7 +39,7 @@
       :header="dialogHeader"
     >
       <DetailCard
-        :collections="collections"
+        :configuration="configuration"
         :item="selectedRow"
         :data-type="name"
         @sld:save="dialogVisible = false"
@@ -53,16 +53,14 @@ import get from 'lodash.get'
 import merge from 'lodash.merge'
 
 // Default config values
-const CONFIG = {
+const DT_PROPS = {
   // Define properties to be passed 'direct' to DataTable
-  DataTable: {
-    autoLayout: true,
-    lazy: true,
-    paginator: true,
-    paginatorPosition: 'both',
-    rows: 20,
-    selectionMode: 'single',
-  },
+  autoLayout: true,
+  lazy: true,
+  paginator: true,
+  paginatorPosition: 'both',
+  rows: 20,
+  selectionMode: 'single',
 }
 
 export default {
@@ -77,38 +75,22 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    // Collection schema data
-    collections: {
-      type: Object,
-      default: () => ({}),
-    },
     // Collection name
     name: {
       type: String,
       default: '',
     },
-    // Collection data
-    rows: {
-      type: Array,
-      default: () => [],
-    },
-    /* eslint-disable-next-line vue/require-default-prop */
-    totalRows: {
-      type: Number,
-      // Defaults to DataTable's 'value' prop
-      required: false,
-    },
   },
   data() {
     // Merge defaults with passed-in property
-    let config = merge({}, CONFIG, this.configuration)
+    let dtProps = merge({}, DT_PROPS, this.configuration.properties)
     return {
-      config: config,
+      dtProps: dtProps,
       dialogHeader: '',
       dialogVisible: false,
       filter: {},
       offset: 0,
-      limit: config.pageLimit,
+      limit: dtProps.pageLimit,
       // Data object for the selected row
       selectedRow: undefined,
     }
@@ -116,13 +98,13 @@ export default {
   computed: {
     columns() {
       // Get column metadata from collections
-      return this.collections.list
+      return this.configuration.fields
     },
     processedRows() {
-      let data = this.rows
+      let data = this.configuration.properties.value
       // Trim the data for pagination
       if (this.offset && this.limit) {
-        data = this.rows.slice(this.offset, this.offset + this.limit)
+        data = data.slice(this.offset, this.offset + this.limit)
       }
       return data
     },
