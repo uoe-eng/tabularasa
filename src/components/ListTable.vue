@@ -54,7 +54,7 @@ import merge from 'lodash.merge'
 
 // Default config values
 const DT_PROPS = {
-  // Define properties to be passed 'direct' to DataTable
+  // Define props to be passed 'direct' to DataTable
   autoLayout: true,
   lazy: true,
   paginator: true,
@@ -83,7 +83,7 @@ export default {
   },
   data() {
     // Merge defaults with passed-in property
-    let dtProps = merge({}, DT_PROPS, this.configuration.properties)
+    let dtProps = merge({}, DT_PROPS, this.configuration.props)
     return {
       dtProps: dtProps,
       dialogHeader: '',
@@ -101,7 +101,7 @@ export default {
       return this.configuration.fields
     },
     processedRows() {
-      let data = this.configuration.properties.value
+      let data = this.configuration.props.value
       // Trim the data for pagination
       if (this.offset && this.limit) {
         data = data.slice(this.offset, this.offset + this.limit)

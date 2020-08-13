@@ -34,8 +34,8 @@ export default {
     this.collectedData = fakeData(ROWCOUNT)
     // Update the data and totalRecords values for each ListTable instance
     for (let [type, conf] of Object.entries(this.config)) {
-      conf.ListTable.properties.value = this.collectedData[type]
-      conf.ListTable.properties.totalRecords = ROWCOUNT
+      conf.ListTable.props.value = this.collectedData[type]
+      conf.ListTable.props.totalRecords = ROWCOUNT
     }
   },
   methods: {

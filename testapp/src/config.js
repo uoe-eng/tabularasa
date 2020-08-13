@@ -27,7 +27,7 @@ export default {
           field: 'blogs',
         },
       ],
-      properties: {
+      props: {
         paginatorPosition: 'top',
       },
     },
@@ -85,7 +85,7 @@ export default {
           field: 'title',
         },
       ],
-      properties: {
+      props: {
         paginatorPosition: 'top',
       },
     },
@@ -122,7 +122,7 @@ export default {
           field: 'title',
         },
       ],
-      properties: {
+      props: {
         paginatorPosition: 'top',
       },
     },
