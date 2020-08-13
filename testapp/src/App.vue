@@ -16,7 +16,8 @@ import collections from './collections'
 import config from './config'
 import fakeData from './fakedata'
 
-const totalRows = 100
+// the number of rows of fakeData to generate
+const ROWCOUNT = 100
 
 export default {
   name: 'App',
@@ -24,8 +25,8 @@ export default {
     return {
       collections: collections,
       config: config,
-      totalRows: totalRows,
       collectedData: [],
+      // An object mapping event names to functions, which will be added to ListTable as a v-on object
       events: {
         'sld:page': this.sldPage,
         'sld:reload': this.sldReload,
@@ -36,7 +37,11 @@ export default {
   created() {
     console.log('Created')
     // Populate collectedData
-    this.collectedData = fakeData(this.totalRows)
+    this.collectedData = fakeData(ROWCOUNT)
+    // Update the totalRecords value for each 'type' to match the rowcount in collectedData
+    for (let type of Object.keys(this.config)) {
+      config[type].DataTable.totalRecords = ROWCOUNT
+    }
   },
   methods: {
     sldPage(event) {
