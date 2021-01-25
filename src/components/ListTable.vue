@@ -39,7 +39,7 @@
       :header="dialogHeader"
     >
       <DetailCard
-        :configuration="configuration"
+        :configuration="configuration.DetailCard"
         :item="selectedRow"
         :data-type="name"
         @sld:save="dialogVisible = false"
@@ -83,7 +83,7 @@ export default {
   },
   data() {
     // Merge defaults with passed-in property
-    let dtProps = merge({}, DT_PROPS, this.configuration.props)
+    let dtProps = merge({}, DT_PROPS, this.configuration.ListTable.props)
     return {
       dtProps: dtProps,
       dialogHeader: '',
@@ -98,10 +98,10 @@ export default {
   computed: {
     columns() {
       // Get column metadata from collections
-      return this.configuration.fields
+      return this.configuration.ListTable.fields
     },
     processedRows() {
-      let data = this.configuration.props.value
+      let data = this.configuration.ListTable.props.value
       // Trim the data for pagination
       if (this.offset && this.limit) {
         data = data.slice(this.offset, this.offset + this.limit)
@@ -118,7 +118,7 @@ export default {
         field = ''
       } else if (typeof field === 'object') {
         // FIXME: Handle M2M rels properly!
-        field = JSON.stringify(field)
+        field = JSON.stringify(Object.keys(field))
       }
       return field
     },

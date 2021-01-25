@@ -6,7 +6,7 @@
           :is="field.input"
           v-for="field in fields"
           :key="field.label"
-          :collections="collections"
+          :configuration="configuration"
           :item="item"
           :field="field.field"
           v-bind="field"
@@ -34,7 +34,7 @@ export default {
   },
   props: {
     // Collection schema data
-    collections: {
+    configuration: {
       type: Object,
       default: () => ({}),
     },
@@ -52,7 +52,7 @@ export default {
       // We start with an empty object and update it as fields change
       newItem: {},
       // Fields to display in the card (from schema)
-      fields: this.collections.detail,
+      fields: this.configuration.fields,
     }
   },
   methods: {

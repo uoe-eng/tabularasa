@@ -29,7 +29,6 @@ export default {
     }
   },
   created() {
-    console.log('Created')
     // Populate collectedData
     this.collectedData = fakeData(ROWCOUNT)
     // Update the data and totalRecords values for each ListTable instance

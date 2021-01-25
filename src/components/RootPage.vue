@@ -7,7 +7,7 @@
         :header="key"
       >
         <ListTable
-          :configuration="conf.ListTable"
+          :configuration="conf"
           :name="key"
           v-on="events"
         />

@@ -52,7 +52,7 @@ export default {
       },
       set(newDate) {
         this.dateValue = newDate
-      }
+      },
     },
   },
 }
