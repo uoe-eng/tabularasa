@@ -6,7 +6,7 @@
     <div class="p-col">
       <InputText
         :id="'input' + field"
-        :value="item[field]"
+        :value="this.getField(this.item[this.field])"
         @input="$emit('update', $event)"
       />
     </div>
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import { getField } from '@/helpers'
+
 export default {
   name: 'TextInput',
   components: {
@@ -32,6 +34,9 @@ export default {
       type: String,
       default: '',
     },
+  },
+  methods: {
+    getField,
   },
 }
 </script>

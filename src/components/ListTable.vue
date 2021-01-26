@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import get from 'lodash.get'
 import merge from 'lodash.merge'
+import { fieldDisplay } from '@/helpers'
 
 // Default config values
 const DT_PROPS = {
@@ -111,17 +111,7 @@ export default {
   },
   created() {},
   methods: {
-    fieldDisplay(slotProps) {
-      // Undef/null will cause a gap in the table - use empty string instead
-      let field = get(slotProps.data, slotProps.column.field)
-      if (field === null) {
-        field = ''
-      } else if (typeof field === 'object') {
-        // FIXME: Handle M2M rels properly!
-        field = JSON.stringify(Object.keys(field))
-      }
-      return field
-    },
+    fieldDisplay,
     onPage(event) {
       this.offset = event.first
       this.limit = event.rows

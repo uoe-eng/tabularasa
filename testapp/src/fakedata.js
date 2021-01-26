@@ -54,7 +54,8 @@ const generators = {
     const obj = {}
     // ESLint doesn't like snake-case vars
     /* eslint-disable camelcase*/
-    obj.id = i
+    // Simple setup to test field value being a function
+    obj.id = () => i
     obj.first_name = faker.name.firstName()
     obj.last_name = faker.name.lastName()
     obj.email = faker.internet.email()
