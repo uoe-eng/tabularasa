@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "vue": "^2.6.11"
+    "vue": "^3.0.0-beta1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
@@ -28,7 +28,6 @@
     "eslint-plugin-vue": "^6.2.2",
     "faker": "^4.1.0",
     "geckodriver": "^1.19.1",
-    "prettier": "^1.19.1",
-    "vue-template-compiler": "^2.6.11"
+    "prettier": "^1.19.1"
   }
 }

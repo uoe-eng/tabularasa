@@ -17,11 +17,14 @@
 </template>
 
 <script>
+import TabPanel from 'primevue/tabpanel'
+import TabView from 'primevue/tabview'
+
 export default {
   name: 'RootPage',
   components: {
-    TabPanel: () => import(/* webpackPrefetch: true */ 'primevue/tabpanel'),
-    TabView: () => import(/* webpackPrefetch: true */ 'primevue/tabview'),
+    TabPanel: TabPanel,
+    TabView: TabView,
   },
   props: {
     configuration: {

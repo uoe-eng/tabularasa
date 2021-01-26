@@ -49,6 +49,9 @@
 </template>
 
 <script>
+import Column from 'primevue/column'
+import DataTable from 'primevue/datatable'
+import Dialog from 'primevue/dialog'
 import get from 'lodash.get'
 import merge from 'lodash.merge'
 
@@ -66,9 +69,9 @@ const DT_PROPS = {
 export default {
   name: 'ListTable',
   components: {
-    Column: () => import(/* webpackPrefetch: true */ 'primevue/column'),
-    DataTable: () => import(/* webpackPrefetch: true */ 'primevue/datatable'),
-    Dialog: () => import(/* webpackPrefetch: true */ 'primevue/dialog'),
+    Column: Column,
+    DataTable: DataTable,
+    Dialog: Dialog,
   },
   props: {
     configuration: {
@@ -80,6 +83,9 @@ export default {
       type: String,
       default: '',
     },
+  },
+  mounted() {
+    console.log('lt', this.processedRows)
   },
   data() {
     // Merge defaults with passed-in property

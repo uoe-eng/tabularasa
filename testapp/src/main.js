@@ -1,13 +1,9 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 
 // Relative path to 'root' of sld repo
 import * as sld from '../../src/index.js'
 
-Vue.config.productionTip = false
-
-Vue.use(sld)
-
-new Vue({
-  render: (h) => h(App),
-}).$mount('#app')
+const app = createApp(App)
+app.use(sld)
+app.mount('#app')

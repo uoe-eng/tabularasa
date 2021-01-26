@@ -8949,10 +8949,10 @@ primeicons@^3.0.0-rc.1:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-3.0.0-rc.1.tgz#f1121d59ecf2c07ccbcfe0d93d25250fca09fb51"
   integrity sha512-n4fJjLdffEAoATTrVRrWXSDD4tmwjx3XBftkGoq5q53jwvBt9FBS9qHykoFudaRRO8Ez/CSI/NypsT0o0aIbOg==
 
-primevue@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/primevue/-/primevue-3.1.2.tgz#34f5be6701d2d90e9bf53ef3cb3e096ac585398f"
-  integrity sha512-1Wt3D37u7s5NwhIL0uPHX7qecTVsS6MGABI2w7TreYvcw7cbaZHRVd0RCaSUwl2crENTRWFTBA55Djgd9K0oCA==
+primevue@^3.2.0-rc.1:
+  version "3.2.0-rc.1"
+  resolved "https://registry.yarnpkg.com/primevue/-/primevue-3.2.0-rc.1.tgz#270c1e3b4f1b7b9b4b282fc019aebcfb12b8f15b"
+  integrity sha512-3RKUMesBmjKXE5ArREFPXrfBPt/4K2AchJAToDdorQBHbG9QfxwB3mlXPlEvf4b5rl4BonykjXiXoqU5lsurig==
 
 private@^0.1.8:
   version "0.1.8"
