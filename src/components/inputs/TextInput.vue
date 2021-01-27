@@ -6,7 +6,7 @@
     <div class="p-col">
       <InputText
         :id="'input' + field"
-        :value="this.getField(this.item[this.field])"
+        :value="getField(item[field])"
         @input="$emit('update', $event)"
       />
     </div>

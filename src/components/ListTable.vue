@@ -75,6 +75,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    collection: {
+      type: Array,
+      default: () => [],
+    },
     // Collection name
     name: {
       type: String,
@@ -101,12 +105,12 @@ export default {
       return this.configuration.ListTable.fields
     },
     processedRows() {
-      let data = this.configuration.ListTable.props.value
+      let collection = this.collection
       // Trim the data for pagination
       if (this.offset && this.limit) {
-        data = data.slice(this.offset, this.offset + this.limit)
+        collection = collection.slice(this.offset, this.offset + this.limit)
       }
-      return data
+      return collection
     },
   },
   created() {},

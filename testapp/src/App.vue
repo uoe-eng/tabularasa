@@ -3,6 +3,7 @@
     <h1>Test app</h1>
     <RootPage
       :configuration="config"
+      :collections="collections"
       :events="events"
     />
   </div>
@@ -20,6 +21,7 @@ export default {
   data() {
     return {
       config: config,
+      items: {},
       // An object mapping event names to functions, which will be added to ListTable as a v-on object
       events: {
         'sld:page': this.sldPage,
@@ -30,10 +32,9 @@ export default {
   },
   created() {
     // Populate collectedData
-    this.collectedData = fakeData(ROWCOUNT)
+    this.collections = fakeData(ROWCOUNT)
     // Update the data and totalRecords values for each ListTable instance
-    for (let [type, conf] of Object.entries(this.config)) {
-      conf.ListTable.props.value = this.collectedData[type]
+    for (let conf of Object.values(this.config)) {
       conf.ListTable.props.totalRecords = ROWCOUNT
     }
   },

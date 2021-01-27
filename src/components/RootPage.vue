@@ -9,6 +9,7 @@
         <ListTable
           :configuration="conf"
           :name="key"
+          :collection="collections[key]"
           v-on="events"
         />
       </TabPanel>
@@ -25,6 +26,10 @@ export default {
   },
   props: {
     configuration: {
+      type: Object,
+      default: () => ({}),
+    },
+    collections: {
       type: Object,
       default: () => ({}),
     },
