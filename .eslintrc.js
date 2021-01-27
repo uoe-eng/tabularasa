@@ -21,6 +21,6 @@ module.exports = {
   rules: {
     'prettier-vue/prettier': 'warn',
     camelcase: 'error',
-    'no-console': 'warn',
+    'no-console': 'off',
   },
 }
