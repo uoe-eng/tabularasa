@@ -7,7 +7,8 @@
       <InputText
         :id="'input' + field"
         :value="getField(item[field])"
-        @input="$emit('update', $event)"
+        @blur="$emit('blur', $event)"
+        @input="$emit('input', $event)"
       />
     </div>
   </div>

@@ -7,14 +7,16 @@
     <div class="p-col">
       <Textarea
         :id="'input' + field"
-        :value="item[field]"
-        @input="$emit('update', $event)"
+        :value="getField(item[field])"
+        @input.self="$emit('update', $event)"
       />
     </div>
   </div>
 </template>
 
 <script>
+import { getField } from '@/helpers'
+
 export default {
   name: 'TextArea',
   components: {
@@ -33,6 +35,9 @@ export default {
       type: String,
       default: '',
     },
+  },
+  methods: {
+    getField,
   },
 }
 </script>

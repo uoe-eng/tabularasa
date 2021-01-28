@@ -10,13 +10,14 @@
           :item="item"
           :field="field.field"
           v-bind="field"
-          @update="onUpdate($event, field)"
+          @blur="onBlur($event, field)"
+          @input="onInput($event, field)"
         />
       </div>
     </div>
     <button
       type="submit"
-      @click="onSave"
+      @click.once="onSave"
     >
       Save
     </button>
@@ -56,10 +57,17 @@ export default {
     }
   },
   methods: {
-    onUpdate(event, field) {
+    onBlur(event, schema) {
+      // Emit if the blurred field's value has changed
+      if (schema.field in this.newItem) {
+        this.$emit('sld:blur', this.item, { [schema.field]: this.newItem[schema.field] })
+      }
+    },
+    onInput(event, schema) {
       // Update newItem with field changes
-      this.$emit('sld:update', field, event)
-      this.newItem[field['field']] = event
+      this.newItem[schema.field] = event
+      // Emit the new value
+      this.$emit('sld:input', this.name, this.item, event)
     },
     onSave() {
       this.$emit('sld:save', this.item, this.newItem)

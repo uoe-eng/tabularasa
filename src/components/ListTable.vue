@@ -41,7 +41,7 @@
       <DetailCard
         :configuration="configuration.DetailCard"
         :item="selectedRow"
-        :data-type="name"
+        :collection="name"
         @sld:save="dialogVisible = false"
       />
     </Dialog>

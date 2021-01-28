@@ -56,7 +56,7 @@ export default {
         {
           label: 'City',
           field: 'city',
-          input: 'TextInput',
+          input: 'TextareaInput',
         },
         {
           label: 'Blogs',
@@ -120,7 +120,7 @@ export default {
         },
       ],
       props: {
-        paginatorPosition: 'top',
+        paginatorPosition: 'both',
       },
     },
     DetailCard: {
