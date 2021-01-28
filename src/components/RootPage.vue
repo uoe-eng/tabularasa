@@ -10,7 +10,6 @@
           :configuration="conf"
           :name="key"
           :collection="collections[key]"
-          v-on="events"
         />
       </TabPanel>
     </TabView>
@@ -30,10 +29,6 @@ export default {
       default: () => ({}),
     },
     collections: {
-      type: Object,
-      default: () => ({}),
-    },
-    events: {
       type: Object,
       default: () => ({}),
     },

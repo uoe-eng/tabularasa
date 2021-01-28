@@ -60,17 +60,18 @@ export default {
     onBlur(field) {
       // Emit if the blurred field's value has changed
       if (field in this.newItem) {
-        this.$emit('sld:blur', this.item, { [field]: this.newItem[field] })
+        this.$sldbus.emit('blur', this.item, { [field]: this.newItem[field] })
       }
     },
     onInput(event, schema) {
       // Update newItem with field changes
       this.newItem[schema.field] = event
       // Emit the new value
-      this.$emit('sld:input', this.name, this.item, event)
+      this.$sldbus.emit('input', [this.name, this.item, event])
     },
     onSave() {
-      this.$emit('sld:save', this.item, this.newItem)
+      this.$sldbus.emit('save', [this.item, this.newItem])
+      this.$emit('close')
     },
   },
 }

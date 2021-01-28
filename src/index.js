@@ -3,5 +3,10 @@ import 'primevue/resources/themes/nova-vue/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
+import mitt from 'mitt'
+import { install } from './install'
 
-export * from './install'
+// Set up an event bus for sld
+const bus = mitt()
+
+export { bus, install }

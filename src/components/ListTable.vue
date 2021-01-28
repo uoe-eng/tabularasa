@@ -27,7 +27,7 @@
         </button>
         <button
           type="submit"
-          @click="$emit('sld:reload')"
+          @click="$sldbus.emit('reload')"
         >
           <i class="icon pi pi-replay" />
         </button>
@@ -42,7 +42,7 @@
         :configuration="configuration.DetailCard"
         :item="selectedRow"
         :collection="name"
-        @sld:save="dialogVisible = false"
+        @close="dialogVisible = false"
       />
     </Dialog>
   </div>
@@ -119,7 +119,7 @@ export default {
     onPage(event) {
       this.offset = event.first
       this.limit = event.rows
-      this.$emit('sld:page', { offset: this.offset, limit: this.limit })
+      this.$sldbus.emit('page', { offset: this.offset, limit: this.limit })
     },
     onRowSelect(event) {
       // Existing data or empty object
@@ -129,7 +129,7 @@ export default {
         this.dialogHeader = 'Edit item'
         this.selectedRow = event.data
       }
-      this.$emit('sld:row-select', this.selectedRow)
+      this.$emit('row-select', this.selectedRow)
       this.dialogVisible = true
     },
   },

@@ -17,6 +17,7 @@
     "core-js": "^3.6.4",
     "lodash.get": "^4.4.2",
     "lodash.merge": "^4.6.2",
+    "mitt": "^2.1.0",
     "primeflex": "^1.1.0",
     "primeicons": "^3.0.0-rc.1",
     "primevue": "^1.0.7"

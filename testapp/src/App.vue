@@ -4,7 +4,6 @@
     <RootPage
       :configuration="config"
       :collections="collections"
-      :events="events"
     />
   </div>
 </template>
@@ -23,11 +22,6 @@ export default {
       config: config,
       items: {},
       // An object mapping event names to functions, which will be added to ListTable as a v-on object
-      events: {
-        'sld:page': this.sldPage,
-        'sld:reload': this.sldReload,
-        'sld:row-select': this.sldRow,
-      },
     }
   },
   created() {
@@ -37,6 +31,11 @@ export default {
     for (let conf of Object.values(this.config)) {
       conf.ListTable.props.totalRecords = ROWCOUNT
     }
+
+    // Register callbacks for sld events
+    this.$sldbus.on('page', this.sldPage)
+    this.$sldbus.on('reload', this.sldReload)
+    this.$sldbus.on('save', this.sldSave)
   },
   methods: {
     sldPage(event) {
@@ -49,6 +48,9 @@ export default {
     },
     sldRow(event) {
       console.log('sldRow', event)
+    },
+    sldSave([oldObj, newObj]) {
+      console.log('SAVE', oldObj, newObj)
     },
   },
 }
