@@ -10,7 +10,7 @@
           :item="item"
           :field="field.field"
           v-bind="field"
-          @blur="onBlur($event, field)"
+          @blur="onBlur(field.field)"
           @input="onInput($event, field)"
         />
       </div>
@@ -57,10 +57,10 @@ export default {
     }
   },
   methods: {
-    onBlur(event, schema) {
+    onBlur(field) {
       // Emit if the blurred field's value has changed
-      if (schema.field in this.newItem) {
-        this.$emit('sld:blur', this.item, { [schema.field]: this.newItem[schema.field] })
+      if (field in this.newItem) {
+        this.$emit('sld:blur', this.item, { [field]: this.newItem[field] })
       }
     },
     onInput(event, schema) {
