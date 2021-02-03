@@ -1,6 +1,6 @@
 # SLD - Search List Detail
 
-SLD is a Vue plugin which acts as a wrapper around a variety of PrimeVue widgets to provide a Search-List-Detail interface.
+SLD is a Vue plugin which acts as a wrapper around a variety of [PrimeVue]{https://www.primefaces.org/primevue/} widgets to provide a Search-List-Detail interface.
 
 SLD takes in a `configuration` 'schema' (which defines the look and feel of the UI, and how data is presented), and `collections` data, which contains data items to be displayed.
 
@@ -115,12 +115,12 @@ Fields displayed in the DetailCard can use a variety of widgets provided to disp
 
 The following widgets are available - mostly wrappers around PrimeVue components of the same/similar name:
 
-* BooleanInput
-* ChipsInput
-* DateInput
-* DropdownInput
-* TextInput
-* TextareaInput
+* `BooleanInput`
+* `ChipsInput`
+* `DateInput`
+* `DropdownInput`
+* `TextInput`
+* `TextareaInput`
 
 ## Events
 
@@ -185,9 +185,9 @@ At present RootPage emits no events.
 
 ### ListTable Events
 
-* page - Pagination event. Event passes an object containing `offset` and `limit` values. Useful for dynamic data fetching/updating from an API.
-* reload - Page reload event. User has pressed the reload button, or part of the UI is requesting a refresh.
-* row-select - A row has ben selected. Event passes selected row's data object.
+* _page_ - Pagination event. Event passes an object containing `offset` and `limit` values. Useful for dynamic data fetching/updating from an API.
+* _reload_ - Page reload event. User has pressed the reload button, or part of the UI is requesting a refresh.
+* _row-select_ - A row has ben selected. Event passes selected row's data object.
 
 _Note_ - these may be prefixed with `name:` if set.
 
