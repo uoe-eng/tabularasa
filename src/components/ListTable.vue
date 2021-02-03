@@ -41,7 +41,7 @@
       <DetailCard
         :configuration="configuration.DetailCard"
         :item="selectedRow"
-        :collection="name"
+        :name="name"
         @close="dialogVisible = false"
       />
     </Dialog>

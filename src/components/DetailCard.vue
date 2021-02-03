@@ -11,7 +11,7 @@
           :field="field.field"
           v-bind="field"
           @blur="onBlur(field.field)"
-          @input="onInput($event, field)"
+          @input="onInput(field.field, $event)"
         />
       </div>
     </div>
@@ -60,17 +60,16 @@ export default {
     onBlur(field) {
       // Emit if the blurred field's value has changed
       if (field in this.newItem) {
-        this.$sldbus.emit('blur', this.item, { [field]: this.newItem[field] })
+        this.$sldbus.emit(`${this.name}:blur`, [this.item, { [field]: this.newItem[field] }])
       }
     },
-    onInput(event, schema) {
+    onInput(field, event) {
       // Update newItem with field changes
-      this.newItem[schema.field] = event
-      // Emit the new value
-      this.$sldbus.emit('input', [this.name, this.item, event])
+      this.newItem[field] = event
+      this.$sldbus.emit(`${this.name}:input`, [this.item, { [field]: this.newItem[field] }])
     },
     onSave() {
-      this.$sldbus.emit('save', [this.item, this.newItem])
+      this.$sldbus.emit(`${this.name}:save`, [this.item, this.newItem])
       this.$emit('close')
     },
   },
