@@ -50,6 +50,7 @@ export default {
   },
   data() {
     return {
+      eventName: `${this.name}:`,
       // We start with an empty object and update it as fields change
       newItem: {},
       // Fields to display in the card (from schema)
@@ -60,16 +61,16 @@ export default {
     onBlur(field) {
       // Emit if the blurred field's value has changed
       if (field in this.newItem) {
-        this.$sldbus.emit(`${this.name}:blur`, [this.item, { [field]: this.newItem[field] }])
+        this.$sldbus.emit(`${this.eventName}blur`, [this.item, { [field]: this.newItem[field] }])
       }
     },
     onInput(field, event) {
       // Update newItem with field changes
       this.newItem[field] = event
-      this.$sldbus.emit(`${this.name}:input`, [this.item, { [field]: this.newItem[field] }])
+      this.$sldbus.emit(`${this.eventName}input`, [this.item, { [field]: this.newItem[field] }])
     },
     onSave() {
-      this.$sldbus.emit(`${this.name}:save`, [this.item, this.newItem])
+      this.$sldbus.emit(`${this.eventName}save`, [this.item, this.newItem])
       this.$emit('close')
     },
   },
