@@ -27,7 +27,7 @@
         </button>
         <button
           type="submit"
-          @click="$sldbus.emit('reload')"
+          @click="onReload"
         >
           <i class="icon pi pi-replay" />
         </button>
@@ -92,6 +92,7 @@ export default {
       dtProps: dtProps,
       dialogHeader: '',
       dialogVisible: false,
+      eventName: `${this.name}:`,
       filter: {},
       offset: 0,
       limit: dtProps.pageLimit,
@@ -119,7 +120,10 @@ export default {
     onPage(event) {
       this.offset = event.first
       this.limit = event.rows
-      this.$sldbus.emit('page', { offset: this.offset, limit: this.limit })
+      this.$sldbus.emit(`${this.eventName}page`, { offset: this.offset, limit: this.limit })
+    },
+    onReload() {
+      this.$sldbus.emit(`${this.eventName}reload`)
     },
     onRowSelect(event) {
       // Existing data or empty object
@@ -129,7 +133,7 @@ export default {
         this.dialogHeader = 'Edit item'
         this.selectedRow = event.data
       }
-      this.$emit('row-select', this.selectedRow)
+      this.$sldbus.emit(`${this.eventName}rowSelect`, this.selectedRow)
       this.dialogVisible = true
     },
   },

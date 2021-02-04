@@ -33,24 +33,35 @@ export default {
     }
 
     // Register callbacks for sld events
-    this.$sldbus.on('page', this.sldPage)
+    this.$sldbus.on('*', this.event)
     this.$sldbus.on('reload', this.sldReload)
     this.$sldbus.on('save', this.sldSave)
   },
   methods: {
-    sldPage(event) {
-      console.log('sldPage', event)
+    event(label, event) {
+      // Split a wildcard captured event into it's parts
+      let collection = ''
+      if (label.includes(':')) {
+        ;[collection, label] = label.split(':')
+      }
+      // Look for a method with the same name as the event label, and call it.
+      if (label in this) {
+        this[label](collection, event)
+      }
     },
-    sldReload() {
-      console.log('sldReload')
+    page(collection, event) {
+      console.log('sldPage', collection, event)
+    },
+    reload(collection) {
+      console.log('sldReload', collection)
       // Repopulate with fresh fakeData
       this.collectedData = fakeData(this.totalRows)
     },
-    sldRow(event) {
-      console.log('sldRow', event)
+    rowSelect(collection, event) {
+      console.log('sldRow', collection, event)
     },
-    sldSave([oldObj, newObj]) {
-      console.log('SAVE', oldObj, newObj)
+    save(collection, [oldObj, newObj]) {
+      console.log('SAVE', collection, oldObj, newObj)
     },
   },
 }

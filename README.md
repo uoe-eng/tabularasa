@@ -187,7 +187,7 @@ At present RootPage emits no events.
 
 * _page_ - Pagination event. Event passes an object containing `offset` and `limit` values. Useful for dynamic data fetching/updating from an API.
 * _reload_ - Page reload event. User has pressed the reload button, or part of the UI is requesting a refresh.
-* _row-select_ - A row has ben selected. Event passes selected row's data object.
+* _rowSelect_ - A row has ben selected. Event passes selected row's data object.
 
 _Note_ - these may be prefixed with `name:` if set.
 
