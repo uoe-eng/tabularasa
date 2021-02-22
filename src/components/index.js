@@ -1,5 +1,5 @@
-import DetailCard from './DetailCard.vue'
-import ListTable from './ListTable.vue'
-import RootPage from './RootPage.vue'
+import SLDDetail from './SLDDetail.vue'
+import SLDList from './SLDList.vue'
+import SLDRoot from './SLDRoot.vue'
 
-export { DetailCard, ListTable, RootPage }
+export { SLDDetail, SLDList, SLDRoot }

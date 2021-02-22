@@ -38,8 +38,8 @@
       :content-style="{overflow: 'visible'}"
       :header="dialogHeader"
     >
-      <DetailCard
-        :configuration="configuration.DetailCard"
+      <SLDDetail
+        :configuration="configuration.SLDDetail"
         :item="selectedRow"
         :name="name"
         @close="dialogVisible = false"
@@ -64,7 +64,7 @@ const DT_PROPS = {
 }
 
 export default {
-  name: 'ListTable',
+  name: 'SLDList',
   components: {
     Column: () => import(/* webpackPrefetch: true */ 'primevue/column'),
     DataTable: () => import(/* webpackPrefetch: true */ 'primevue/datatable'),
@@ -87,7 +87,7 @@ export default {
   },
   data() {
     // Merge defaults with passed-in property
-    let dtProps = merge({}, DT_PROPS, this.configuration.ListTable.props)
+    let dtProps = merge({}, DT_PROPS, this.configuration.SLDList.props)
     return {
       dtProps: dtProps,
       dialogHeader: '',
@@ -103,7 +103,7 @@ export default {
   computed: {
     columns() {
       // Get column metadata from collections
-      return this.configuration.ListTable.fields
+      return this.configuration.SLDList.fields
     },
     processedRows() {
       let collection = this.collection

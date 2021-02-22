@@ -48,7 +48,7 @@ It takes the following structure:
 ```
 {
   Collection_Name: {
-    ListTable: {
+    SLDList: {
       fields: [
         label: 'Column header label',
         field: 'fieldName', // Property in the data item containing the value for this column
@@ -57,7 +57,7 @@ It takes the following structure:
         // Properties to be passed direct to DataTable (for styling etc)
       },
     },
-    DetailCard: {
+    SLDDetail: {
       fields: [
         {
           label: 'Field label',
@@ -66,7 +66,7 @@ It takes the following structure:
         },
       ],
       props: {
-        // Properties to be passed direct to DetailCard's child components/inputs (for styling etc)
+        // Properties to be passed direct to SLDDetail's child components/inputs (for styling etc)
       }
     }
   }
@@ -77,8 +77,8 @@ It takes the following structure:
 
 There are 2 components in SLD:
 
-1. `RootPage` - A `TabView` where each tab is a `ListTable`.
-2. `ListTable` - A `DataTable`.
+1. `SLDRoot` - A `TabView` where each tab is a `SLDList`.
+2. `SLDList` - A `DataTable`.
 
 ### Common Properties
 
@@ -86,23 +86,23 @@ All components take the following common properties:
 
 * `configuration` - A `Configuration` schema object.
 
-### RootPage
+### SLDRoot
 
-The `RootPage` component takes the following properties:
+The `SLDRoot` component takes the following properties:
 
 * `collections` - An object containing collections, keyed by colelction name.
 * `events` - An object where the key is an event, and the value a function to be called. This simplifies the process of registering callbacks for the various events SLD can generate.
 
-### ListTable
+### SLDList
 
-The `ListTable` component takes the following properties:
+The `SLDList` component takes the following properties:
 
-* `name` - The name of the generated table. This is used to identify the table, for example in `RootPage` tab titles.
+* `name` - The name of the generated table. This is used to identify the table, for example in `SLDRoot` tab titles.
 * `collection` - An array of 'data' items.
 
-### DetailCard
+### SLDDetail
 
-The `DetailCard` component is not usually called directly, being used inside a `Dialog` launched when a row is clicked on.
+The `SLDDetail` component is not usually called directly, being used inside a `Dialog` launched when a row is clicked on.
 
 It takes the following properties:
 
@@ -111,7 +111,7 @@ It takes the following properties:
 
 ## Widgets
 
-Fields displayed in the DetailCard can use a variety of widgets provided to display fields in different ways. The widget can be selected by setting `InputType` in the configuration schema.
+Fields displayed in the SLDDetail can use a variety of widgets provided to display fields in different ways. The widget can be selected by setting `InputType` in the configuration schema.
 
 The following widgets are available - mostly wrappers around PrimeVue components of the same/similar name:
 
@@ -155,11 +155,11 @@ import { bus } from 'sld'
 Since components may be reused, events can be scoped by setting the `name` property on a component, for example:
 
 ```
-<ListTable :name="people" />
-<ListTable :name="blogs" />
+<SLDList :name="people" />
+<SLDList :name="blogs" />
 ```
 
-This is the default behaviour for RootPage, which sets `name` to be the collection key from the passed-in data.
+This is the default behaviour for SLDRoot, which sets `name` to be the collection key from the passed-in data.
 
 This name will then be prepended to the event label, separated by a `:`
 
@@ -179,11 +179,11 @@ this.$sldbus.on('*', (label, msg) => {
 }
 ```
 
-### RootPage Events
+### SLDRoot Events
 
-At present RootPage emits no events.
+At present SLDRoot emits no events.
 
-### ListTable Events
+### SLDList Events
 
 * _page_ - Pagination event. Event passes an object containing `offset` and `limit` values. Useful for dynamic data fetching/updating from an API.
 * _reload_ - Page reload event. User has pressed the reload button, or part of the UI is requesting a refresh.
@@ -191,13 +191,13 @@ At present RootPage emits no events.
 
 _Note_ - these may be prefixed with `name:` if set.
 
-### DetailCard Events
+### SLDDetail Events
 
 * _input_ - Fires every time a field is updated (e.g. every keypress). Event is an array containing the original data object, and a new object containing the modified field.
 * _blur_ - Field was updated, then lost focus (e.g. user clicked elsewhere). Event is an array containing original data object, and a new object containing the modified field.
 * _save_ - Save button clicked. Event is an array containing the original data object, and a new object containing all modified properties.
 
-_Note_ - these may be prefixed with `name:` of the parent ListTable if set.
+_Note_ - these may be prefixed with `name:` of the parent SLDList if set.
 
 These events allow for 3 different modes of operation when users edit your data. For example:
 

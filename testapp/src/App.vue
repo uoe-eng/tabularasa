@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1>Test app</h1>
-    <RootPage
+    <SLDRoot
       :configuration="config"
       :collections="collections"
     />
@@ -21,15 +21,15 @@ export default {
     return {
       config: config,
       items: {},
-      // An object mapping event names to functions, which will be added to ListTable as a v-on object
+      // An object mapping event names to functions, which will be added to SLDList as a v-on object
     }
   },
   created() {
     // Populate collectedData
     this.collections = fakeData(ROWCOUNT)
-    // Update the data and totalRecords values for each ListTable instance
+    // Update the data and totalRecords values for each SLDList instance
     for (let conf of Object.values(this.config)) {
-      conf.ListTable.props.totalRecords = ROWCOUNT
+      conf.SLDList.props.totalRecords = ROWCOUNT
     }
 
     // Register callbacks for sld events

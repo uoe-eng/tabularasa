@@ -1,6 +1,6 @@
 export default {
   people: {
-    ListTable: {
+    SLDList: {
       fields: [
         {
           label: 'ID',
@@ -31,7 +31,7 @@ export default {
         paginatorPosition: 'top',
       },
     },
-    DetailCard: {
+    SLDDetail: {
       fields: [
         {
           label: 'ID',
@@ -72,7 +72,7 @@ export default {
     },
   },
   blogs: {
-    ListTable: {
+    SLDList: {
       fields: [
         {
           label: 'ID',
@@ -87,7 +87,7 @@ export default {
         paginatorPosition: 'top',
       },
     },
-    DetailCard: {
+    SLDDetail: {
       fields: [
         {
           label: 'ID',
@@ -108,7 +108,7 @@ export default {
     },
   },
   articles: {
-    ListTable: {
+    SLDList: {
       fields: [
         {
           label: 'ID',
@@ -123,7 +123,7 @@ export default {
         paginatorPosition: 'both',
       },
     },
-    DetailCard: {
+    SLDDetail: {
       fields: [
         {
           label: 'ID',

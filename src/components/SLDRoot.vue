@@ -6,7 +6,7 @@
         :key="key"
         :header="key"
       >
-        <ListTable
+        <SLDList
           :configuration="conf"
           :name="key"
           :collection="collections[key]"
@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'RootPage',
+  name: 'SLDRoot',
   components: {
     TabPanel: () => import(/* webpackPrefetch: true */ 'primevue/tabpanel'),
     TabView: () => import(/* webpackPrefetch: true */ 'primevue/tabview'),

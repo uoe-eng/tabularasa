@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: 'DetailCard',
+  name: 'SLDDetail',
   components: {
     BooleanInput: () => import(/* webpackPrefetch: true */ './inputs/BooleanInput'),
     DateInput: () => import(/* webpackPrefetch: true */ './inputs/DateInput'),
