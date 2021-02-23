@@ -53,7 +53,7 @@ import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import Dialog from 'primevue/dialog'
 import merge from 'lodash.merge'
-import { fieldDisplay } from '../helpers'
+import { fieldDisplay } from '@/helpers'
 
 // Default config values
 const DT_PROPS = {

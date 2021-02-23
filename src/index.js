@@ -4,7 +4,7 @@ import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import mitt from 'mitt'
-import { install } from './install'
+import { install } from '@/install'
 
 // Set up an event bus for sld
 const bus = mitt()

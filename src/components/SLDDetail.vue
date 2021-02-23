@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import BooleanInput from './inputs/BooleanInput'
-import DateInput from './inputs/DateInput'
-import TextInput from './inputs/TextInput'
-import TextareaInput from './inputs/TextareaInput'
+import BooleanInput from '@/components/inputs/BooleanInput'
+import DateInput from '@/components/inputs/DateInput'
+import TextInput from '@/components/inputs/TextInput'
+import TextareaInput from '@/components/inputs/TextareaInput'
 
 export default {
   name: 'SLDDetail',

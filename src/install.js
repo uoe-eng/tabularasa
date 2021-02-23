@@ -1,5 +1,5 @@
 // This module is called by Vue when used as a plugin.
-import * as components from './components'
+import * as components from '@/components'
 
 // Register all components with Vue
 const install = (Vue, options = {}) => {
