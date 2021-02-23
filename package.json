@@ -4,14 +4,15 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name sld src/index.js",
+    "prepare": "npm run build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "test:coverage": "nyc vue-cli-service test:unit"
   },
-  "main": "src/index.js",
+  "main": "dist/sld.umd.js",
   "files": [
-    "src"
+    "dist"
   ],
   "dependencies": {
     "core-js": "^3.6.4",
