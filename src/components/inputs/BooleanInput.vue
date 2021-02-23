@@ -15,10 +15,11 @@
 </template>
 
 <script>
+import Checkbox from 'primevue/checkbox'
 export default {
   name: 'BooleanInput',
   components: {
-    Checkbox: () => import(/* webpackPrefetch: true */ 'primevue/checkbox'),
+    Checkbox,
   },
   props: {
     field: {

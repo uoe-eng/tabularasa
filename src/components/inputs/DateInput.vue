@@ -15,10 +15,12 @@
 </template>
 
 <script>
+import Calendar from 'primevue/calendar'
+
 export default {
   name: 'DateInput',
   components: {
-    Calendar: () => import(/* webpackPrefetch: true */ 'primevue/calendar'),
+    Calendar,
   },
   props: {
     field: {

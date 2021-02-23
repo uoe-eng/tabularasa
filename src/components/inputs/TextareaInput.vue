@@ -15,12 +15,13 @@
 </template>
 
 <script>
+import Textarea from 'primevue/textarea'
 import { getField } from '../../helpers'
 
 export default {
   name: 'TextArea',
   components: {
-    Textarea: () => import(/* webpackPrefetch: true */ 'primevue/textarea'),
+    Textarea,
   },
   props: {
     field: {

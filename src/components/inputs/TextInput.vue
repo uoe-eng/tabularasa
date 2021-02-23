@@ -15,12 +15,13 @@
 </template>
 
 <script>
+import InputText from 'primevue/inputtext'
 import { getField } from '../../helpers'
 
 export default {
   name: 'TextInput',
   components: {
-    InputText: () => import(/* webpackPrefetch: true */ 'primevue/inputtext'),
+    InputText,
   },
   props: {
     field: {

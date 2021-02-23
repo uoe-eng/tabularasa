@@ -25,13 +25,18 @@
 </template>
 
 <script>
+import BooleanInput from './inputs/BooleanInput'
+import DateInput from './inputs/DateInput'
+import TextInput from './inputs/TextInput'
+import TextareaInput from './inputs/TextareaInput'
+
 export default {
   name: 'SLDDetail',
   components: {
-    BooleanInput: () => import(/* webpackPrefetch: true */ './inputs/BooleanInput'),
-    DateInput: () => import(/* webpackPrefetch: true */ './inputs/DateInput'),
-    TextInput: () => import(/* webpackPrefetch: true */ './inputs/TextInput'),
-    TextareaInput: () => import(/* webpackPrefetch: true */ './inputs/TextareaInput'),
+    BooleanInput,
+    DateInput,
+    TextInput,
+    TextareaInput,
   },
   props: {
     // Collection schema data

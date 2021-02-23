@@ -49,6 +49,9 @@
 </template>
 
 <script>
+import Column from 'primevue/column'
+import DataTable from 'primevue/datatable'
+import Dialog from 'primevue/dialog'
 import merge from 'lodash.merge'
 import { fieldDisplay } from '../helpers'
 
@@ -66,9 +69,9 @@ const DT_PROPS = {
 export default {
   name: 'SLDList',
   components: {
-    Column: () => import(/* webpackPrefetch: true */ 'primevue/column'),
-    DataTable: () => import(/* webpackPrefetch: true */ 'primevue/datatable'),
-    Dialog: () => import(/* webpackPrefetch: true */ 'primevue/dialog'),
+    Column,
+    DataTable,
+    Dialog,
   },
   props: {
     configuration: {
