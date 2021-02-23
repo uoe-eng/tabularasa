@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { getField } from '@/helpers'
+import { getField } from '../../helpers'
 
 export default {
   name: 'TextInput',

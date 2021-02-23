@@ -50,7 +50,7 @@
 
 <script>
 import merge from 'lodash.merge'
-import { fieldDisplay } from '@/helpers'
+import { fieldDisplay } from '../helpers'
 
 // Default config values
 const DT_PROPS = {
