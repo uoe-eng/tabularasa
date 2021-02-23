@@ -26,7 +26,7 @@ export default {
   props: {
     configuration: {
       type: Object,
-      default: () => ({}),
+      required: true,
     },
     collections: {
       type: Object,

@@ -37,7 +37,7 @@ export default {
     // Collection schema data
     configuration: {
       type: Object,
-      default: () => ({}),
+      required: true,
     },
     item: {
       type: Object,

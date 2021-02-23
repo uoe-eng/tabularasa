@@ -73,7 +73,7 @@ export default {
   props: {
     configuration: {
       type: Object,
-      default: () => ({}),
+      required: true,
     },
     collection: {
       type: Array,
