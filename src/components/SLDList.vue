@@ -117,7 +117,9 @@ export default {
       return collection
     },
   },
-  created() {},
+  created() {
+    this.onReload()
+  },
   methods: {
     fieldDisplay,
     onPage(event) {
