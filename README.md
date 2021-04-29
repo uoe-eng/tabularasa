@@ -90,8 +90,7 @@ All components take the following common properties:
 
 The `SLDRoot` component takes the following properties:
 
-* `collections` - An object containing collections, keyed by colelction name.
-* `events` - An object where the key is an event, and the value a function to be called. This simplifies the process of registering callbacks for the various events SLD can generate.
+* `collections` - An object containing collections, keyed by collection name.
 
 ### SLDList
 
