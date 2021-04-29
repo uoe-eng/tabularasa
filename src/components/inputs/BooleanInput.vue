@@ -35,6 +35,7 @@ export default {
       default: '',
     },
   },
+  emits: ['update'],
   data() {
     return {
       // We must use v-model for Checkbox, so 'copy' the boolean value here

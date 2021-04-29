@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TabView>
+    <TabView v-model:activeIndex="activeTab">
       <TabPanel
         v-for="(conf, key) in configuration"
         :key="key"
@@ -35,6 +35,11 @@ export default {
       type: Object,
       default: () => ({}),
     },
+  },
+  data() {
+    return {
+      activeTab: 0,
+    }
   },
 }
 </script>

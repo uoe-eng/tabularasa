@@ -37,6 +37,7 @@ export default {
       default: '',
     },
   },
+  emits: ['blur', 'input'],
   methods: {
     getField,
   },

@@ -15,7 +15,7 @@ const getField = (field) => {
 }
 
 const fieldDisplay = (slotProps) => {
-  return getField(get(slotProps.data, slotProps.column.field))
+  return getField(get(slotProps.data, slotProps.column.key))
 }
 
 export { fieldDisplay, getField }

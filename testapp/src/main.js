@@ -1,14 +1,13 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
+import PrimeVue from 'primevue/config'
 import App from './App.vue'
 
 // Relative path to 'root' of sld repo
 import * as sld from '../../src/index.js'
 
-Vue.config.productionTip = false
+const app = createApp(App)
+app.use(PrimeVue)
+app.config.globalProperties.$sldbus = sld.bus
 
-Vue.use(sld)
-Vue.prototype.$sldbus = sld.bus
-
-new Vue({
-  render: (h) => h(App),
-}).$mount('#app')
+app.use(sld)
+app.mount('#app')

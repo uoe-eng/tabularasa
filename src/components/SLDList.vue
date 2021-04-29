@@ -14,7 +14,7 @@
         :header="col.label"
       >
         <template #body="slotProps">
-          <div>{{ fieldDisplay(slotProps) }}</div>
+          <span>{{ fieldDisplay(slotProps) }}</span>
         </template>
       </Column>
       <template #paginatorLeft>
@@ -34,7 +34,7 @@
       </template>
     </DataTable>
     <Dialog
-      :visible.sync="dialogVisible"
+      v-model:visible="dialogVisible"
       :content-style="{overflow: 'visible'}"
       :header="dialogHeader"
     >

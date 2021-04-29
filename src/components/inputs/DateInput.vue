@@ -36,6 +36,7 @@ export default {
       default: '',
     },
   },
+  emits: ['update'],
   data() {
     return {
       dateValue: this.item[this.field],
