@@ -180,15 +180,16 @@ this.$sldbus.on('*', (label, msg) => {
 
 ### SLDRoot Events
 
-At present SLDRoot emits no events.
+* _activeTab_ - Active Tab event. Event passes the `collection_name` from the schema of the active/focused tab.
 
 ### SLDList Events
 
 * _page_ - Pagination event. Event passes an object containing `offset` and `limit` values. Useful for dynamic data fetching/updating from an API.
+* _load_ - Page load event. SLDList component has initialized.
 * _reload_ - Page reload event. User has pressed the reload button, or part of the UI is requesting a refresh.
 * _rowSelect_ - A row has ben selected. Event passes selected row's data object.
 
-_Note_ - these may be prefixed with `name:` if set.
+_Note_ - `:name` will be appended, if set.
 
 ### SLDDetail Events
 
@@ -196,7 +197,7 @@ _Note_ - these may be prefixed with `name:` if set.
 * _blur_ - Field was updated, then lost focus (e.g. user clicked elsewhere). Event is an array containing original data object, and a new object containing the modified field.
 * _save_ - Save button clicked. Event is an array containing the original data object, and a new object containing all modified properties.
 
-_Note_ - these may be prefixed with `name:` of the parent SLDList if set.
+_Note_ - `:name` of the 'parent' SLDList will be appended, if set.
 
 These events allow for 3 different modes of operation when users edit your data. For example:
 

@@ -41,5 +41,14 @@ export default {
       activeTab: 0,
     }
   },
+  watch: {
+    activeTab: {
+      // emit the collection_name 'key' from configuration
+      immediate: true,
+      handler(newTab) {
+        this.$sldbus.emit(`SLDRoot:activeTab`, Object.keys(this.configuration)[newTab])
+      },
+    },
+  },
 }
 </script>

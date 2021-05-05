@@ -95,7 +95,6 @@ export default {
       dtProps: dtProps,
       dialogHeader: '',
       dialogVisible: false,
-      eventName: `${this.name}:`,
       filter: {},
       offset: 0,
       limit: dtProps.pageLimit,
@@ -118,17 +117,20 @@ export default {
     },
   },
   created() {
-    this.onReload()
+    this.onLoad()
   },
   methods: {
     fieldDisplay,
     onPage(event) {
       this.offset = event.first
       this.limit = event.rows
-      this.$sldbus.emit(`${this.eventName}page`, { offset: this.offset, limit: this.limit })
+      this.$sldbus.emit(`SLDList:page:${this.name}`, { offset: this.offset, limit: this.limit })
+    },
+    onLoad() {
+      this.$sldbus.emit(`SLDList:load:${this.name}`)
     },
     onReload() {
-      this.$sldbus.emit(`${this.eventName}reload`)
+      this.$sldbus.emit(`SLDList:reload:${this.name}`)
     },
     onRowSelect(event) {
       // Existing data or empty object
@@ -138,7 +140,7 @@ export default {
         this.dialogHeader = 'Edit item'
         this.selectedRow = event.data
       }
-      this.$sldbus.emit(`${this.eventName}rowSelect`, this.selectedRow)
+      this.$sldbus.emit(`SLDList:rowSelect:${this.name}`, this.selectedRow)
       this.dialogVisible = true
     },
   },

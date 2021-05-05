@@ -40,10 +40,9 @@ export default {
   methods: {
     event(label, event) {
       // Split a wildcard captured event into it's parts
+      let component = ''
       let collection = ''
-      if (label.includes(':')) {
-        ;[collection, label] = label.split(':')
-      }
+      ;[component, label, collection] = label.split(':') // eslint-disable-line no-unused-vars
       // Look for a method with the same name as the event label, and call it.
       if (label in this) {
         this[label](collection, event)
