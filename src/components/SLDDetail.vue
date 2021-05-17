@@ -11,7 +11,7 @@
           :field="field.field"
           v-bind="field"
           @blur="onBlur(field.field)"
-          @input="onInput(field.field, $event)"
+          @update="onUpdate(field.field, $event)"
         />
       </div>
     </div>
@@ -69,7 +69,7 @@ export default {
         this.$sldbus.emit(`SLDDetail:blur:${this.name}`, [this.item, { [field]: this.newItem[field] }])
       }
     },
-    onInput(field, event) {
+    onUpdate(field, event) {
       // Update newItem with field changes
       this.newItem[field] = event
       this.$sldbus.emit(`SLDDetail:input:${this.name}`, [this.item, { [field]: this.newItem[field] }])

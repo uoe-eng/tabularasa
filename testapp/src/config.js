@@ -82,6 +82,10 @@ export default {
           label: 'Title',
           field: 'title',
         },
+        {
+          label: 'Date created',
+          field: 'date',
+        },
       ],
       props: {
         paginatorPosition: 'top',
@@ -103,6 +107,11 @@ export default {
           label: 'Author',
           field: 'author',
           input: 'DropdownInput',
+        },
+        {
+          label: 'Date created',
+          field: 'date',
+          input: 'DateInput',
         },
       ],
     },

@@ -6,9 +6,9 @@
     <div class="p-col">
       <InputText
         :id="'input' + field"
-        :value="getField(item[field])"
+        :model-value="getField(item[field])"
         @blur="$emit('blur', $event)"
-        @input="$emit('input', $event)"
+        @update:modelValue="$emit('update', $event)"
       />
     </div>
   </div>
@@ -37,7 +37,7 @@ export default {
       default: '',
     },
   },
-  emits: ['blur', 'input'],
+  emits: ['blur', 'update'],
   methods: {
     getField,
   },

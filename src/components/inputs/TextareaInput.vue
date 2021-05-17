@@ -7,8 +7,8 @@
     <div class="p-col">
       <Textarea
         :id="'input' + field"
-        :value="getField(item[field])"
-        @input.self="$emit('update', $event)"
+        :model-value="getField(item[field])"
+        @update:modelValue="$emit('update', $event)"
       />
     </div>
   </div>
