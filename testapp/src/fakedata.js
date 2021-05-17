@@ -14,6 +14,7 @@ import faker from 'faker'
   blogs:
     title
     content
+    creation date
     author: (many) blogs -> (one) people
 
   Articles are imagined to be multi-authored pieces.
@@ -70,6 +71,7 @@ const generators = {
       id: i,
       title: faker.lorem.words(),
       content: faker.lorem.paragraph(),
+      date: faker.date.past().toISOString(),
       author: {},
     }
   },

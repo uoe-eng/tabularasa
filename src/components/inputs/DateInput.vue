@@ -8,7 +8,7 @@
         :id="'input' + field"
         v-model="date"
         date-format="yy-mm-dd"
-        @update:modelValue="$emit('update', $event)"
+        @update:modelValue="onUpdate($event)"
       />
     </div>
   </div>
@@ -56,6 +56,13 @@ export default {
       set(newDate) {
         this.dateValue = newDate
       },
+    },
+  },
+  methods: {
+    onUpdate(event) {
+      // Subtract timezone offset from time to 'convert' to UTC.
+      event.setMinutes(event.getMinutes() - event.getTimezoneOffset())
+      this.$emit('update', event)
     },
   },
 }
