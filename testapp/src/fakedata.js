@@ -57,7 +57,7 @@ const generators = {
     /* eslint-disable camelcase*/
     // Simple setup to test field value being a function
     obj.id = () => i
-    obj.first_name = faker.name.firstName()
+    obj.first_name = { nested_first_name: faker.name.firstName() }
     obj.last_name = faker.name.lastName()
     obj.email = faker.internet.email()
     obj.city = faker.address.city()

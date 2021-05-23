@@ -15,6 +15,7 @@ const getField = (field) => {
 }
 
 const fieldDisplay = (slotProps) => {
+  // Use _.get to handle x.y.z field nested prop notation
   return getField(get(slotProps.data, slotProps.column.key))
 }
 
