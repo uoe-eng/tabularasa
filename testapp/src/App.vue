@@ -35,6 +35,7 @@ export default {
     // Register callbacks for sld events
     this.$sldbus.on('*', this.event)
     this.$sldbus.on('reload', this.sldReload)
+    this.$sldbus.on('update', this.sldUpdate)
     this.$sldbus.on('save', this.sldSave)
   },
   methods: {
@@ -61,6 +62,9 @@ export default {
     },
     save(collection, [oldObj, newObj]) {
       console.log('SAVE', collection, oldObj, newObj)
+    },
+    update(collection, [oldObj, newObj]) {
+      console.log('UPDATE', collection, oldObj, newObj)
     },
   },
 }
