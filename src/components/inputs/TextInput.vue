@@ -6,7 +6,7 @@
     <div class="p-col">
       <InputText
         :id="'input' + field"
-        :model-value="getField(item[field])"
+        :model-value="fieldDisplay(item, field)"
         @blur="$emit('blur', $event)"
         @update:modelValue="$emit('update', $event)"
       />
@@ -16,7 +16,7 @@
 
 <script>
 import InputText from 'primevue/inputtext'
-import { getField } from '../../helpers'
+import { fieldDisplay } from '../../helpers'
 
 export default {
   name: 'TextInput',
@@ -39,7 +39,7 @@ export default {
   },
   emits: ['blur', 'update'],
   methods: {
-    getField,
+    fieldDisplay,
   },
 }
 </script>

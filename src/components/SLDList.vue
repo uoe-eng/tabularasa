@@ -14,7 +14,7 @@
         :header="col.label"
       >
         <template #body="slotProps">
-          <span>{{ fieldDisplay(slotProps) }}</span>
+          <span>{{ fieldDisplay(slotProps.data, slotProps.column.key) }}</span>
         </template>
       </Column>
       <template #paginatorLeft>

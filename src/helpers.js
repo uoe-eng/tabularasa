@@ -14,9 +14,9 @@ const getField = (field) => {
   return field
 }
 
-const fieldDisplay = (slotProps) => {
+const fieldDisplay = (data, key) => {
   // Use _.get to handle x.y.z field nested prop notation
-  return getField(get(slotProps.data, slotProps.column.key))
+  return getField(get(data, key))
 }
 
 export { fieldDisplay, getField }
