@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import set from 'lodash.set'
 import BooleanInput from '@/components/inputs/BooleanInput'
 import DateInput from '@/components/inputs/DateInput'
 import TextInput from '@/components/inputs/TextInput'
@@ -71,8 +72,11 @@ export default {
     },
     onUpdate(field, event) {
       // Update newItem with field changes
-      this.newItem[field] = event
-      this.$sldbus.emit(`SLDDetail:input:${this.name}`, [this.item, { [field]: this.newItem[field] }])
+      //Parse dot-notation field name into a nested object using _.set
+      let newObj = set({}, field, event)
+      Object.assign(this.newItem, newObj)
+      // Emit just the changed field
+      this.$sldbus.emit(`SLDDetail:update:${this.name}`, [this.item, newObj])
     },
     onSave() {
       this.$sldbus.emit(`SLDDetail:save:${this.name}`, [this.item, this.newItem])

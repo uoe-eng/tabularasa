@@ -51,7 +51,8 @@ It takes the following structure:
     SLDList: {
       fields: [
         label: 'Column header label',
-        field: 'fieldName', // Property in the data item containing the value for this column
+        // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
+        field: 'fieldName',
       ],
       props: {
         // Properties to be passed direct to DataTable (for styling etc)
@@ -61,7 +62,8 @@ It takes the following structure:
       fields: [
         {
           label: 'Field label',
-          field: 'fieldName', // Property in the data item containing the value for this field
+          // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
+          field: 'fieldName',
           input: 'TextInput', // Input widget to be used to display this field.
         },
       ],

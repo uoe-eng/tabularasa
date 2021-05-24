@@ -40,7 +40,7 @@ export default {
         },
         {
           label: 'First Name',
-          field: 'first_name',
+          field: 'first_name.nested_first_name',
           input: 'TextInput',
         },
         {
