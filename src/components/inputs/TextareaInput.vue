@@ -7,7 +7,8 @@
     <div class="p-col">
       <Textarea
         :id="'input' + field"
-        :model-value="getField(item[field])"
+        :model-value="fieldDisplay(item, field)"
+        v-bind="props"
         @update:modelValue="$emit('update', $event)"
       />
     </div>
@@ -16,7 +17,7 @@
 
 <script>
 import Textarea from 'primevue/textarea'
-import { getField } from '../../helpers'
+import { fieldDisplay } from '../../helpers'
 
 export default {
   name: 'TextArea',
@@ -36,10 +37,14 @@ export default {
       type: String,
       default: '',
     },
+    props: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   emits: ['update'],
   methods: {
-    getField,
+    fieldDisplay,
   },
 }
 </script>

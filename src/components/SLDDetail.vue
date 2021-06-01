@@ -8,7 +8,6 @@
           :key="field.label"
           :configuration="configuration"
           :item="item"
-          :field="field.field"
           v-bind="field"
           @blur="onBlur(field.field)"
           @update="onUpdate(field.field, $event)"
@@ -26,6 +25,7 @@
 
 <script>
 import set from 'lodash.set'
+import AutocompleteInput from '@/components/inputs/AutocompleteInput'
 import BooleanInput from '@/components/inputs/BooleanInput'
 import DateInput from '@/components/inputs/DateInput'
 import TextInput from '@/components/inputs/TextInput'
@@ -34,6 +34,7 @@ import TextareaInput from '@/components/inputs/TextareaInput'
 export default {
   name: 'SLDDetail',
   components: {
+    AutocompleteInput,
     BooleanInput,
     DateInput,
     TextInput,

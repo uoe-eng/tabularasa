@@ -65,6 +65,9 @@ It takes the following structure:
           // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
           field: 'fieldName',
           input: 'TextInput', // Input widget to be used to display this field.
+          props: {
+            // Properties to be passed direct to the Input (i.e. PrimeVue component config)
+          }
         },
       ],
       props: {

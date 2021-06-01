@@ -7,6 +7,7 @@
       <InputText
         :id="'input' + field"
         :model-value="fieldDisplay(item, field)"
+        v-bind="props"
         @blur="$emit('blur', $event)"
         @update:modelValue="$emit('update', $event)"
       />
@@ -35,6 +36,10 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+    props: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['blur', 'update'],

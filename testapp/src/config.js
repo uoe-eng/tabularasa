@@ -24,7 +24,7 @@ export default {
         },
         {
           label: 'Blogs',
-          field: 'blogs',
+          field: 'blogs:articles',
         },
       ],
       props: {
@@ -60,13 +60,19 @@ export default {
         },
         {
           label: 'Blogs',
-          field: 'blogs',
-          input: 'ChipsInput',
+          field: 'blogs:title',
+          input: 'AutocompleteInput',
+          props: {
+            multiple: true,
+          },
         },
         {
           label: 'Articles',
-          field: 'articles',
-          input: 'ChipsInput',
+          field: 'articles:title',
+          input: 'AutocompleteInput',
+          props: {
+            multiple: true,
+          },
         },
       ],
     },
@@ -105,8 +111,8 @@ export default {
         },
         {
           label: 'Author',
-          field: 'author',
-          input: 'DropdownInput',
+          field: 'author.last_name',
+          input: 'AutocompleteInput',
         },
         {
           label: 'Date created',
@@ -147,7 +153,7 @@ export default {
         {
           label: 'Authors',
           field: 'authors',
-          input: 'ChipsInput',
+          input: 'AutocompleteInput',
         },
       ],
     },
