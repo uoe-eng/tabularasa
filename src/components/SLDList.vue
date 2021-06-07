@@ -14,7 +14,9 @@
         :header="col.label"
       >
         <template #body="slotProps">
-          <span>{{ fieldDisplay(slotProps.data, slotProps.column.key) }}</span>
+          <!-- Fixme: Display M2M rels nicely - for now just hack round potentially recursive objects -->
+          <span v-if="typeof fieldDisplay(slotProps.data, slotProps.column.key) === 'object'">{{ Object.keys(fieldDisplay(slotProps.data, slotProps.column.key)) }}</span>
+          <span v-else>{{ fieldDisplay(slotProps.data, slotProps.column.key) }}</span>
         </template>
       </Column>
       <template #paginatorLeft>
