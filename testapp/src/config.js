@@ -27,7 +27,7 @@ export default {
           field: 'blogs:articles',
         },
       ],
-      props: {
+      properties: {
         paginatorPosition: 'top',
       },
     },
@@ -62,7 +62,7 @@ export default {
           label: 'Blogs',
           field: 'blogs:title',
           input: 'AutocompleteInput',
-          props: {
+          properties: {
             multiple: true,
           },
         },
@@ -70,7 +70,7 @@ export default {
           label: 'Articles',
           field: 'articles:title',
           input: 'AutocompleteInput',
-          props: {
+          properties: {
             multiple: true,
           },
         },
@@ -93,7 +93,7 @@ export default {
           field: 'date',
         },
       ],
-      props: {
+      properties: {
         paginatorPosition: 'top',
       },
     },
@@ -113,6 +113,12 @@ export default {
           label: 'Author',
           field: 'author.last_name',
           input: 'AutocompleteInput',
+          properties: {
+            onComplete: (query) => {
+              console.log('QUE', query)
+              return ['a', 'b', 'c']
+            },
+          },
         },
         {
           label: 'Date created',
@@ -134,7 +140,7 @@ export default {
           field: 'title',
         },
       ],
-      props: {
+      properties: {
         paginatorPosition: 'both',
       },
     },

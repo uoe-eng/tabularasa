@@ -21,7 +21,6 @@ export default {
     return {
       config: config,
       items: {},
-      // An object mapping event names to functions, which will be added to SLDList as a v-on object
     }
   },
   created() {
@@ -29,7 +28,7 @@ export default {
     this.collections = fakeData(ROWCOUNT)
     // Update the data and totalRecords values for each SLDList instance
     for (let conf of Object.values(this.config)) {
-      conf.SLDList.props.totalRecords = ROWCOUNT
+      conf.SLDList.properties.totalRecords = ROWCOUNT
     }
 
     // Register callbacks for sld events

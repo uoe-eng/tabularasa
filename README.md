@@ -120,9 +120,8 @@ Fields displayed in the SLDDetail can use a variety of widgets provided to displ
 The following widgets are available - mostly wrappers around PrimeVue components of the same/similar name:
 
 * `BooleanInput`
-* `ChipsInput`
 * `DateInput`
-* `DropdownInput`
+* `AutocompleteInput`
 * `TextInput`
 * `TextareaInput`
 
@@ -198,7 +197,7 @@ _Note_ - `:name` will be appended, if set.
 
 ### SLDDetail Events
 
-* _input_ - Fires every time a field is updated (e.g. every keypress). Event is an array containing the original data object, and a new object containing the modified field.
+* _update_ - Fires every time a field is updated (e.g. every keypress). Event is an array containing the original data object, and a new object containing the modified field.
 * _blur_ - Field was updated, then lost focus (e.g. user clicked elsewhere). Event is an array containing original data object, and a new object containing the modified field.
 * _save_ - Save button clicked. Event is an array containing the original data object, and a new object containing all modified properties.
 

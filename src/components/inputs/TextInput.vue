@@ -7,8 +7,7 @@
       <InputText
         :id="'input' + field"
         :model-value="fieldDisplay(item, field)"
-        v-bind="props"
-        @blur="$emit('blur', $event)"
+        v-bind="properties"
         @update:modelValue="$emit('update', $event)"
       />
     </div>
@@ -37,12 +36,12 @@ export default {
       type: String,
       default: '',
     },
-    props: {
+    properties: {
       type: Object,
       default: () => ({}),
     },
   },
-  emits: ['blur', 'update'],
+  emits: ['update'],
   methods: {
     fieldDisplay,
   },

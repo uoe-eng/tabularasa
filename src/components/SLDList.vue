@@ -92,7 +92,7 @@ export default {
   },
   data() {
     // Merge defaults with passed-in property
-    let dtProps = merge({}, DT_PROPS, this.configuration.SLDList.props)
+    let dtProps = merge({}, DT_PROPS, this.configuration.SLDList.properties)
     return {
       dtProps: dtProps,
       dialogHeader: '',

@@ -7,9 +7,9 @@
       <Checkbox
         :id="'input' + field"
         v-model="checked"
-        v-bind="props"
+        v-bind="properties"
         :binary="true"
-        @input="$emit('update', $event)"
+        @update:modelValue="$emit('update', $event)"
       />
     </div>
   </div>
@@ -35,7 +35,7 @@ export default {
       type: String,
       default: '',
     },
-    props: {
+    properties: {
       type: Object,
       default: () => ({}),
     },

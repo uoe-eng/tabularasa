@@ -41,11 +41,15 @@ import AutoComplete from 'primevue/autocomplete'
 import { fieldDisplay } from '../../helpers'
 
 export default {
-  name: 'DropdownInput',
+  name: 'AutocompleteInput',
   components: {
     AutoComplete,
   },
   props: {
+    events: {
+      type: Object,
+      default: () => ({}),
+    },
     field: {
       type: String,
       default: '',
@@ -58,7 +62,7 @@ export default {
       type: String,
       default: '',
     },
-    props: {
+    properties: {
       type: Object,
       default: () => ({}),
     },

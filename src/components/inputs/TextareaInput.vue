@@ -8,7 +8,7 @@
       <Textarea
         :id="'input' + field"
         :model-value="fieldDisplay(item, field)"
-        v-bind="props"
+        v-bind="properties"
         @update:modelValue="$emit('update', $event)"
       />
     </div>
@@ -37,7 +37,7 @@ export default {
       type: String,
       default: '',
     },
-    props: {
+    properties: {
       type: Object,
       default: () => ({}),
     },
