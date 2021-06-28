@@ -26,7 +26,7 @@ import faker from 'faker'
 let COUNT = 100
 let DATA = {}
 
-export default function (count) {
+const fakeData = function (count) {
   if (count) {
     COUNT = count
   }
@@ -68,7 +68,7 @@ const generators = {
   blogs: function (i) {
     return {
       id: i,
-      title: faker.lorem.words(),
+      title: faker.lorem.words(3),
       content: faker.lorem.paragraph(),
       date: faker.date.past().toISOString(),
       author: {},
@@ -83,3 +83,5 @@ const generators = {
     }
   },
 }
+
+export { fakeData, generators }

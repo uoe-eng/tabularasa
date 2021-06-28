@@ -10,7 +10,7 @@
 
 <script>
 import config from './config'
-import fakeData from './fakedata'
+import { fakeData } from './fakedata'
 
 // the number of rows of fakeData to generate
 const ROWCOUNT = 100

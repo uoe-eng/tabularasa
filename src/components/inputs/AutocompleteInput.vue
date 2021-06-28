@@ -6,7 +6,7 @@
     <div class="p-col">
       <AutoComplete
         :id="'input' + field"
-        v-model="display"
+        :model-value="fieldDisplay(item, field)"
         :delay="600"
         :min-length="1"
         :suggestions="suggestions"
@@ -14,7 +14,7 @@
         placeholder="Search..."
         v-on="events"
         @complete="onComplete"
-        @item-select="$emit('update', $event)"
+        @update:modelValue="$emit('update', $event)"
       >
         <template
           v-if="properties.multiple"
@@ -63,8 +63,6 @@ export default {
   emits: ['update'],
   data() {
     return {
-      // v-model can't take a method 'directly'
-      display: this.fieldDisplay(this.item, this.field),
       suggestions: [],
     }
   },

@@ -1,3 +1,5 @@
+import { generators } from './fakedata'
+
 export default {
   people: {
     SLDList: {
@@ -63,10 +65,17 @@ export default {
           field: 'blogs:title',
           input: 'AutocompleteInput',
           properties: {
+            // Property to extract from objects returned by onComplete function
+            field: 'title',
             multiple: true,
+            // function to call for search completion
             onComplete: (query) => {
               console.log('que', query)
-              return [query, 'x', 'y']
+              let results = []
+              for (let i = 1; i <= 20; i++) {
+                results.push(generators.blogs(i))
+              }
+              return results
             },
           },
         },
