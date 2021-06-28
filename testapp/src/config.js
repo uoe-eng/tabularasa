@@ -64,6 +64,10 @@ export default {
           input: 'AutocompleteInput',
           properties: {
             multiple: true,
+            onComplete: (query) => {
+              console.log('que', query)
+              return [query, 'x', 'y']
+            },
           },
         },
         {
@@ -115,8 +119,7 @@ export default {
           input: 'AutocompleteInput',
           properties: {
             onComplete: (query) => {
-              console.log('QUE', query)
-              return ['a', 'b', 'c']
+              return [query, 'a', 'b', 'c']
             },
           },
         },

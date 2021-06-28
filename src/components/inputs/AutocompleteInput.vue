@@ -4,27 +4,20 @@
       <label :for="'input' + field">{{ label }}</label>
     </div>
     <div class="p-col">
-      <!-- AutoComplete explanation...
-        v-model is a temp copy to avoid overwriting object with string
-        field is the property to look up in v-model object for display
-        suggestions is the array of search matches
-        @complete is the 'invoke search' method
-        @item-select is the method to invoke when an item is selected
-      -->
       <AutoComplete
         :id="'input' + field"
-        :model-value="fieldDisplay(item,field)"
+        v-model="display"
         :delay="600"
         :min-length="1"
-        field="label"
-        v-bind="props"
-        :suggestions="searchResults"
+        :suggestions="suggestions"
+        v-bind="properties"
         placeholder="Search..."
-        @complete="search($event)"
+        v-on="events"
+        @complete="onComplete"
         @item-select="$emit('update', $event)"
       >
         <template
-          v-if="props.multiple"
+          v-if="properties.multiple"
           #chip="slotProps"
         >
           <div>
@@ -70,15 +63,17 @@ export default {
   emits: ['update'],
   data() {
     return {
-      searchResults: null,
+      // v-model can't take a method 'directly'
+      display: this.fieldDisplay(this.item, this.field),
+      suggestions: [],
     }
   },
   methods: {
     fieldDisplay,
-    search(value) {
-      console.log('search', value)
-      // FIXME: work out how to handle calling a search function and returning results
-      this.searchResults = [{ label: 'CAT', value: 'black' }]
+    onComplete(query) {
+      if ('onComplete' in this.properties) {
+        this.suggestions = this.properties.onComplete(query.query)
+      }
     },
   },
 }
