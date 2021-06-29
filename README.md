@@ -70,6 +70,12 @@ It takes the following structure:
           }
         },
       ],
+      events: {
+        // Events to be passed direct to SLDDetail's child components/inputs (for custom events)
+      }
+      methods: {
+        // Methods to be passed direct to SLDDetail's child components/inputs (for callbacks etc)
+      }
       props: {
         // Properties to be passed direct to SLDDetail's child components/inputs (for styling etc)
       }
@@ -77,6 +83,23 @@ It takes the following structure:
   }
 }
 ```
+### Field values
+
+The value of each `field` in `SLDDetail.fields` can be specified in one of 3 ways:
+
+* `name` - the name of a property in the object to be displayed.
+* `name.childname` - the name of a nested 'child' property inside the 'parent' property. For example, `author.last_name` to get the last name of a related author (To-One relationship).
+* `name[].childname` - the name of a 'child' property inside each object in an array of objects. For example `blogs[].title` to get the title of all related blogs (To-Many relationship).
+
+### Special properties
+
+There are 3 special properties in the schema - `events`, `methods` and `properties`. Their values are objects which are passed in to the child components and 'bound' to the element/made available in the component.
+
+`events` - These are attached to the underlying element via `v-on`. See `v-on object syntax` in the [Vue3 Directives](https://v3.vuejs.org/api/directives.html#v-on)
+`methods` - These are made available to be called in the component JS.
+`properties` - These are attached to the underlying element via `v-bind`. See `v-bind object syntax` in the [Vue3 Directives](https://v3.vuejs.org/api/directives.html#v-bind)
+
+See the `AutocompleteInput` for an example of using these parameters.
 
 ## Components
 
@@ -124,6 +147,48 @@ The following widgets are available - mostly wrappers around PrimeVue components
 * `AutocompleteInput`
 * `TextInput`
 * `TextareaInput`
+
+### AutocompleteInput
+
+This input is special in that it needs callbacks to provide the suggestions for autocompletion. The schema for an autocomplete field looks like:
+
+```
+{
+  label: 'Blogs',
+  field: 'blogs[].title',
+  input: 'AutocompleteInput',
+  events: {
+    // Add a custom event for the input being blurred
+    blur: {
+      console.log('Input was blurred')
+    }
+  },
+  properties: {
+    // Property to extract from objects returned by onComplete function
+    field: 'title',
+    // If true, dialog uses 'Chips' multi-input format
+    multiple: true,
+  },
+  methods: {
+    // AutoCompleteInput expects there to be an onComplete method
+    onComplete: (query) => {
+      // Method must return an array of autocomplete suggestions.
+      // If the 'field' property is set, objects must have that field to display
+      // Otherwise a simple array of strings can be returned
+      return [
+        {
+          title: 'One',
+          value: 1,
+        },
+        {
+          title: 'Two',
+          value: 2,
+        },
+      ]
+    },
+  },
+}
+```
 
 ## Events
 
