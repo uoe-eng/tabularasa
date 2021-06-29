@@ -62,7 +62,7 @@ export default {
         },
         {
           label: 'Blogs',
-          field: 'blogs:title',
+          field: 'blogs[].title',
           input: 'AutocompleteInput',
           properties: {
             // Property to extract from objects returned by onComplete function
@@ -81,7 +81,7 @@ export default {
         },
         {
           label: 'Articles',
-          field: 'articles:title',
+          field: 'articles[].title',
           input: 'AutocompleteInput',
           properties: {
             multiple: true,
@@ -151,6 +151,10 @@ export default {
           label: 'Title',
           field: 'title',
         },
+        {
+          label: 'Published?',
+          field: 'published',
+        },
       ],
       properties: {
         paginatorPosition: 'both',
@@ -167,6 +171,11 @@ export default {
           label: 'Title',
           field: 'title',
           input: 'TextInput',
+        },
+        {
+          label: 'Published?',
+          field: 'published',
+          input: 'BooleanInput',
         },
         {
           label: 'Authors',

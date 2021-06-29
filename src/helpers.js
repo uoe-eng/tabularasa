@@ -4,8 +4,8 @@ const fieldDisplay = (data, key) => {
   //special handling of the field specified in the Schema
   // colon-notation (e.g. blog:title) - TOMANY relationship
   // We must return an array of objects
-  if (key.includes(':')) {
-    let field = key.split(':')[0]
+  if (key.includes('[].')) {
+    let field = key.split('[].')[0]
     return data[field]
   }
 

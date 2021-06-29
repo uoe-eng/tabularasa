@@ -21,7 +21,7 @@
           #chip="slotProps"
         >
           <div>
-            <span>{{ slotProps.value[field.split(':')[1]] }}</span>
+            <span>{{ slotProps.value[field.split('[].')[1]] }}</span>
           </div>
         </template>
       </AutoComplete>

@@ -79,6 +79,7 @@ const generators = {
       id: i,
       title: faker.lorem.words(),
       content: faker.lorem.paragraph(),
+      published: faker.random.boolean(),
       authors: [],
     }
   },
