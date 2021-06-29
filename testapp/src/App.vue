@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <h1>Test app</h1>
+    <button @click="addRow">
+      CHANGE
+    </button>
     <SLDRoot
       :configuration="config"
       :collections="collections"
@@ -12,9 +15,6 @@
 import config from './config'
 import { fakeData } from './fakedata'
 
-// the number of rows of fakeData to generate
-const ROWCOUNT = 100
-
 export default {
   name: 'App',
   data() {
@@ -23,12 +23,15 @@ export default {
       items: {},
     }
   },
+  computed: {
+    collections() {
+      return this.$store.getters.tableData
+    },
+  },
   created() {
-    // Populate collectedData
-    this.collections = fakeData(ROWCOUNT)
-    // Update the data and totalRecords values for each SLDList instance
-    for (let conf of Object.values(this.config)) {
-      conf.SLDList.properties.totalRecords = ROWCOUNT
+    // FIXME: This isn't reactive!
+    for (let key of Object.keys(this.config)) {
+      this.config[key].SLDList.properties.totalRecords = this.$store.getters.itemCount(key)
     }
 
     // Register callbacks for sld events
@@ -38,6 +41,21 @@ export default {
     this.$sldbus.on('save', this.sldSave)
   },
   methods: {
+    addRow() {
+      // Test that updating the store is reactive
+      // Table data should update, as should totalRecords/pagination count
+      console.log('addRow')
+      this.$store.commit('save', {
+        people: {
+          100: {
+            id: 100,
+            last_name: 'XXXXX',   // eslint-disable-line
+            email: 'none@example.com',
+          },
+        },
+      })
+      console.log('NEWSTATE', this.$store.state)
+    },
     event(label, event) {
       // Split a wildcard captured event into it's parts
       let component = ''
@@ -61,6 +79,13 @@ export default {
     },
     save(collection, [oldObj, newObj]) {
       console.log('SAVE', collection, oldObj, newObj)
+      let id = oldObj['id']
+      let newData = {
+        [collection]: {
+          [id]: newObj,
+        },
+      }
+      this.$store.commit('save', newData)
     },
     update(collection, [oldObj, newObj]) {
       console.log('UPDATE', collection, oldObj, newObj)

@@ -31,9 +31,9 @@ const fakeData = function (count) {
     COUNT = count
   }
   for (let [type, func] of Object.entries(generators)) {
-    DATA[type] = new Array(COUNT)
+    DATA[type] = {}
     for (let i = 0; i < COUNT; i++) {
-      DATA[type][i] = func(i)
+      DATA[type][i.toString()] = func(i)
     }
   }
   for (let i = 0; i < COUNT; i++) {
