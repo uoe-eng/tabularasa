@@ -55,6 +55,10 @@ export default {
       type: String,
       default: '',
     },
+    methods: {
+      type: Object,
+      default: () => ({}),
+    },
     properties: {
       type: Object,
       default: () => ({}),
@@ -70,8 +74,8 @@ export default {
   methods: {
     fieldDisplay,
     onComplete(query) {
-      if ('onComplete' in this.properties) {
-        this.suggestions = this.properties.onComplete(query.query)
+      if ('onComplete' in this.methods) {
+        this.suggestions = this.methods.onComplete(query.query)
       }
     },
   },

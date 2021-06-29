@@ -69,8 +69,11 @@ export default {
             field: 'title',
             multiple: true,
             // function to call for search completion
+          },
+          methods: {
             onComplete: (query) => {
               console.log('que', query)
+              // FIXME: Lookup blogs in store
               let results = []
               for (let i = 1; i <= 20; i++) {
                 results.push(generators.blogs(i))
