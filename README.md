@@ -54,7 +54,7 @@ It takes the following structure:
         // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
         field: 'fieldName',
       ],
-      props: {
+      properties: {
         // Properties to be passed direct to DataTable (for styling etc)
       },
     },
