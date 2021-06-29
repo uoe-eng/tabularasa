@@ -6,7 +6,7 @@
     <div class="p-col">
       <InputText
         :id="'input' + field"
-        :model-value="fieldDisplay(item, field)"
+        v-model="display"
         v-bind="properties"
         @update:modelValue="$emit('update', $event)"
       />
@@ -42,6 +42,11 @@ export default {
     },
   },
   emits: ['update'],
+  data() {
+    return {
+      display: this.fieldDisplay(this.item, this.field),
+    }
+  },
   methods: {
     fieldDisplay,
   },

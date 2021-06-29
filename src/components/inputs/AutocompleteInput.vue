@@ -6,7 +6,7 @@
     <div class="p-col">
       <AutoComplete
         :id="'input' + field"
-        :model-value="fieldDisplay(item, field)"
+        v-model="display"
         :delay="600"
         :min-length="1"
         :suggestions="suggestions"
@@ -63,6 +63,7 @@ export default {
   emits: ['update'],
   data() {
     return {
+      display: this.fieldDisplay(this.item, this.field),
       suggestions: [],
     }
   },

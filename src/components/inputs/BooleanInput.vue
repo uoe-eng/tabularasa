@@ -6,7 +6,7 @@
     <div class="p-col">
       <Checkbox
         :id="'input' + field"
-        v-model="checked"
+        v-model="display"
         v-bind="properties"
         :binary="true"
         @update:modelValue="$emit('update', $event)"
@@ -17,6 +17,8 @@
 
 <script>
 import Checkbox from 'primevue/checkbox'
+import { fieldDisplay } from '../../helpers'
+
 export default {
   name: 'BooleanInput',
   components: {
@@ -45,8 +47,11 @@ export default {
     return {
       // We must use v-model for Checkbox, so 'copy' the boolean value here
       // We still rely on the 'update' to modify the data in DetailCard
-      checked: this.item[this.field],
+      display: this.fieldDisplay(this.item, this.field),
     }
+  },
+  methods: {
+    fieldDisplay,
   },
 }
 </script>
