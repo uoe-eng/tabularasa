@@ -76,6 +76,9 @@ export default {
     onComplete(query) {
       if ('onComplete' in this.methods) {
         this.suggestions = this.methods.onComplete(query.query)
+      } else {
+        // Blank the suggestions, as if not modified the AC ui 'blocks' forever.
+        this.suggestions = []
       }
     },
   },
