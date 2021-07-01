@@ -52,8 +52,6 @@ const fakeData = function (count) {
 
 const generators = {
   people: function (i) {
-    // ESLint doesn't like snake-case vars
-    /* eslint-disable camelcase*/
     return {
       id: i,
       first_name: { nested_first_name: faker.name.firstName() },

@@ -19,7 +19,7 @@ export default {
   name: 'App',
   data() {
     return {
-      config: config,
+      config: config(this),
       items: {},
     }
   },
