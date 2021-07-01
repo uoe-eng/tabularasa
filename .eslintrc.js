@@ -20,7 +20,7 @@ module.exports = {
   },
   rules: {
     'prettier-vue/prettier': 'warn',
-    camelcase: 'error',
+    camelcase: ["error", {"properties": "never"}],
     'no-console': 'off',
   },
 }
