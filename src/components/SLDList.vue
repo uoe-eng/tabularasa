@@ -14,8 +14,14 @@
         :header="col.label"
       >
         <template #body="slotProps">
-          <!-- Fixme: Display M2M rels nicely - for now just hack round potentially recursive objects -->
-          <span v-if="typeof fieldDisplay(slotProps.data, slotProps.column.key) === 'object' && fieldDisplay(slotProps.data, slotProps.column.key) !== null">{{ Object.keys(fieldDisplay(slotProps.data, slotProps.column.key)) }}</span>
+          <component
+            :is="col.display"
+            v-if="col.display"
+            :key="slotProps.index"
+            :configuration="configuration"
+            :item="slotProps.data"
+            v-bind="col"
+          />
           <span v-else>{{ fieldDisplay(slotProps.data, slotProps.column.key) }}</span>
         </template>
       </Column>
@@ -57,6 +63,9 @@ import Dialog from 'primevue/dialog'
 import merge from 'lodash.merge'
 import { fieldDisplay } from '@/helpers'
 
+// FIXME: global import (DRY with SLDDetail)
+import ChipsDisplay from '@/components/displays/ChipsDisplay'
+
 // Default config values
 const DT_PROPS = {
   // Define props to be passed 'direct' to DataTable
@@ -71,6 +80,7 @@ const DT_PROPS = {
 export default {
   name: 'SLDList',
   components: {
+    ChipsDisplay,
     Column,
     DataTable,
     Dialog,

@@ -26,7 +26,9 @@ export default (vue) => {
           },
           {
             label: 'Blogs',
-            field: 'blogs[].articles',
+            field: 'blogs[].title',
+            display: 'ChipsDisplay',
+            properties: {},
           },
         ],
         properties: {

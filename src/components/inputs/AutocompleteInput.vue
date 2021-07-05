@@ -21,7 +21,7 @@
           #chip="slotProps"
         >
           <div>
-            <span>{{ slotProps.value[field.split('[].')[1]] }}</span>
+            <span>{{ slotProps.value[childField] }}</span>
           </div>
         </template>
       </AutoComplete>
@@ -66,8 +66,11 @@ export default {
   },
   emits: ['update'],
   data() {
+    let [parentField, childField] = this.field.split('[].')
     return {
+      childField: childField,
       display: this.fieldDisplay(this.item, this.field),
+      parentField: parentField,
       suggestions: [],
     }
   },
