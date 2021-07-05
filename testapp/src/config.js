@@ -156,6 +156,7 @@ export default (vue) => {
           {
             label: 'Published?',
             field: 'published',
+            display: 'BooleanDisplay',
           },
         ],
         properties: {

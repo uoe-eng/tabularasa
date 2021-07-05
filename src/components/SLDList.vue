@@ -64,6 +64,7 @@ import merge from 'lodash.merge'
 import { fieldDisplay } from '@/helpers'
 
 // FIXME: global import (DRY with SLDDetail)
+import BooleanDisplay from '@/components/displays/BooleanDisplay'
 import ChipsDisplay from '@/components/displays/ChipsDisplay'
 
 // Default config values
@@ -80,6 +81,7 @@ const DT_PROPS = {
 export default {
   name: 'SLDList',
   components: {
+    BooleanDisplay,
     ChipsDisplay,
     Column,
     DataTable,
