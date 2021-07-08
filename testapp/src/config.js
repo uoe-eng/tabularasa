@@ -112,6 +112,11 @@ export default (vue) => {
             field: 'articles[].authors[].last_name',
             display: 'ChipsDisplay',
           },
+          {
+            label: 'Contributors Blogs',
+            field: 'author.blogs[].title',
+            display: 'ChipsDisplay',
+          },
         ],
         properties: {
           paginatorPosition: 'top',

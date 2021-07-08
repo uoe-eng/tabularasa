@@ -7,7 +7,7 @@ const recurseField = (data, keys) => {
   // Check for 'child' keys and recurse
   if (myKeys.length) {
     let k = myKeys.shift()
-    for (let item of get(data, k)) {
+    for (let item of get(data, k, [])) {
       // Flatten returned array
       arr.push(...recurseField(item, myKeys))
     }
