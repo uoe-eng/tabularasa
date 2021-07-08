@@ -42,7 +42,11 @@ export default {
     },
   },
   data() {
-    let [parentField, childField] = this.field.split('[].')
+    // First part of 'field' is the 'root' name
+    // Last part of 'field' is the property to display in each object
+    let fields = this.field.split('[].')
+    let parentField = fields[0]
+    let childField = fields[fields.length - 1]
     return {
       display: this.fieldDisplay(this.item, this.field),
       parentField: parentField,

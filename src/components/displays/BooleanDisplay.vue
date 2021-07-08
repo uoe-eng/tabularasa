@@ -38,11 +38,8 @@ export default {
     },
   },
   data() {
-    let [parentField, childField] = this.field.split('[].')
     return {
       display: this.fieldDisplay(this.item, this.field),
-      parentField: parentField,
-      childField: childField,
     }
   },
   methods: {

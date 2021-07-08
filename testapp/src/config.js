@@ -107,6 +107,11 @@ export default (vue) => {
             label: 'Date created',
             field: 'date',
           },
+          {
+            label: 'Contributors',
+            field: 'articles[].authors[].last_name',
+            display: 'ChipsDisplay',
+          },
         ],
         properties: {
           paginatorPosition: 'top',
@@ -138,6 +143,14 @@ export default (vue) => {
             label: 'Date created',
             field: 'date',
             input: 'DateInput',
+          },
+          {
+            label: 'Contributors',
+            field: 'articles[].authors[].last_name',
+            input: 'AutocompleteInput',
+            properties: {
+              multiple: true,
+            },
           },
         ],
       },

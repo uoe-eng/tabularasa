@@ -3,8 +3,8 @@ import faker from 'faker'
   Generate fake data representing an imaginary blog service.
 
   people:
-    given_name
-    family_name
+    first_name
+    last_name
     email
     city
     blogs: (one) people -> (many) blogs
@@ -14,13 +14,15 @@ import faker from 'faker'
   blogs:
     title
     content
-    creation date
+    date
     author: (many) blogs -> (one) people
+    articles: (one) blogs ->  (many) articles
 
   Articles are imagined to be multi-authored pieces.
   articles:
     title
     content
+    published
     authors: (many) articles -> (many) people
 */
 let COUNT = 100
@@ -43,8 +45,10 @@ const fakeData = function (count) {
       DATA['people'][i]['articles'].push(DATA['articles'][i + 3], DATA['articles'][i + 4])
       DATA['blogs'][i + 1]['author'] = DATA['people'][i]
       DATA['blogs'][i + 2]['author'] = DATA['people'][i]
-      DATA['articles'][i + 3]['author'] = DATA['people'][i]
-      DATA['articles'][i + 4]['author'] = DATA['people'][i]
+      DATA['blogs'][i + 1]['articles'].push(DATA['articles'][i + 1], DATA['articles'][i + 2])
+      DATA['blogs'][i + 2]['articles'].push(DATA['articles'][i + 3], DATA['articles'][i + 4])
+      DATA['articles'][i + 3]['authors'].push(DATA['people'][i + 1], DATA['people'][i + 2])
+      DATA['articles'][i + 4]['authors'].push(DATA['people'][i + 3], DATA['people'][i + 4])
     }
   }
   return DATA
@@ -70,6 +74,7 @@ const generators = {
       content: faker.lorem.paragraph(),
       date: faker.date.past().toISOString(),
       author: {},
+      articles: [],
     }
   },
   articles: function (i) {
