@@ -113,8 +113,8 @@ export default (vue) => {
             display: 'ChipsDisplay',
           },
           {
-            label: 'Contributors Blogs',
-            field: 'author.blogs[].title',
+            label: 'Articles (via author)',
+            field: 'author.articles[].title',
             display: 'ChipsDisplay',
           },
         ],

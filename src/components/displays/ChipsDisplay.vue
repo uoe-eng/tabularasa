@@ -6,7 +6,7 @@
     >
       <Chip
         :id="'display' + value"
-        :label="value[childField]"
+        :label="value"
         v-bind="properties"
         class="p-mr-2 p-mb-2"
       />
@@ -42,15 +42,8 @@ export default {
     },
   },
   data() {
-    // First part of 'field' is the 'root' name
-    // Last part of 'field' is the property to display in each object
-    let fields = this.field.split('[].')
-    let parentField = fields[0]
-    let childField = fields[fields.length - 1]
     return {
       display: this.fieldDisplay(this.item, this.field),
-      parentField: parentField,
-      childField: childField,
     }
   },
   methods: {
