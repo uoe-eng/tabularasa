@@ -1,18 +1,15 @@
-//import get from 'lodash/get'
-
 // Regular expression that matches '{}' or '[]'
+// A group-match in a split regex returns the match(es) in the array
 const TYPERE = /([{[][}\]])/
 
 const recurseField = (data, keys) => {
   // Walk the data object using keys as a guide
   let arr = []
-  // Keep a 'local' copy of keys
-  let myKeys = [...keys]
   // Check we still have keys to walk
-  if (myKeys.length) {
-    // Split on '{}' or '[]'
-    // A group-match in a split regex returns the match(es) in the array
-    let [key, type] = myKeys.shift().split(TYPERE)
+  if (keys.length) {
+    let type
+    let [key, ...myKeys] = keys
+    ;[key, type] = key.split(TYPERE)
     if (type === '{}') {
       // Iterate over an object
       for (let item of Object.values(data[key] || {})) {
