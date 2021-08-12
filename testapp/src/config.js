@@ -200,8 +200,11 @@ export default (vue) => {
           },
           {
             label: 'Authors',
-            field: 'authors',
+            field: 'authors[].last_name',
             component: 'AutocompleteInput',
+            properties: {
+              multiple: true,
+            },
           },
         ],
       },
