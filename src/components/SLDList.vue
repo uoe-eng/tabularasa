@@ -42,6 +42,7 @@
       </template>
     </DataTable>
     <Dialog
+      v-if="configuration.SLDDetail"
       v-model:visible="dialogVisible"
       :content-style="{overflow: 'visible'}"
       :header="dialogHeader"
