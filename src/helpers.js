@@ -34,8 +34,12 @@ const recurseData = (data, keys) => {
         arr.push(...recurseData(item, myKeys))
       }
     } else {
-      // Just get the property
-      arr.push(...recurseData(data[key], myKeys))
+      // Get the property value, if defined
+      if (key in data && Object.keys(data[key]).length) {
+        arr.push(...recurseData(data[key], myKeys))
+      } else {
+        arr.push([])
+      }
     }
   } else {
     // No more keys to walk, start returning data
@@ -54,9 +58,12 @@ const prepData = (data, key) => {
 
 const getFieldIterable = (data, key) => {
   // Return an iterator and the key to pick out of each element
+  if (!key.includes('.')) {
+    console.error(`Field schema: '${key}' doesn't contain '.' - expected a nested key.`)
+  }
   let result = prepData(data, key)
   if (!TYPERE.test(key)) {
-    // Flatten single-item results
+    // No iterables in key, result data must be single item, so flatten
     result[0] = result[0][0]
   }
   return result
@@ -66,7 +73,7 @@ const getFieldValue = (data, key) => {
   // Return just the field value
   if (TYPERE.test(key)) {
     // Field implies iterables - probably using a component that doesn't support them
-    console.error(`Field schema: ${key} contains [] or {} - expected a non-nested key.`)
+    console.error(`Field schema: '${key}' contains [] or {} - expected a non-nested key.`)
     return ''
   }
   let [recurse, lastProp] = prepData(data, key)
