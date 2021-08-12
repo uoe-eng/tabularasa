@@ -53,6 +53,7 @@ It takes the following structure:
         label: 'Column header label',
         // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
         field: 'fieldName',
+        component: 'CustomDisplay', // A custom widget used to display this field.
       ],
       properties: {
         // Properties to be passed direct to DataTable (for styling etc)
@@ -64,8 +65,8 @@ It takes the following structure:
           label: 'Field label',
           // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
           field: 'fieldName',
-          input: 'TextInput', // Input widget to be used to display this field.
-          props: {
+          component: 'CustomInput', // A custom widget to be used to edit this field.
+          properties: {
             // Properties to be passed direct to the Input (i.e. PrimeVue component config)
           }
         },
@@ -85,11 +86,14 @@ It takes the following structure:
 ```
 ### Field values
 
-The value of each `field` in `SLDDetail.fields` can be specified in one of 3 ways:
+The value of each `field` in `SLDDetail.fields` can be specified in one of 4 ways:
 
 * `name` - the name of a property in the object to be displayed.
 * `name.childname` - the name of a nested 'child' property inside the 'parent' property. For example, `author.last_name` to get the last name of a related author (To-One relationship).
 * `name[].childname` - the name of a 'child' property inside each object in an array of objects. For example `blogs[].title` to get the title of all related blogs (To-Many relationship).
+* `name{}.childname` - the name of a 'child' property inside each object in a nested object. For example `blogs{}.title` to get the title of all related blogs (To-Many relationship).
+
+Display and Input Components generally display either a single item, or a list of items. The former will fail with an error for fields containing `[]` or `{}`, the latter if the field does not contain these brackets.
 
 ### Special properties
 
@@ -103,10 +107,12 @@ See the `AutocompleteInput` for an example of using these parameters.
 
 ## Components
 
-There are 2 components in SLD:
+There are 3 components in SLD, though in most cases you only need to use the first 2:
 
 1. `SLDRoot` - A `TabView` where each tab is a `SLDList`.
 2. `SLDList` - A `DataTable`.
+3. `SLDDetail` - A 'pop-up' `Dialog` window, providing a view to a single row selected from the DataTable
+
 
 ### Common Properties
 
@@ -116,15 +122,15 @@ All components take the following common properties:
 
 ### SLDRoot
 
-The `SLDRoot` component takes the following properties:
+The `SLDRoot` component also takes the following properties:
 
 * `collections` - An object containing collections, keyed by collection name.
 
 ### SLDList
 
-The `SLDList` component takes the following properties:
+The `SLDList` component also takes the following properties:
 
-* `name` - The name of the generated table. This is used to identify the table, for example in `SLDRoot` tab titles.
+* `name` - The name of the generated table. This is used to identify the table, for example `SLDRoot` will provide the tab title.
 * `collection` - An array of 'data' items.
 
 ### SLDDetail
@@ -142,11 +148,12 @@ Fields displayed in the SLDDetail can use a variety of widgets provided to displ
 
 The following widgets are available - mostly wrappers around PrimeVue components of the same/similar name:
 
-* `BooleanInput`
-* `DateInput`
-* `AutocompleteInput`
-* `TextInput`
-* `TextareaInput`
+* `BooleanInput` - Display true/false as a checkbox
+* `DateInput` - Display a calendar date picker
+* `ChipsDisplay` - Display multiple items as 'chips'
+* `AutocompleteInput` - Display single or multiple items as test or 'chips'
+* `TextInput` - Display text strings
+* `TextareaInput` - Display text boxes (for long strings)
 
 ### AutocompleteInput
 
@@ -227,22 +234,22 @@ Since components may be reused, events can be scoped by setting the `name` prope
 <SLDList :name="blogs" />
 ```
 
-This is the default behaviour for SLDRoot, which sets `name` to be the collection key from the passed-in data.
+This is the default behaviour for SLDRoot, which sets `name` on child `SLDList` components to be the collection key from the passed-in data.
 
-This name will then be prepended to the event label, separated by a `:`
+This name will then be prepended to the event label, separated by a `:`.
 
 You can either listen for events within a specific component, e.g:
 
 ```
-this.$sldbus.on('people:message', (msg) => console.log(msg))
+this.$sldbus.on('SLDRoot:activeTab', (name) => console.log(name))
 ```
 
 Or you can use the wildcard `*` to listen for all events, and then filter on event label, e.g:
 
 ```
 this.$sldbus.on('*', (label, msg) => {
-  if label.startsWith('people:') {
-    console.log(msg))
+  if label.includes(':save:') {
+    console.log('Saved'))
   }
 }
 ```
@@ -270,6 +277,6 @@ _Note_ - `:name` of the 'parent' SLDList will be appended, if set.
 
 These events allow for 3 different modes of operation when users edit your data. For example:
 
-* Update a single field in your API on every keypress => _input_
+* Update a single field in your API on every keypress => _update_
 * Update a single field in your API when the user switches to the next field => _blur_
-* Update all changed fields in your API when the card is saved => _save_
+* Update all changed fields in your API when the 'card' is saved => _save_
