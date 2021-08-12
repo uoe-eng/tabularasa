@@ -44,17 +44,32 @@ const recurseData = (data, keys) => {
   return arr
 }
 
-const getField = (data, key) => {
+const prepData = (data, key) => {
+  // Prep keys from field schema and recurse over data
   let keys = key.split('.')
   let lastProp = keys.pop()
   let recurse = recurseData(data, keys, true)
-  if (TYPERE.test(key)) {
-    // field contains iterables - return the array of objects, and the field_name 'in' each object
-    return [recurse, lastProp] // .map((x) => x[lastProp])
-  } else {
-    //No iterables - just return a single value
-    return recurse[0][lastProp]
-  }
+  return [recurse, lastProp]
 }
 
-export { getField, TYPERE }
+const getFieldIterable = (data, key) => {
+  // Return an iterator and the key to pick out of each element
+  if (!TYPERE.test(key)) {
+    console.error(`Field schema: ${key} does not contain [] or {}. Expected a nested key.`)
+    return []
+  }
+  return prepData(data, key)
+}
+
+const getFieldValue = (data, key) => {
+  // Return just the field value
+  if (TYPERE.test(key)) {
+    // Field implies iterables - probably using a component that doesn't support them
+    console.error(`Field schema: ${key} contains [] or {} - expected a non-nested key.`)
+    return ''
+  }
+  let [recurse, lastProp] = prepData(data, key)
+  return recurse[0][lastProp]
+}
+
+export { getFieldIterable, getFieldValue, TYPERE }

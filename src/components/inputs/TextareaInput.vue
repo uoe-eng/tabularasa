@@ -17,7 +17,7 @@
 
 <script>
 import Textarea from 'primevue/textarea'
-import { getField } from '../../helpers'
+import { getFieldValue } from '../../helpers'
 
 export default {
   name: 'TextArea',
@@ -45,11 +45,11 @@ export default {
   emits: ['update'],
   data() {
     return {
-      display: this.getField(this.item, this.field),
+      display: this.getFieldValue(this.item, this.field),
     }
   },
   methods: {
-    getField,
+    getFieldValue,
   },
 }
 </script>

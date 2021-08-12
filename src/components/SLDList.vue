@@ -22,7 +22,7 @@
             :item="slotProps.data"
             v-bind="col"
           />
-          <span v-else>{{ getField(slotProps.data, slotProps.column.key) }}</span>
+          <span v-else>{{ getFieldValue(slotProps.data, slotProps.column.key) }}</span>
         </template>
       </Column>
       <template #paginatorLeft>
@@ -61,7 +61,7 @@ import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import Dialog from 'primevue/dialog'
 import merge from 'lodash.merge'
-import { getField } from '@/helpers'
+import { getFieldValue } from '@/helpers'
 
 // FIXME: global import (DRY with SLDDetail)
 import BooleanDisplay from '@/components/displays/BooleanDisplay'
@@ -134,7 +134,7 @@ export default {
     this.onLoad()
   },
   methods: {
-    getField,
+    getFieldValue,
     onPage(event) {
       this.offset = event.first
       this.limit = event.rows

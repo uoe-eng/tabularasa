@@ -23,7 +23,7 @@
 
 <script>
 import AutoComplete from 'primevue/autocomplete'
-import { getField } from '../../helpers'
+import { getFieldIterable } from '../../helpers'
 
 export default {
   name: 'AutocompleteInput',
@@ -65,10 +65,10 @@ export default {
     }
   },
   created() {
-    ;[this.data, this.field_name] = this.getField(this.item, this.field)
+    ;[this.data, this.field_name] = this.getFieldIterable(this.item, this.field)
   },
   methods: {
-    getField,
+    getFieldIterable,
     onComplete(query) {
       if ('onComplete' in this.methods) {
         this.suggestions = this.methods.onComplete(query.query)

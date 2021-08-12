@@ -16,7 +16,7 @@
 
 <script>
 import Chip from 'primevue/chip'
-import { getField } from '../../helpers'
+import { getFieldIterable } from '../../helpers'
 
 export default {
   name: 'ChipsDisplay',
@@ -48,10 +48,10 @@ export default {
     }
   },
   created() {
-    ;[this.chips, this.field_name] = this.getField(this.item, this.field)
+    ;[this.chips, this.field_name] = this.getFieldIterable(this.item, this.field)
   },
   methods: {
-    getField,
+    getFieldIterable,
   },
 }
 </script>
