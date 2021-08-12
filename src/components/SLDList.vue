@@ -15,8 +15,8 @@
       >
         <template #body="slotProps">
           <component
-            :is="col.display"
-            v-if="col.display"
+            :is="col.component"
+            v-if="col.component"
             :key="slotProps.index"
             :configuration="configuration"
             :item="slotProps.data"

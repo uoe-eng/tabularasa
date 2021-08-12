@@ -54,11 +54,12 @@ const prepData = (data, key) => {
 
 const getFieldIterable = (data, key) => {
   // Return an iterator and the key to pick out of each element
+  let result = prepData(data, key)
   if (!TYPERE.test(key)) {
-    console.error(`Field schema: ${key} does not contain [] or {}. Expected a nested key.`)
-    return []
+    // Flatten single-item results
+    result[0] = result[0][0]
   }
-  return prepData(data, key)
+  return result
 }
 
 const getFieldValue = (data, key) => {

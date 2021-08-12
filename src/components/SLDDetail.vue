@@ -3,7 +3,7 @@
     <div class="p-grid p-dir-col">
       <div class="p-col">
         <component
-          :is="field.input"
+          :is="field.component"
           v-for="field in fields"
           :key="field.label"
           :configuration="configuration"

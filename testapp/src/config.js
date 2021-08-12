@@ -27,7 +27,7 @@ export default (vue) => {
           {
             label: 'Blogs',
             field: 'blogs[].title',
-            display: 'ChipsDisplay',
+            component: 'ChipsDisplay',
             properties: {},
           },
         ],
@@ -41,32 +41,32 @@ export default (vue) => {
           {
             label: 'ID',
             field: 'id',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'First Name',
             field: 'first_name.nested_first_name',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'Last Name',
             field: 'last_name',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'Email',
             field: 'email',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'City',
             field: 'city',
-            input: 'TextareaInput',
+            component: 'TextareaInput',
           },
           {
             label: 'Blogs',
             field: 'blogs[].title',
-            input: 'AutocompleteInput',
+            component: 'AutocompleteInput',
             properties: {
               // Property to extract from objects returned by onComplete function
               field: 'title',
@@ -84,7 +84,7 @@ export default (vue) => {
           {
             label: 'Articles',
             field: 'articles[].title',
-            input: 'AutocompleteInput',
+            component: 'AutocompleteInput',
             properties: {
               multiple: true,
             },
@@ -110,12 +110,12 @@ export default (vue) => {
           {
             label: 'Contributors',
             field: 'articles[].authors[].last_name',
-            display: 'ChipsDisplay',
+            component: 'ChipsDisplay',
           },
           {
             label: 'Articles (via author)',
             field: 'author.articles[].title',
-            display: 'ChipsDisplay',
+            component: 'ChipsDisplay',
           },
         ],
         properties: {
@@ -127,32 +127,32 @@ export default (vue) => {
           {
             label: 'ID',
             field: 'id',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'Title',
             field: 'title',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'Author',
             field: 'author.last_name',
-            input: 'AutocompleteInput',
-            properties: {
+            component: 'AutocompleteInput',
+            methods: {
               onComplete: (query) => {
-                return [query, 'a', 'b', 'c']
+                console.log('CHANGED', query)
               },
             },
           },
           {
             label: 'Date created',
             field: 'date',
-            input: 'DateInput',
+            component: 'DateInput',
           },
           {
             label: 'Contributors',
             field: 'articles[].authors[].last_name',
-            input: 'AutocompleteInput',
+            component: 'AutocompleteInput',
             properties: {
               multiple: true,
             },
@@ -174,7 +174,7 @@ export default (vue) => {
           {
             label: 'Published?',
             field: 'published',
-            display: 'BooleanDisplay',
+            component: 'BooleanDisplay',
           },
         ],
         properties: {
@@ -186,22 +186,22 @@ export default (vue) => {
           {
             label: 'ID',
             field: 'id',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'Title',
             field: 'title',
-            input: 'TextInput',
+            component: 'TextInput',
           },
           {
             label: 'Published?',
             field: 'published',
-            input: 'BooleanInput',
+            component: 'BooleanInput',
           },
           {
             label: 'Authors',
             field: 'authors',
-            input: 'AutocompleteInput',
+            component: 'AutocompleteInput',
           },
         ],
       },
