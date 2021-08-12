@@ -12,7 +12,7 @@
 
 <script>
 import Checkbox from 'primevue/checkbox'
-import { fieldDisplay } from '../../helpers'
+import { getField } from '../../helpers'
 
 export default {
   name: 'BooleanDisplay',
@@ -39,11 +39,11 @@ export default {
   },
   data() {
     return {
-      display: this.fieldDisplay(this.item, this.field),
+      display: this.getField(this.item, this.field),
     }
   },
   methods: {
-    fieldDisplay,
+    getField,
   },
 }
 </script>

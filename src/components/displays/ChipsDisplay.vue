@@ -1,22 +1,22 @@
 <template>
   <div class="p-d-flex p-ai-center p-flex-column p-flex-sm-row">
     <div
-      v-for="value in display"
-      :key="value"
+      v-for="(chip, index) in chips"
+      :key="index"
     >
       <Chip
-        :id="'display' + value"
-        :label="value"
         v-bind="properties"
         class="p-mr-2 p-mb-2"
-      />
+      >
+        {{ chip[field_name] }}
+      </Chip>
     </div>
   </div>
 </template>
 
 <script>
 import Chip from 'primevue/chip'
-import { fieldDisplay } from '../../helpers'
+import { getField } from '../../helpers'
 
 export default {
   name: 'ChipsDisplay',
@@ -43,11 +43,15 @@ export default {
   },
   data() {
     return {
-      display: this.fieldDisplay(this.item, this.field),
+      chips: [],
+      field_name: '',
     }
   },
+  created() {
+    ;[this.chips, this.field_name] = this.getField(this.item, this.field)
+  },
   methods: {
-    fieldDisplay,
+    getField,
   },
 }
 </script>

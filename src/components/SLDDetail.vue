@@ -30,6 +30,7 @@ import BooleanInput from '@/components/inputs/BooleanInput'
 import DateInput from '@/components/inputs/DateInput'
 import TextInput from '@/components/inputs/TextInput'
 import TextareaInput from '@/components/inputs/TextareaInput'
+import { TYPERE } from '@/helpers'
 
 export default {
   name: 'SLDDetail',
@@ -73,7 +74,9 @@ export default {
     },
     onUpdate(field, event) {
       // Update newItem with field changes
-      //Parse dot-notation field name into a nested object using _.set
+      // Remove brackets to avoid creating empty arrays/objects
+      field = field.replace(TYPERE, '')
+      // Parse dot-notation field name into a nested object using _.set
       let newObj = set({}, field, event)
       Object.assign(this.newItem, newObj)
       // Emit just the changed field

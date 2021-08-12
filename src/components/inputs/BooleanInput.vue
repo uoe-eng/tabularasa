@@ -17,7 +17,7 @@
 
 <script>
 import Checkbox from 'primevue/checkbox'
-import { fieldDisplay } from '../../helpers'
+import { getField } from '../../helpers'
 
 export default {
   name: 'BooleanInput',
@@ -47,11 +47,11 @@ export default {
     return {
       // We must use v-model for Checkbox, so 'copy' the boolean value here
       // We still rely on the 'update' to modify the data in DetailCard
-      display: this.fieldDisplay(this.item, this.field),
+      display: this.getField(this.item, this.field),
     }
   },
   methods: {
-    fieldDisplay,
+    getField,
   },
 }
 </script>

@@ -1,9 +1,22 @@
+// Helper functions to use a field string to walk nested data
+// and return appropriate data, labels etc.
+//
+// Components expect to be handed an object, and a property to display from that object.
+//
+// Field string: nested fields are separated by a '.'
+// A suffix of {} indicates an onbject to be iterated over
+// A suffix of [] indicates an array to be iterated over
+//
+// Examples:
+// to-one relationship: author.last_name
+// to-many relationship: blog[].title - for each blog, display its title property
+
 // Regular expression that matches '{}' or '[]'
 // A group-match in a split regex returns the match(es) in the array
 const TYPERE = /([{[][}\]])/
 
-const recurseField = (data, keys) => {
-  // Walk the data object using keys as a guide
+const recurseData = (data, keys) => {
+  // Walk and flatten the data object using keys as a guide
   let arr = []
   // Check we still have keys to walk
   if (keys.length) {
@@ -13,16 +26,16 @@ const recurseField = (data, keys) => {
     if (type === '{}') {
       // Iterate over an object
       for (let item of Object.values(data[key] || {})) {
-        arr.push(...recurseField(item, myKeys))
+        arr.push(...recurseData(item, myKeys))
       }
     } else if (type === '[]') {
       // Iterate over an array
       for (let item of data[key] || []) {
-        arr.push(...recurseField(item, myKeys))
+        arr.push(...recurseData(item, myKeys))
       }
     } else {
       // Just get the property
-      arr.push(...recurseField(data[key], myKeys))
+      arr.push(...recurseData(data[key], myKeys))
     }
   } else {
     // No more keys to walk, start returning data
@@ -31,22 +44,17 @@ const recurseField = (data, keys) => {
   return arr
 }
 
-const fieldDisplay = (data, key) => {
-  //special handling of the field specified in the Schema
-  // Field are separated by a '.'
-  // A suffix of {} indicates an onbject to be iterated over
-  // A suffix of [] indicates an array to be iterated over
-  // For example blog[].title - TOMANY relationship 0 many blogs, display their title field
+const getField = (data, key) => {
   let keys = key.split('.')
   let lastProp = keys.pop()
-  let recurse = recurseField(data, keys, true)
+  let recurse = recurseData(data, keys, true)
   if (TYPERE.test(key)) {
-    // field contains iterables - return an array of the values
-    return recurse.map((x) => x[lastProp])
+    // field contains iterables - return the array of objects, and the field_name 'in' each object
+    return [recurse, lastProp] // .map((x) => x[lastProp])
   } else {
     //No iterables - just return a single value
     return recurse[0][lastProp]
   }
 }
 
-export { fieldDisplay }
+export { getField, TYPERE }

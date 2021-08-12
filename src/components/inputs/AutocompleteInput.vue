@@ -1,12 +1,13 @@
 <template>
   <div class="p-grid">
     <div class="p-col">
-      <label :for="'input' + field">{{ label }}</label>
+      <label :for="'input' + field_name">{{ label }}</label>
     </div>
     <div class="p-col">
       <AutoComplete
-        :id="'input' + field"
-        v-model="display"
+        :id="'input' + field_name"
+        v-model="data"
+        :field="field_name"
         :delay="600"
         :min-length="1"
         :suggestions="suggestions"
@@ -22,7 +23,7 @@
 
 <script>
 import AutoComplete from 'primevue/autocomplete'
-import { fieldDisplay } from '../../helpers'
+import { getField } from '../../helpers'
 
 export default {
   name: 'AutocompleteInput',
@@ -58,12 +59,16 @@ export default {
   emits: ['update'],
   data() {
     return {
-      display: this.fieldDisplay(this.item, this.field),
+      data: [],
+      field_name: '',
       suggestions: [],
     }
   },
+  created() {
+    ;[this.data, this.field_name] = this.getField(this.item, this.field)
+  },
   methods: {
-    fieldDisplay,
+    getField,
     onComplete(query) {
       if ('onComplete' in this.methods) {
         this.suggestions = this.methods.onComplete(query.query)
