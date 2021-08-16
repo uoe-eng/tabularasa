@@ -20,8 +20,8 @@ module.exports = {
   },
   rules: {
     'prettier-vue/prettier': 'warn',
-    camelcase: ["error", {"properties": "never"}],
-    'no-console': process.env.NODE_ENV === "production" ? ["error", { "allow": ["error"] }] : "off",
-    'no-debugger': process.env.NODE_ENV === "production" ? "error" : "off"
+    camelcase: ['error', { properties: 'never' }],
+    'no-console': process.env.NODE_ENV === 'production' ? ['error', { allow: ['error'] }] : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
 }
