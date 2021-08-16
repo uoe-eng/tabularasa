@@ -4,7 +4,7 @@
     <button @click="addRow">
       CHANGE
     </button>
-    <SLDRoot
+    <TRRoot
       :configuration="config"
       :collections="collections"
     />
@@ -31,14 +31,14 @@ export default {
   created() {
     // FIXME: This isn't reactive!
     for (let key of Object.keys(this.config)) {
-      this.config[key].SLDList.properties.totalRecords = this.$store.getters.itemCount(key)
+      this.config[key].TRList.properties.totalRecords = this.$store.getters.itemCount(key)
     }
 
-    // Register callbacks for sld events
-    this.$sldbus.on('*', this.event)
-    this.$sldbus.on('reload', this.sldReload)
-    this.$sldbus.on('update', this.sldUpdate)
-    this.$sldbus.on('save', this.sldSave)
+    // Register callbacks for tr events
+    this.$trBus.on('*', this.event)
+    this.$trBus.on('reload', this.trReload)
+    this.$trBus.on('update', this.trUpdate)
+    this.$trBus.on('save', this.trSave)
   },
   methods: {
     addRow() {
@@ -67,15 +67,15 @@ export default {
       }
     },
     page(collection, event) {
-      console.log('sldPage', collection, event)
+      console.log('trPage', collection, event)
     },
     reload(collection) {
-      console.log('sldReload', collection)
+      console.log('trReload', collection)
       // Repopulate with fresh fakeData
       this.collectedData = fakeData(this.totalRows)
     },
     rowSelect(collection, event) {
-      console.log('sldRow', collection, event)
+      console.log('trRow', collection, event)
     },
     save(collection, [oldObj, newObj]) {
       console.log('SAVE', collection, oldObj, newObj)

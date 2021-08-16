@@ -33,9 +33,9 @@ module.exports = {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'sld.js',
+      filename: 'tabularasa.js',
       library: {
-        root: 'sld',
+        root: 'tabularasa',
       },
       libraryTarget: 'umd',
     },

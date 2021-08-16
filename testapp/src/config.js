@@ -2,7 +2,7 @@ export default (vue) => {
   console.log('V', vue.$store)
   return {
     people: {
-      SLDList: {
+      TRList: {
         fields: [
           {
             label: 'ID',
@@ -36,7 +36,7 @@ export default (vue) => {
           totalRecords: vue.$store.getters.itemCount,
         },
       },
-      SLDDetail: {
+      TRDetail: {
         fields: [
           {
             label: 'ID',
@@ -93,7 +93,7 @@ export default (vue) => {
       },
     },
     blogs: {
-      SLDList: {
+      TRList: {
         fields: [
           {
             label: 'ID',
@@ -122,7 +122,7 @@ export default (vue) => {
           paginatorPosition: 'top',
         },
       },
-      SLDDetail: {
+      TRDetail: {
         fields: [
           {
             label: 'ID',
@@ -161,7 +161,7 @@ export default (vue) => {
       },
     },
     articles: {
-      SLDList: {
+      TRList: {
         fields: [
           {
             label: 'ID',
@@ -181,7 +181,7 @@ export default (vue) => {
           paginatorPosition: 'both',
         },
       },
-      SLDDetail: {
+      TRDetail: {
         fields: [
           {
             label: 'ID',

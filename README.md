@@ -1,10 +1,10 @@
-# SLD - Search List Detail
+# Tabularasa - A Table UI built using a schema.
 
-SLD is a Vue plugin which acts as a wrapper around a variety of [PrimeVue]{https://www.primefaces.org/primevue/} widgets to provide a Search-List-Detail interface.
+`Tabularasa` is a Vue plugin which acts as a wrapper around a variety of [PrimeVue]{https://www.primefaces.org/primevue/} widgets to provide a Search-List-Detail interface.
 
-SLD takes in a `configuration` 'schema' (which defines the look and feel of the UI, and how data is presented), and `collections` data, which contains data items to be displayed.
+`tabularasa` takes in a `configuration` 'schema' (which defines the look and feel of the UI, and how data is presented), and `collections` data, which contains data items to be displayed.
 
-SLD treats `collection` data as read-only. No changes are made to the passed-in object - instead, when data is edited, events are generated, containing the old and new data.
+`tabularasa` treats `collection` data as read-only. No changes are made to the passed-in object - instead, when data is edited, events are generated, containing the old and new data.
 
 # Installation
 
@@ -15,13 +15,13 @@ vue create <my-app>
 Edit `src/main.js` adding the following before `new Vue` is called:
 
 ```
-import * as sld from 'sld'
-Vue.use(sld)
+import * as tabularasa from 'tabularasa'
+Vue.use(tabularasa)
 ```
 
 # Demo
 
-There is a `testapp` which demonstrates the use of SLD. This can be run by cloning this repository and then running:
+There is a `testapp` which demonstrates the use of `tabularasa`. This can be run by cloning this repository and then running:
 
 ```
 # Install the package dependencies
@@ -37,18 +37,18 @@ yarn serve
 
 ### Data
 
-SLD follows the convention of DataTable to expect data as an array of objects. These are referred to here as `collections` of `items`.
+`tabularasa` follows the convention of DataTable to expect data as an array of objects. These are referred to here as `collections` of `items`.
 
 ### Schema
 
-SLD uses a configuration schema to configure the UI, and the presentation of the data. Where possible order in the schema will be preserved in the UI.
+`tabularasa` uses a configuration schema to configure the UI, and the presentation of the data. Where possible order in the schema will be preserved in the UI.
 
 It takes the following structure:
 
 ```
 {
   Collection_Name: {
-    SLDList: {
+    TRList: {
       fields: [
         label: 'Column header label',
         // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
@@ -59,7 +59,7 @@ It takes the following structure:
         // Properties to be passed direct to DataTable (for styling etc)
       },
     },
-    SLDDetail: {
+    TRDetail: {
       fields: [
         {
           label: 'Field label',
@@ -72,13 +72,13 @@ It takes the following structure:
         },
       ],
       events: {
-        // Events to be passed direct to SLDDetail's child components/inputs (for custom events)
+        // Events to be passed direct to TRDetail's child components/inputs (for custom events)
       }
       methods: {
-        // Methods to be passed direct to SLDDetail's child components/inputs (for callbacks etc)
+        // Methods to be passed direct to TRDetail's child components/inputs (for callbacks etc)
       }
       props: {
-        // Properties to be passed direct to SLDDetail's child components/inputs (for styling etc)
+        // Properties to be passed direct to TRDetail's child components/inputs (for styling etc)
       }
     }
   }
@@ -86,7 +86,7 @@ It takes the following structure:
 ```
 ### Field values
 
-The value of each `field` in `SLDDetail.fields` can be specified in one of 4 ways:
+The value of each `field` in `TRDetail.fields` can be specified in one of 4 ways:
 
 * `name` - the name of a property in the object to be displayed.
 * `name.childname` - the name of a nested 'child' property inside the 'parent' property. For example, `author.last_name` to get the last name of a related author (To-One relationship).
@@ -107,11 +107,11 @@ See the `AutocompleteInput` for an example of using these parameters.
 
 ## Components
 
-There are 3 components in SLD, though in most cases you only need to use the first 2:
+There are 3 components in `tabularasa`, though in most cases you only need to use the first 2:
 
-1. `SLDRoot` - A `TabView` where each tab is a `SLDList`.
-2. `SLDList` - A `DataTable`.
-3. `SLDDetail` - A 'pop-up' `Dialog` window, providing a view to a single row selected from the DataTable
+1. `TRRoot` - A `TabView` where each tab is a `TRList`.
+2. `TRList` - A `DataTable`.
+3. `TRDetail` - A 'pop-up' `Dialog` window, providing a view to a single row selected from the DataTable
 
 
 ### Common Properties
@@ -120,22 +120,22 @@ All components take the following common properties:
 
 * `configuration` - A `Configuration` schema object.
 
-### SLDRoot
+### TRRoot
 
-The `SLDRoot` component also takes the following properties:
+The `TRRoot` component also takes the following properties:
 
 * `collections` - An object containing collections, keyed by collection name.
 
-### SLDList
+### TRList
 
-The `SLDList` component also takes the following properties:
+The `TRList` component also takes the following properties:
 
-* `name` - The name of the generated table. This is used to identify the table, for example `SLDRoot` will provide the tab title.
+* `name` - The name of the generated table. This is used to identify the table, for example `TRRoot` will provide the tab title.
 * `collection` - An array of 'data' items.
 
-### SLDDetail
+### TRDetail
 
-The `SLDDetail` component is not usually called directly, being used inside a `Dialog` launched when a row is clicked on.
+The `TRDetail` component is not usually called directly, being used inside a `Dialog` launched when a row is clicked on.
 
 It takes the following properties:
 
@@ -144,7 +144,7 @@ It takes the following properties:
 
 ## Widgets
 
-Fields displayed in the SLDDetail can use a variety of widgets provided to display fields in different ways. The widget can be selected by setting `InputType` in the configuration schema.
+Fields displayed in the TRDetail can use a variety of widgets provided to display fields in different ways. The widget can be selected by setting `InputType` in the configuration schema.
 
 The following widgets are available - mostly wrappers around PrimeVue components of the same/similar name:
 
@@ -199,30 +199,30 @@ This input is special in that it needs callbacks to provide the suggestions for 
 
 ## Events
 
-SLD generates events at various points in the UI. These are all sent to SLD's own `Event Bus`, built using [mitt]{https://github.com/developit/mitt}
+`tabularasa` generates events at various points in the UI. These are all sent to TR's own `Event Bus`, built using [mitt]{https://github.com/developit/mitt}
 
 To provide global access to the bus in your Vue app, do the following:
 
 ```
-Vue.prototype.$sldbus = sld.bus
+Vue.prototype.$trBus = tabularasa.bus
 ```
 
-You can then access the bus in your own components as `this.$sldbus` or `$sldbus` inside the template.
+You can then access the bus in your own components as `this.$trBus` or `$trBus` inside the template.
 
 Events are sent using the `emit` method, and listened to using the `on` method:
 
 ```
-// SLD component
-this.$sldbus.emit('message', 'Hello World')
+// tabularasa component
+this.$trBus.emit('message', 'Hello World')
 
 // Your component
-this.$sldbus.on('message', (msg) => console.log(msg))
+this.$trBus.on('message', (msg) => console.log(msg))
 ```
 
 If you don't want to have access to the bus 'globally' you can instead do the following in a specific component:
 
 ```
-import { bus } from 'sld'
+import { bus } from 'tabularasa'
 ```
 
 ### Event Scoping
@@ -230,50 +230,50 @@ import { bus } from 'sld'
 Since components may be reused, events can be scoped by setting the `name` property on a component, for example:
 
 ```
-<SLDList :name="people" />
-<SLDList :name="blogs" />
+<TRList :name="people" />
+<TRList :name="blogs" />
 ```
 
-This is the default behaviour for SLDRoot, which sets `name` on child `SLDList` components to be the collection key from the passed-in data.
+This is the default behaviour for TRRoot, which sets `name` on child `TRList` components to be the collection key from the passed-in data.
 
 This name will then be prepended to the event label, separated by a `:`.
 
 You can either listen for events within a specific component, e.g:
 
 ```
-this.$sldbus.on('SLDRoot:activeTab', (name) => console.log(name))
+this.$trBus.on('TRRoot:activeTab', (name) => console.log(name))
 ```
 
 Or you can use the wildcard `*` to listen for all events, and then filter on event label, e.g:
 
 ```
-this.$sldbus.on('*', (label, msg) => {
+this.$trBus.on('*', (label, msg) => {
   if label.includes(':save:') {
     console.log('Saved'))
   }
 }
 ```
 
-### SLDRoot Events
+### TRRoot Events
 
 * _activeTab_ - Active Tab event. Event passes the `collection_name` from the schema of the active/focused tab.
 
-### SLDList Events
+### TRList Events
 
 * _page_ - Pagination event. Event passes an object containing `offset` and `limit` values. Useful for dynamic data fetching/updating from an API.
-* _load_ - Page load event. SLDList component has initialized.
+* _load_ - Page load event. TRList component has initialized.
 * _reload_ - Page reload event. User has pressed the reload button, or part of the UI is requesting a refresh.
 * _rowSelect_ - A row has ben selected. Event passes selected row's data object.
 
 _Note_ - `:name` will be appended, if set.
 
-### SLDDetail Events
+### TRDetail Events
 
 * _update_ - Fires every time a field is updated (e.g. every keypress). Event is an array containing the original data object, and a new object containing the modified field.
 * _blur_ - Field was updated, then lost focus (e.g. user clicked elsewhere). Event is an array containing original data object, and a new object containing the modified field.
 * _save_ - Save button clicked. Event is an array containing the original data object, and a new object containing all modified properties.
 
-_Note_ - `:name` of the 'parent' SLDList will be appended, if set.
+_Note_ - `:name` of the 'parent' TRList will be appended, if set.
 
 These events allow for 3 different modes of operation when users edit your data. For example:
 

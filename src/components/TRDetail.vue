@@ -33,7 +33,7 @@ import TextareaInput from '@/components/inputs/TextareaInput'
 import { TYPERE } from '@/helpers'
 
 export default {
-  name: 'SLDDetail',
+  name: 'TRDetail',
   components: {
     AutocompleteInput,
     BooleanInput,
@@ -69,7 +69,7 @@ export default {
     onBlur(field) {
       // Emit if the blurred field's value has changed
       if (field in this.newItem) {
-        this.$sldbus.emit(`SLDDetail:blur:${this.name}`, [this.item, { [field]: this.newItem[field] }])
+        this.$trBus.emit(`TRDetail:blur:${this.name}`, [this.item, { [field]: this.newItem[field] }])
       }
     },
     onUpdate(field, event) {
@@ -80,10 +80,10 @@ export default {
       let newObj = set({}, field, event)
       Object.assign(this.newItem, newObj)
       // Emit just the changed field
-      this.$sldbus.emit(`SLDDetail:update:${this.name}`, [this.item, newObj])
+      this.$trBus.emit(`TRDetail:update:${this.name}`, [this.item, newObj])
     },
     onSave() {
-      this.$sldbus.emit(`SLDDetail:save:${this.name}`, [this.item, this.newItem])
+      this.$trBus.emit(`TRDetail:save:${this.name}`, [this.item, this.newItem])
       this.$emit('close')
     },
   },

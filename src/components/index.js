@@ -1,5 +1,5 @@
-import SLDDetail from '@/components/SLDDetail.vue'
-import SLDList from '@/components/SLDList.vue'
-import SLDRoot from '@/components/SLDRoot.vue'
+import TRDetail from '@/components/TRDetail.vue'
+import TRList from '@/components/TRList.vue'
+import TRRoot from '@/components/TRRoot.vue'
 
-export { SLDDetail, SLDList, SLDRoot }
+export { TRDetail, TRList, TRRoot }

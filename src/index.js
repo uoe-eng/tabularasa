@@ -6,7 +6,7 @@ import 'primeflex/primeflex.css'
 import mitt from 'mitt'
 import { install } from '@/install'
 
-// Set up an event bus for sld
+// Set up an event bus
 const bus = mitt()
 
 export { bus, install }

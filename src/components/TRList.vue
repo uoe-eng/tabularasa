@@ -42,13 +42,13 @@
       </template>
     </DataTable>
     <Dialog
-      v-if="configuration.SLDDetail"
+      v-if="configuration.TRDetail"
       v-model:visible="dialogVisible"
       :content-style="{overflow: 'visible'}"
       :header="dialogHeader"
     >
-      <SLDDetail
-        :configuration="configuration.SLDDetail"
+      <TRDetail
+        :configuration="configuration.TRDetail"
         :item="selectedRow"
         :name="name"
         @close="dialogVisible = false"
@@ -64,7 +64,7 @@ import Dialog from 'primevue/dialog'
 import merge from 'lodash.merge'
 import { getFieldValue } from '@/helpers'
 
-// FIXME: global import (DRY with SLDDetail)
+// FIXME: global import (DRY with TRDetail)
 import BooleanDisplay from '@/components/displays/BooleanDisplay'
 import ChipsDisplay from '@/components/displays/ChipsDisplay'
 
@@ -80,7 +80,7 @@ const DT_PROPS = {
 }
 
 export default {
-  name: 'SLDList',
+  name: 'TRList',
   components: {
     BooleanDisplay,
     ChipsDisplay,
@@ -105,7 +105,7 @@ export default {
   },
   data() {
     // Merge defaults with passed-in property
-    let dtProps = merge({}, DT_PROPS, this.configuration.SLDList.properties)
+    let dtProps = merge({}, DT_PROPS, this.configuration.TRList.properties)
     return {
       dtProps: dtProps,
       dialogHeader: '',
@@ -120,7 +120,7 @@ export default {
   computed: {
     columns() {
       // Get column metadata from collections
-      return this.configuration.SLDList.fields
+      return this.configuration.TRList.fields
     },
     processedRows() {
       let collection = this.collection
@@ -139,13 +139,13 @@ export default {
     onPage(event) {
       this.offset = event.first
       this.limit = event.rows
-      this.$sldbus.emit(`SLDList:page:${this.name}`, { offset: this.offset, limit: this.limit })
+      this.$trBus.emit(`TRList:page:${this.name}`, { offset: this.offset, limit: this.limit })
     },
     onLoad() {
-      this.$sldbus.emit(`SLDList:load:${this.name}`)
+      this.$trBus.emit(`TRList:load:${this.name}`)
     },
     onReload() {
-      this.$sldbus.emit(`SLDList:reload:${this.name}`)
+      this.$trBus.emit(`TRList:reload:${this.name}`)
     },
     onRowSelect(event) {
       // Existing data or empty object
@@ -155,7 +155,7 @@ export default {
         this.dialogHeader = 'Edit item'
         this.selectedRow = event.data
       }
-      this.$sldbus.emit(`SLDList:rowSelect:${this.name}`, this.selectedRow)
+      this.$trBus.emit(`TRList:rowSelect:${this.name}`, this.selectedRow)
       this.dialogVisible = true
     },
   },

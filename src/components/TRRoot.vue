@@ -6,7 +6,7 @@
         :key="key"
         :header="key"
       >
-        <SLDList
+        <TRList
           :configuration="conf"
           :name="key"
           :collection="collections[key]"
@@ -21,7 +21,7 @@ import TabPanel from 'primevue/tabpanel'
 import TabView from 'primevue/tabview'
 
 export default {
-  name: 'SLDRoot',
+  name: 'TRRoot',
   components: {
     TabView,
     TabPanel,
@@ -46,7 +46,7 @@ export default {
       // emit the collection_name 'key' from configuration
       immediate: true,
       handler(newTab) {
-        this.$sldbus.emit(`SLDRoot:activeTab`, Object.keys(this.configuration)[newTab])
+        this.$trBus.emit(`TRRoot:activeTab`, Object.keys(this.configuration)[newTab])
       },
     },
   },

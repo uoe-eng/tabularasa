@@ -1,16 +1,16 @@
 {
-  "name": "sld",
+  "name": "tabularasa",
   "version": "0.0.1",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name sld src/index.js",
+    "build": "vue-cli-service build --target lib --name tabularasa src/index.js",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "prepare": "npm run build",
     "test:coverage": "nyc vue-cli-service test:unit"
   },
-  "main": "dist/sld.umd.js",
+  "main": "dist/tabularasa.umd.js",
   "files": [
     "dist"
   ],
