@@ -1,5 +1,5 @@
 {
-  "name": "tabularasa",
+  "name": "@uoe-eng/tabularasa",
   "version": "0.0.1",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -14,6 +14,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "core-js": "^3.13.1",
     "lodash.get": "^4.4.2",
