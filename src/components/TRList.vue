@@ -104,15 +104,14 @@ export default {
     },
   },
   data() {
-    // Merge defaults with passed-in property
-    let dtProps = merge({}, DT_PROPS, this.configuration.TRList.properties)
+    // Set initial limit value from dtProps
+    let limit = this.dtProps.limit
     return {
-      dtProps: dtProps,
       dialogHeader: '',
       dialogVisible: false,
       filter: {},
       offset: 0,
-      limit: dtProps.pageLimit,
+      limit: limit,
       // Data object for the selected row
       selectedRow: undefined,
     }
@@ -121,6 +120,10 @@ export default {
     columns() {
       // Get column metadata from collections
       return this.configuration.TRList.fields
+    },
+    // Merge defaults with passed-in property
+    dtProps() {
+      return merge({}, DT_PROPS, this.configuration.TRList.properties)
     },
     processedRows() {
       let collection = this.collection
