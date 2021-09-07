@@ -104,14 +104,12 @@ export default {
     },
   },
   data() {
-    // Set initial limit value from dtProps
-    let limit = this.dtProps.limit
     return {
       dialogHeader: '',
       dialogVisible: false,
+      dtProps: undefined,
       filter: {},
       offset: 0,
-      limit: limit,
       // Data object for the selected row
       selectedRow: undefined,
     }
@@ -121,17 +119,22 @@ export default {
       // Get column metadata from collections
       return this.configuration.TRList.fields
     },
-    // Merge defaults with passed-in property
-    dtProps() {
-      return merge({}, DT_PROPS, this.configuration.TRList.properties)
-    },
     processedRows() {
       let collection = this.collection
       // Trim the data for pagination
-      if (this.offset && this.limit) {
-        collection = collection.slice(this.offset, this.offset + this.limit)
+      if (this.offset && this.dtProps.limit) {
+        collection = collection.slice(this.offset, this.offset + this.dtProps.limit)
       }
       return collection
+    },
+  },
+  watch: {
+    configuration: {
+      immediate: true,
+      handler(newVal) {
+        // Merge defaults with passed-in property
+        this.dtProps = merge({}, DT_PROPS, newVal.TRList.properties)
+      },
     },
   },
   created() {
@@ -141,8 +144,8 @@ export default {
     getFieldValue,
     onPage(event) {
       this.offset = event.first
-      this.limit = event.rows
-      this.$trBus.emit(`TRList:page:${this.name}`, { offset: this.offset, limit: this.limit })
+      this.dtProps.limit = event.rows
+      this.$trBus.emit(`TRList:page:${this.name}`, { offset: this.offset, limit: this.dtProps.limit })
     },
     onLoad() {
       this.$trBus.emit(`TRList:load:${this.name}`)
