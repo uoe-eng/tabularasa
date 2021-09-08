@@ -204,25 +204,30 @@ This input is special in that it needs callbacks to provide the suggestions for 
 To provide global access to the bus in your Vue app, do the following:
 
 ```
-Vue.prototype.$trBus = tabularasa.bus
+app.provide('trBus, tabularasa.trBus)
 ```
 
-You can then access the bus in your own components as `this.$trBus` or `$trBus` inside the template.
+You can then access the bus in your own components by injecting it:
+
+```
+import { inject } from 'vue'
+inject('trBus')
+```
 
 Events are sent using the `emit` method, and listened to using the `on` method:
 
 ```
 // tabularasa component
-this.$trBus.emit('message', 'Hello World')
+trBus.emit('message', 'Hello World')
 
 // Your component
-this.$trBus.on('message', (msg) => console.log(msg))
+trBus.on('message', (msg) => console.log(msg))
 ```
 
 If you don't want to have access to the bus 'globally' you can instead do the following in a specific component:
 
 ```
-import { bus } from 'tabularasa'
+import { trBus } from 'tabularasa'
 ```
 
 ### Event Scoping
@@ -241,13 +246,13 @@ This name will then be prepended to the event label, separated by a `:`.
 You can either listen for events within a specific component, e.g:
 
 ```
-this.$trBus.on('TRRoot:activeTab', (name) => console.log(name))
+trBus.on('TRRoot:activeTab', (name) => console.log(name))
 ```
 
 Or you can use the wildcard `*` to listen for all events, and then filter on event label, e.g:
 
 ```
-this.$trBus.on('*', (label, msg) => {
+trBus.on('*', (label, msg) => {
   if label.includes(':save:') {
     console.log('Saved'))
   }
