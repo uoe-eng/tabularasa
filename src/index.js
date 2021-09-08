@@ -7,6 +7,6 @@ import mitt from 'mitt'
 import { install } from '@/install'
 
 // Set up an event bus
-const bus = mitt()
+const trBus = mitt()
 
-export { bus, install }
+export { trBus, install }

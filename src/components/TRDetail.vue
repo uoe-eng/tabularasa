@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { trBus } from '@/index'
 import set from 'lodash.set'
 import AutocompleteInput from '@/components/inputs/AutocompleteInput'
 import BooleanInput from '@/components/inputs/BooleanInput'
@@ -69,7 +70,7 @@ export default {
     onBlur(field) {
       // Emit if the blurred field's value has changed
       if (field in this.newItem) {
-        this.$trBus.emit(`TRDetail:blur:${this.name}`, [this.item, { [field]: this.newItem[field] }])
+        trBus.emit(`TRDetail:blur:${this.name}`, [this.item, { [field]: this.newItem[field] }])
       }
     },
     onUpdate(field, event) {
@@ -80,10 +81,10 @@ export default {
       let newObj = set({}, field, event)
       Object.assign(this.newItem, newObj)
       // Emit just the changed field
-      this.$trBus.emit(`TRDetail:update:${this.name}`, [this.item, newObj])
+      trBus.emit(`TRDetail:update:${this.name}`, [this.item, newObj])
     },
     onSave() {
-      this.$trBus.emit(`TRDetail:save:${this.name}`, [this.item, this.newItem])
+      trBus.emit(`TRDetail:save:${this.name}`, [this.item, this.newItem])
       this.$emit('close')
     },
   },

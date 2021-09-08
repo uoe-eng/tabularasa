@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { trBus } from '@/index'
 import TabPanel from 'primevue/tabpanel'
 import TabView from 'primevue/tabview'
 
@@ -46,7 +47,7 @@ export default {
       // emit the collection_name 'key' from configuration
       immediate: true,
       handler(newTab) {
-        this.$trBus.emit(`TRRoot:activeTab`, Object.keys(this.configuration)[newTab])
+        trBus.emit(`TRRoot:activeTab`, Object.keys(this.configuration)[newTab])
       },
     },
   },

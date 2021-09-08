@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { trBus } from '@/index'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import Dialog from 'primevue/dialog'
@@ -145,13 +146,13 @@ export default {
     onPage(event) {
       this.offset = event.first
       this.dtProps.limit = event.rows
-      this.$trBus.emit(`TRList:page:${this.name}`, { offset: this.offset, limit: this.dtProps.limit })
+      trBus.emit(`TRList:page:${this.name}`, { offset: this.offset, limit: this.dtProps.limit })
     },
     onLoad() {
-      this.$trBus.emit(`TRList:load:${this.name}`)
+      trBus.emit(`TRList:load:${this.name}`)
     },
     onReload() {
-      this.$trBus.emit(`TRList:reload:${this.name}`)
+      trBus.emit(`TRList:reload:${this.name}`)
     },
     onRowSelect(event) {
       // Existing data or empty object
@@ -161,7 +162,7 @@ export default {
         this.dialogHeader = 'Edit item'
         this.selectedRow = event.data
       }
-      this.$trBus.emit(`TRList:rowSelect:${this.name}`, this.selectedRow)
+      trBus.emit(`TRList:rowSelect:${this.name}`, this.selectedRow)
       this.dialogVisible = true
     },
   },
