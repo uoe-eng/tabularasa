@@ -10,40 +10,33 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, defineProps, toRefs } from 'vue'
 import Checkbox from 'primevue/checkbox'
 import { getFieldValue } from '../../helpers'
 
-export default {
-  name: 'BooleanDisplay',
-  components: {
-    Checkbox,
+const props = defineProps({
+  field: {
+    type: String,
+    default: '',
   },
-  props: {
-    field: {
-      type: String,
-      default: '',
-    },
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    properties: {
-      type: Object,
-      default: () => ({}),
-    },
+  item: {
+    type: Object,
+    default: () => ({}),
   },
-  data() {
-    return {
-      display: this.getFieldValue(this.item, this.field),
-    }
+  label: {
+    type: String,
+    default: '',
   },
-  methods: {
-    getFieldValue,
+  properties: {
+    type: Object,
+    default: () => ({}),
   },
-}
+})
+
+let { item, field } = toRefs(props)
+
+let display = computed(() => {
+  return getFieldValue(item.value, field.value)
+})
 </script>
