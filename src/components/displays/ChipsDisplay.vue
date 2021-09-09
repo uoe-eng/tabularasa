@@ -8,50 +8,46 @@
         v-bind="properties"
         class="p-mr-2 p-mb-2"
       >
-        {{ chip[field_name] }}
+        {{ chip[fieldName] }}
       </Chip>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps, toRefs, watch } from 'vue'
 import Chip from 'primevue/chip'
 import { getFieldIterable } from '../../helpers'
 
-export default {
-  name: 'ChipsDisplay',
-  components: {
-    Chip,
+let props = defineProps({
+  field: {
+    type: String,
+    default: '',
   },
-  props: {
-    field: {
-      type: String,
-      default: '',
-    },
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    properties: {
-      type: Object,
-      default: () => ({}),
-    },
+  item: {
+    type: Object,
+    default: () => ({}),
   },
-  data() {
-    return {
-      chips: [],
-      field_name: '',
-    }
+  label: {
+    type: String,
+    default: '',
   },
-  created() {
-    ;[this.chips, this.field_name] = this.getFieldIterable(this.item, this.field)
+  properties: {
+    type: Object,
+    default: () => ({}),
   },
-  methods: {
-    getFieldIterable,
+})
+
+let chips = []
+let fieldName = ''
+
+let { item, field } = toRefs(props)
+
+watch(
+  [item, field],
+  ([newItem, newField]) => {
+    ;[chips, fieldName] = getFieldIterable(newItem, newField)
   },
-}
+  { immediate: true }
+)
 </script>
