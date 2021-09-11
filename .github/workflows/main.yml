@@ -41,3 +41,16 @@ jobs:
         run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
+      - name: github-pages testapp
+        run: |
+          yarn install --frozen-lockfile
+          yarn gh-pages
+          cd gh-pages
+          git config --global user.email "uoe-eng-ci@example.com"
+          git config --global user.name "UOE-ENG CI"
+          git init -b gh-pages
+          git add -A
+          git commit -m 'Github Workflow - CI gh-pages commit'
+          git push -f https://mrichar1:${{ secrets.GITHUB_TOKEN }}@github.com/uoe-eng/tabularasa.git gh-pages
+        shell: bash
