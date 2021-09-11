@@ -4,7 +4,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name tabularasa src/index.js",
-    "gh-pages": "vue-cli-service build --mode production --name gh-pages testapp/src/main.js --dest gh-pages",
+    "gh-pages": "vue-cli-service build --mode gh-pages --name gh-pages testapp/src/main.js --dest gh-pages",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
