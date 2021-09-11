@@ -17,39 +17,17 @@
 
 <script>
 import Textarea from 'primevue/textarea'
-import { getFieldValue } from '../../helpers'
 
+import commonBase from '../commonBase.js'
+
+let { useProps, commonBaseMethods } = commonBase()
 export default {
-  name: 'TextArea',
-  components: {
-    Textarea,
-  },
-  props: {
-    field: {
-      type: String,
-      default: '',
-    },
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    properties: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  components: { Textarea },
+  props: useProps,
   emits: ['update'],
-  data() {
-    return {
-      display: this.getFieldValue(this.item, this.field),
-    }
-  },
-  methods: {
-    getFieldValue,
+  setup(useProps) {
+    let { inputValue } = commonBaseMethods(useProps)
+    return { inputValue }
   },
 }
 </script>

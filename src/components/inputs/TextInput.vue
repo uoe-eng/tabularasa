@@ -6,7 +6,7 @@
     <div class="p-col">
       <InputText
         :id="'input' + field"
-        v-model="display"
+        v-model="inputValue"
         v-bind="properties"
         @update:modelValue="$emit('update', $event)"
       />
@@ -16,39 +16,16 @@
 
 <script>
 import InputText from 'primevue/inputtext'
-import { getFieldValue } from '../../helpers'
+import commonBase from '../commonBase.js'
 
+let { useProps, commonBaseMethods } = commonBase()
 export default {
-  name: 'TextInput',
-  components: {
-    InputText,
-  },
-  props: {
-    field: {
-      type: String,
-      default: '',
-    },
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    properties: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  components: { InputText },
+  props: useProps,
   emits: ['update'],
-  data() {
-    return {
-      display: this.getFieldValue(this.item, this.field),
-    }
-  },
-  methods: {
-    getFieldValue,
+  setup(useProps) {
+    let { inputValue } = commonBaseMethods(useProps)
+    return { inputValue }
   },
 }
 </script>

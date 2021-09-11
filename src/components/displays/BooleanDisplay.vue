@@ -1,8 +1,8 @@
 <template>
   <div>
     <Checkbox
-      :id="'checkbox' + display"
-      :model-value="display"
+      :id="'checkbox' + displayValue"
+      :model-value="displayValue"
       :binary="true"
       v-bind="properties"
       readonly="true"
@@ -10,33 +10,17 @@
   </div>
 </template>
 
-<script setup>
-import { computed, defineProps, toRefs } from 'vue'
+<script>
 import Checkbox from 'primevue/checkbox'
-import { getFieldValue } from '../../helpers'
+import commonBase from '../commonBase.js'
 
-const props = defineProps({
-  field: {
-    type: String,
-    default: '',
+let { useProps, commonBaseMethods } = commonBase()
+export default {
+  components: { Checkbox },
+  props: useProps,
+  setup(useProps) {
+    let { displayValue } = commonBaseMethods(useProps)
+    return { displayValue }
   },
-  item: {
-    type: Object,
-    default: () => ({}),
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  properties: {
-    type: Object,
-    default: () => ({}),
-  },
-})
-
-let { item, field } = toRefs(props)
-
-let display = computed(() => {
-  return getFieldValue(item.value, field.value)
-})
+}
 </script>
