@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Test app</h1>
+    <h1>Tabularasa - Test app</h1>
     <button @click="addRow">
       CHANGE
     </button>
