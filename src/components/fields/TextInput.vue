@@ -16,15 +16,15 @@
 
 <script>
 import InputText from 'primevue/inputtext'
-import commonBase from '../commonBase.js'
+import fieldBase from '../fieldBase.js'
 
-let { useProps, commonBaseMethods } = commonBase()
+let { useProps, fieldBaseMethods } = fieldBase()
 export default {
   components: { InputText },
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let { inputValue } = commonBaseMethods(useProps)
+    let { inputValue } = fieldBaseMethods(useProps)
     return { inputValue }
   },
 }

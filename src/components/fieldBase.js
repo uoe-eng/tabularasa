@@ -21,7 +21,7 @@ export default () => {
     },
   }
 
-  const commonBaseMethods = (props) => {
+  const fieldBaseMethods = (props) => {
     // v-model bound version (for input widgets)
     let inputValue
 
@@ -43,5 +43,5 @@ export default () => {
     return { displayValue, inputValue }
   }
 
-  return { useProps, commonBaseMethods }
+  return { useProps, fieldBaseMethods }
 }
