@@ -23,59 +23,57 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineEmits, defineProps, reactive, toRefs } from 'vue'
 import { trBus } from '@/index'
 import set from 'lodash.set'
 import { TYPERE } from '@/helpers'
 
-export default {
-  name: 'TRDetail',
-  props: {
-    // Collection schema data
-    configuration: {
-      type: Object,
-      required: true,
-    },
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-    name: {
-      type: String,
-      default: '',
-    },
+let props = defineProps({
+  // Collection schema data
+  configuration: {
+    type: Object,
+    required: true,
   },
-  emits: ['close'],
-  data() {
-    return {
-      // We start with an empty object and update it as fields change
-      newItem: {},
-      // Fields to display in the card (from schema)
-      fields: this.configuration.fields,
-    }
+  item: {
+    type: Object,
+    default: () => ({}),
   },
-  methods: {
-    onBlur(field) {
-      // Emit if the blurred field's value has changed
-      if (field in this.newItem) {
-        trBus.emit(`TRDetail:blur:${this.name}`, [this.item, { [field]: this.newItem[field] }])
-      }
-    },
-    onUpdate(field, event) {
-      // Update newItem with field changes
-      // Remove brackets to avoid creating empty arrays/objects
-      field = field.replace(TYPERE, '')
-      // Parse dot-notation field name into a nested object using _.set
-      let newObj = set({}, field, event)
-      Object.assign(this.newItem, newObj)
-      // Emit just the changed field
-      trBus.emit(`TRDetail:update:${this.name}`, [this.item, newObj])
-    },
-    onSave() {
-      trBus.emit(`TRDetail:save:${this.name}`, [this.item, this.newItem])
-      this.$emit('close')
-    },
+  name: {
+    type: String,
+    default: '',
   },
+})
+
+const emit = defineEmits(['close'])
+
+let { configuration } = toRefs(props)
+// We start with an empty object and update it as fields change
+let newItem = reactive({})
+// Fields to display in the card (from schema)
+let fields = configuration.value.fields
+
+const onBlur = (field) => {
+  // Emit if the blurred field's value has changed
+  if (field in newItem) {
+    trBus.emit(`TRDetail:blur:${props.name}`, [props.item, { [field]: newItem[field] }])
+  }
+}
+
+const onUpdate = (field, event) => {
+  // Update newItem with field changes
+  // Remove brackets to avoid creating empty arrays/objects
+  field = field.replace(TYPERE, '')
+  // Parse dot-notation field name into a nested object using _.set
+  let newObj = set({}, field, event)
+  Object.assign(newItem, newObj)
+  // Emit just the changed field
+  trBus.emit(`TRDetail:update:${props.name}`, [props.item, newObj])
+}
+
+const onSave = () => {
+  trBus.emit(`TRDetail:save:${props.name}`, [props.item, newItem])
+  emit('close')
 }
 </script>
 
