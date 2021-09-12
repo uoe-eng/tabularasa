@@ -26,32 +26,33 @@ import faker from 'faker'
     authors: (many) articles -> (many) people
 */
 let COUNT = 100
-let DATA = {}
 
 const fakeData = function (count) {
+  let data = {}
+
   if (count) {
     COUNT = count
   }
   for (let [type, func] of Object.entries(generators)) {
-    DATA[type] = {}
+    data[type] = {}
     for (let i = 0; i < COUNT; i++) {
-      DATA[type][i.toString()] = func(i)
+      data[type][i.toString()] = func(i)
     }
   }
   for (let i = 0; i < COUNT; i++) {
     // Create relationships for every 5th person
     if (i % 5 === 0) {
-      DATA['people'][i]['blogs'].push(DATA['blogs'][i + 1], DATA['blogs'][i + 2])
-      DATA['people'][i]['articles'].push(DATA['articles'][i + 3], DATA['articles'][i + 4])
-      DATA['blogs'][i + 1]['author'] = DATA['people'][i]
-      DATA['blogs'][i + 2]['author'] = DATA['people'][i]
-      DATA['blogs'][i + 1]['articles'].push(DATA['articles'][i + 1], DATA['articles'][i + 2])
-      DATA['blogs'][i + 2]['articles'].push(DATA['articles'][i + 3], DATA['articles'][i + 4])
-      DATA['articles'][i + 3]['authors'].push(DATA['people'][i + 1], DATA['people'][i + 2])
-      DATA['articles'][i + 4]['authors'].push(DATA['people'][i + 3], DATA['people'][i + 4])
+      data['people'][i]['blogs'].push(data['blogs'][i + 1], data['blogs'][i + 2])
+      data['people'][i]['articles'].push(data['articles'][i + 3], data['articles'][i + 4])
+      data['blogs'][i + 1]['author'] = data['people'][i]
+      data['blogs'][i + 2]['author'] = data['people'][i]
+      data['blogs'][i + 1]['articles'].push(data['articles'][i + 1], data['articles'][i + 2])
+      data['blogs'][i + 2]['articles'].push(data['articles'][i + 3], data['articles'][i + 4])
+      data['articles'][i + 3]['authors'].push(data['people'][i + 1], data['people'][i + 2])
+      data['articles'][i + 4]['authors'].push(data['people'][i + 3], data['people'][i + 4])
     }
   }
-  return DATA
+  return data
 }
 
 const generators = {

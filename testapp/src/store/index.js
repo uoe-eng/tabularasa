@@ -23,13 +23,13 @@ const getters = {
 const mutations = {
   save(state, payload) {
     // Merge payload onto state
-    // NB: Don't use merge against the whole store in production!
+    // NB: Don't use merge against the whole store in a 'real' app!
     merge(state, payload)
   },
 }
 
 export default createStore({
-  state: fakeData(100),
+  state: fakeData(),
   actions: actions,
   getters: getters,
   mutations: mutations,

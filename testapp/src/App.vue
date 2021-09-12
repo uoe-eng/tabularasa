@@ -83,7 +83,7 @@ export default {
     reload(collection) {
       console.log('trReload', collection)
       // Repopulate with fresh fakeData
-      this.collectedData = fakeData(this.totalRows)
+      this.$store.commit('save', fakeData())
     },
     rowSelect(collection, event) {
       console.log('trRow', collection, event)
