@@ -65,10 +65,6 @@ import Dialog from 'primevue/dialog'
 import merge from 'lodash.merge'
 import { getFieldValue } from '@/helpers'
 
-// FIXME: global import (DRY with TRDetail)
-import BooleanDisplay from '@/components/displays/BooleanDisplay'
-import ChipsDisplay from '@/components/displays/ChipsDisplay'
-
 // Default config values
 const DT_PROPS = {
   // Define props to be passed 'direct' to DataTable
@@ -83,8 +79,6 @@ const DT_PROPS = {
 export default {
   name: 'TRList',
   components: {
-    BooleanDisplay,
-    ChipsDisplay,
     Column,
     DataTable,
     Dialog,

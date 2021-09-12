@@ -26,11 +26,11 @@
 <script>
 import { trBus } from '@/index'
 import set from 'lodash.set'
-import AutocompleteInput from '@/components/inputs/AutocompleteInput'
-import BooleanInput from '@/components/inputs/BooleanInput'
-import DateInput from '@/components/inputs/DateInput'
-import TextInput from '@/components/inputs/TextInput'
-import TextareaInput from '@/components/inputs/TextareaInput'
+import AutocompleteInput from '@/components/fields/AutocompleteInput'
+import BooleanInput from '@/components/fields/BooleanInput'
+import DateInput from '@/components/fields/DateInput'
+import TextInput from '@/components/fields/TextInput'
+import TextareaInput from '@/components/fields/TextareaInput'
 import { TYPERE } from '@/helpers'
 
 export default {
