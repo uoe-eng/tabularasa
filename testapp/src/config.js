@@ -1,5 +1,4 @@
-export default (vue) => {
-  console.log('V', vue.$store)
+export default (store) => {
   return {
     people: {
       TRList: {
@@ -33,7 +32,6 @@ export default (vue) => {
         ],
         properties: {
           paginatorPosition: 'top',
-          totalRecords: vue.$store.getters.itemCount,
         },
       },
       TRDetail: {
@@ -77,7 +75,7 @@ export default (vue) => {
               onComplete: (query) => {
                 console.log('que', query)
                 // FIXME: Lookup blogs in store
-                return vue.$store.getters['search'](['blogs', 'title', query])
+                return store.getters['search'](['blogs', 'title', query])
               },
             },
           },

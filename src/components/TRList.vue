@@ -125,6 +125,7 @@ export default {
   watch: {
     configuration: {
       immediate: true,
+      deep: true,
       handler(newVal) {
         // Merge defaults with passed-in property
         this.dtProps = merge({}, DT_PROPS, newVal.TRList.properties)

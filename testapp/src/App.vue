@@ -2,38 +2,49 @@
   <div id="app">
     <h1>Tabularasa - Test app</h1>
     <button @click="addRow">
-      CHANGE
+      Add a person
     </button>
     <TRRoot
-      :configuration="config"
+      :configuration="conf"
       :collections="collections"
     />
   </div>
 </template>
 
 <script>
+import { computed, reactive, watch } from 'vue'
+import { useStore } from 'vuex'
 import config from './config'
 import { fakeData } from './fakedata'
 
 export default {
   name: 'App',
-  data() {
-    return {
-      config: config(this),
-      items: {},
-    }
-  },
-  computed: {
-    collections() {
-      return this.$store.getters.tableData
-    },
+  setup() {
+    const store = useStore()
+    let conf = reactive(config(store))
+    let items = {}
+
+    const collections = computed(() => {
+      return store.getters.getCollections
+    })
+
+    // Update totalRecords count if collections changes
+    watch(
+      collections,
+      () => {
+        for (let key of Object.keys(conf)) {
+          if (!('properties' in conf[key].TRList)) {
+            conf[key].TRList.properties = {}
+          }
+          conf[key].TRList.properties.totalRecords = store.getters.itemCount(key)
+        }
+      },
+      { immediate: true }
+    )
+
+    return { conf, items, collections }
   },
   created() {
-    // FIXME: This isn't reactive!
-    for (let key of Object.keys(this.config)) {
-      this.config[key].TRList.properties.totalRecords = this.$store.getters.itemCount(key)
-    }
-
     // Register callbacks for tr events
     this.$trBus.on('*', this.event)
     this.$trBus.on('reload', this.trReload)

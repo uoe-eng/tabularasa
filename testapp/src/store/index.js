@@ -7,17 +7,16 @@ const actions = {}
 const getters = {
   itemCount: (state) => (key) => {
     if (key in state) {
-      console.log('COUNT', Object.keys(state[key]).length)
       return Object.keys(state[key]).length
     }
   },
-  tableData: (state) => {
+  getCollections: (state) => {
     // Convert object-based state into arrays for DataTable
-    let tableData = {}
+    let collections = {}
     for (let [key, val] of Object.entries(state)) {
-      tableData[key] = Object.values(val)
+      collections[key] = Object.values(val)
     }
-    return tableData
+    return collections
   },
 }
 
