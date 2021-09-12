@@ -154,12 +154,14 @@ Fields displayed in the TRDetail can use a variety of widgets provided to displa
 
 The following widgets are available - mostly wrappers around PrimeVue components of the same/similar name:
 
-* `BooleanInput` - Display true/false as a checkbox
-* `DateInput` - Display a calendar date picker
+* `BooleanDisplay` - Display true/false as a checkbox
 * `ChipsDisplay` - Display multiple items as 'chips'
-* `AutocompleteInput` - Display single or multiple items as test or 'chips'
-* `TextInput` - Display text strings
-* `TextareaInput` - Display text boxes (for long strings)
+* `AutocompleteInput` - Display single or multiple items as text or 'chips'
+* `BooleanInput` - Input true/false as a checkbox
+* `DateInput` - Input with a calendar date picker
+* `NumberInput` - Input number/currency strings
+* `TextInput` - Input text strings
+* `TextareaInput` - Input text boxes (for long strings)
 
 ### AutocompleteInput
 

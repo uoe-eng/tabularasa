@@ -39,7 +39,10 @@ export default (store) => {
           {
             label: 'ID',
             field: 'id',
-            component: 'TextInput',
+            component: 'NumberInput',
+            properties: {
+              useGrouping: false,
+            },
           },
           {
             label: 'First Name',
