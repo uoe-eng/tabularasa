@@ -16,53 +16,41 @@
 
 <script>
 import Calendar from 'primevue/calendar'
+import commonBase from '../commonBase.js'
+
+let { useProps, commonBaseMethods } = commonBase()
 
 export default {
   name: 'DateInput',
-  components: {
-    Calendar,
-  },
-  props: {
-    field: {
-      type: String,
-      default: '',
-    },
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-  },
+  components: { Calendar },
+  props: useProps,
   emits: ['update'],
-  data() {
-    return {
-      dateValue: this.item[this.field],
+  setup(useProps, context) {
+    let { inputValue } = commonBaseMethods(useProps)
+
+    let onUpdate = (event) => {
+      // Subtract timezone offset from time to 'convert' to UTC
+      // and prevent processing in local time and potentially cross the day boundary
+      event.setMinutes(event.getMinutes() - event.getTimezoneOffset())
+      // Send event as ISO8601 string
+      context.emit('update', event.toISOString())
     }
+    return { inputValue, onUpdate }
   },
   computed: {
     date: {
       get() {
         // Convert date string to date object for Calendar
-        // only if dateValue is defined (Date(undefined) == 'now')
+        // only if inputValue is defined (Date(undefined) == 'now')
         let date
-        if (this.dateValue) {
-          date = new Date(this.dateValue)
+        if (this.inputValue) {
+          date = new Date(this.inputValue)
         }
         return date
       },
       set(newDate) {
-        this.dateValue = newDate
+        this.inputValue = newDate
       },
-    },
-  },
-  methods: {
-    onUpdate(event) {
-      // Subtract timezone offset from time to 'convert' to UTC.
-      event.setMinutes(event.getMinutes() - event.getTimezoneOffset())
-      this.$emit('update', event)
     },
   },
 }
