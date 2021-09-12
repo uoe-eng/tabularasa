@@ -90,7 +90,7 @@ export default {
     },
     save(collection, [oldObj, newObj]) {
       console.log('SAVE', collection, oldObj, newObj)
-      let id = oldObj['id']
+      let id = newObj['id'] || oldObj['id']
       let newData = {
         [collection]: {
           [id]: newObj,
