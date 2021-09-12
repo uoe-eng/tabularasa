@@ -57,7 +57,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, defineProps, ref, watch } from 'vue'
 import { trBus } from '@/index'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
@@ -76,91 +77,77 @@ const DT_PROPS = {
   selectionMode: 'single',
 }
 
-export default {
-  name: 'TRList',
-  components: {
-    Column,
-    DataTable,
-    Dialog,
+let props = defineProps({
+  configuration: {
+    type: Object,
+    required: true,
   },
-  props: {
-    configuration: {
-      type: Object,
-      required: true,
-    },
-    collection: {
-      type: Array,
-      default: () => [],
-    },
-    // Collection name
-    name: {
-      type: String,
-      default: '',
-    },
+  collection: {
+    type: Array,
+    default: () => [],
   },
-  data() {
-    return {
-      dialogHeader: '',
-      dialogVisible: false,
-      dtProps: undefined,
-      filter: {},
-      offset: 0,
-      // Data object for the selected row
-      selectedRow: undefined,
-    }
+  // Collection name
+  name: {
+    type: String,
+    default: '',
   },
-  computed: {
-    columns() {
-      // Get column metadata from collections
-      return this.configuration.TRList.fields
-    },
-    processedRows() {
-      // Trim the data for pagination
-      if (this.offset && this.dtProps.limit) {
-        return this.collection.slice(this.offset, this.offset + this.dtProps.limit)
-      }
-      return this.collection
-    },
-  },
-  watch: {
-    configuration: {
-      immediate: true,
-      deep: true,
-      handler(newVal) {
-        // Merge defaults with passed-in property
-        this.dtProps = merge({}, DT_PROPS, newVal.TRList.properties)
-      },
-    },
-  },
-  created() {
-    this.onLoad()
-  },
-  methods: {
-    getFieldValue,
-    onPage(event) {
-      this.offset = event.first
-      this.dtProps.limit = event.rows
-      trBus.emit(`TRList:page:${this.name}`, { offset: this.offset, limit: this.dtProps.limit })
-    },
-    onLoad() {
-      trBus.emit(`TRList:load:${this.name}`)
-    },
-    onReload() {
-      trBus.emit(`TRList:reload:${this.name}`)
-    },
-    onRowSelect(event) {
-      // Existing data or empty object
-      this.dialogHeader = 'New item'
-      this.selectedRow = {}
-      if (event.data) {
-        this.dialogHeader = 'Edit item'
-        this.selectedRow = event.data
-      }
-      trBus.emit(`TRList:rowSelect:${this.name}`, this.selectedRow)
-      this.dialogVisible = true
-    },
-  },
+})
+
+let dialogHeader = ref('')
+let dialogVisible = ref(false)
+// Use ref, not reactive, as we replace the whole object, rather than modify its properties
+let dtProps = ref({})
+let selectedRow = ref({})
+let offset = ref(0)
+
+const columns = computed(() => {
+  // Get column metadata from collections
+  return props.configuration.TRList.fields
+})
+
+const onPage = (event) => {
+  offset.value = event.first
+  dtProps.value.limit = event.rows
+  trBus.emit(`TRList:page:${props.name}`, { offset: offset.value, limit: dtProps.value.limit })
 }
+
+const onReload = () => {
+  trBus.emit(`TRList:reload:${props.name}`)
+}
+
+const onRowSelect = (event) => {
+  // Existing data or empty object
+  dialogHeader.value = 'New item'
+  selectedRow.value = {}
+  if (event.data) {
+    dialogHeader.value = 'Edit item'
+    selectedRow.value = event.data
+  }
+  trBus.emit(`TRList:rowSelect:${props.name}`, selectedRow.value)
+  dialogVisible.value = true
+}
+
+const processedRows = computed(() => {
+  // Trim the data for pagination
+  if (offset && dtProps.value.limit) {
+    return props.collection.slice(offset.value, offset.value + dtProps.value.limit)
+  }
+  return props.collection
+})
+
+watch(
+  props.configuration,
+  (newVal) => {
+    // Merge defaults with passed-in property
+    dtProps.value = merge(dtProps.value, DT_PROPS, newVal.TRList.properties)
+  },
+  {
+    immediate: true,
+    deep: true,
+  }
+)
+
+trBus.emit(`TRList:load:${props.name}`)
 </script>
 
 <style scoped></style>
