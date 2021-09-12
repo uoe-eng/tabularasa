@@ -6,7 +6,7 @@
     <div class="p-col">
       <Checkbox
         :id="'input' + field"
-        v-model="display"
+        v-model="inputValue"
         v-bind="properties"
         :binary="true"
         @update:modelValue="$emit('update', $event)"
@@ -17,41 +17,20 @@
 
 <script>
 import Checkbox from 'primevue/checkbox'
-import { getFieldValue } from '../../helpers'
+import commonBase from '../commonBase.js'
+
+let { useProps, commonBaseMethods } = commonBase()
 
 export default {
   name: 'BooleanInput',
   components: {
     Checkbox,
   },
-  props: {
-    field: {
-      type: String,
-      default: '',
-    },
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: '',
-    },
-    properties: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  props: useProps,
   emits: ['update'],
-  data() {
-    return {
-      // We must use v-model for Checkbox, so 'copy' the boolean value here
-      // We still rely on the 'update' to modify the data in DetailCard
-      display: this.getFieldValue(this.item, this.field),
-    }
-  },
-  methods: {
-    getFieldValue,
+  setup(useProps) {
+    let { inputValue } = commonBaseMethods(useProps)
+    return { inputValue }
   },
 }
 </script>

@@ -7,7 +7,7 @@
     <div class="p-col">
       <Textarea
         :id="'input' + field"
-        v-model="display"
+        v-model="inputValue"
         v-bind="properties"
         @update:modelValue="$emit('update', $event)"
       />
