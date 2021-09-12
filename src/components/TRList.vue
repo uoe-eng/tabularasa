@@ -115,12 +115,11 @@ export default {
       return this.configuration.TRList.fields
     },
     processedRows() {
-      let collection = this.collection
       // Trim the data for pagination
       if (this.offset && this.dtProps.limit) {
-        collection = collection.slice(this.offset, this.offset + this.dtProps.limit)
+        return this.collection.slice(this.offset, this.offset + this.dtProps.limit)
       }
-      return collection
+      return this.collection
     },
   },
   watch: {

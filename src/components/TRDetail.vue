@@ -26,22 +26,10 @@
 <script>
 import { trBus } from '@/index'
 import set from 'lodash.set'
-import AutocompleteInput from '@/components/fields/AutocompleteInput'
-import BooleanInput from '@/components/fields/BooleanInput'
-import DateInput from '@/components/fields/DateInput'
-import TextInput from '@/components/fields/TextInput'
-import TextareaInput from '@/components/fields/TextareaInput'
 import { TYPERE } from '@/helpers'
 
 export default {
   name: 'TRDetail',
-  components: {
-    AutocompleteInput,
-    BooleanInput,
-    DateInput,
-    TextInput,
-    TextareaInput,
-  },
   props: {
     // Collection schema data
     configuration: {
