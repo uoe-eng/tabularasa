@@ -27,7 +27,6 @@ export default (store) => {
             label: 'Blogs',
             field: 'blogs[].title',
             component: 'ChipsDisplay',
-            properties: {},
           },
         ],
         properties: {
