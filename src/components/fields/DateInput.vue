@@ -18,7 +18,7 @@
 import Calendar from 'primevue/calendar'
 import fieldBase from '../fieldBase.js'
 
-let { useProps, fieldBaseMethods } = fieldBase()
+let { useProps, fieldBaseValue } = fieldBase()
 
 export default {
   name: 'DateInput',
@@ -26,7 +26,7 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps, context) {
-    let { inputValue } = fieldBaseMethods(useProps)
+    let { inputValue } = fieldBaseValue(useProps)
 
     let onUpdate = (event) => {
       // Subtract timezone offset from time to 'convert' to UTC

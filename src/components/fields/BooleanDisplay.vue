@@ -14,12 +14,12 @@
 import Checkbox from 'primevue/checkbox'
 import fieldBase from '../fieldBase.js'
 
-let { useProps, fieldBaseMethods } = fieldBase()
+let { useProps, fieldBaseValue } = fieldBase()
 export default {
   components: { Checkbox },
   props: useProps,
   setup(useProps) {
-    let { displayValue } = fieldBaseMethods(useProps)
+    let { displayValue } = fieldBaseValue(useProps)
     return { displayValue }
   },
 }

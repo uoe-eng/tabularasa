@@ -19,7 +19,7 @@
 import Checkbox from 'primevue/checkbox'
 import fieldBase from '../fieldBase.js'
 
-let { useProps, fieldBaseMethods } = fieldBase()
+let { useProps, fieldBaseValue } = fieldBase()
 
 export default {
   name: 'BooleanInput',
@@ -29,7 +29,7 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let { inputValue } = fieldBaseMethods(useProps)
+    let { inputValue } = fieldBaseValue(useProps)
     return { inputValue }
   },
 }

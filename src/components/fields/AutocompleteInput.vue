@@ -1,13 +1,13 @@
 <template>
   <div class="p-grid">
     <div class="p-col">
-      <label :for="'input' + field_name">{{ label }}</label>
+      <label :for="'input' + fieldName">{{ label }}</label>
     </div>
     <div class="p-col">
       <AutoComplete
-        :id="'input' + field_name"
+        :id="'input' + fieldName"
         v-model="data"
-        :field="field_name"
+        :field="fieldName"
         :delay="600"
         :min-length="1"
         :suggestions="suggestions"
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { ref, toRefs, watch } from 'vue'
 import AutoComplete from 'primevue/autocomplete'
 import { getFieldIterable } from '../../helpers'
 
@@ -57,26 +58,31 @@ export default {
     },
   },
   emits: ['update'],
-  data() {
-    return {
-      data: [],
-      field_name: '',
-      suggestions: [],
-    }
-  },
-  created() {
-    ;[this.data, this.field_name] = this.getFieldIterable(this.item, this.field)
-  },
-  methods: {
-    getFieldIterable,
-    onComplete(query) {
-      if ('onComplete' in this.methods) {
-        this.suggestions = this.methods.onComplete(query.query)
+  setup(props) {
+    let data = ref([])
+    let fieldName = ref('')
+    let suggestions = ref([])
+
+    let { item, field, methods } = toRefs(props)
+
+    let onComplete = (query) => {
+      if ('onComplete' in methods.value) {
+        suggestions.value = methods.value.onComplete(query.query)
       } else {
         // Blank the suggestions, as if not modified the AC ui 'blocks' forever.
-        this.suggestions = []
+        suggestions.value = []
       }
-    },
+    }
+
+    watch(
+      [item, field],
+      ([newItem, newField]) => {
+        ;[data.value, fieldName.value] = getFieldIterable(newItem, newField)
+      },
+      { immediate: true }
+    )
+
+    return { getFieldIterable, onComplete, data, fieldName, suggestions }
   },
 }
 </script>

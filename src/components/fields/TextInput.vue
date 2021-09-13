@@ -18,13 +18,13 @@
 import InputText from 'primevue/inputtext'
 import fieldBase from '../fieldBase.js'
 
-let { useProps, fieldBaseMethods } = fieldBase()
+let { useProps, fieldBaseValue } = fieldBase()
 export default {
   components: { InputText },
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let { inputValue } = fieldBaseMethods(useProps)
+    let { inputValue } = fieldBaseValue(useProps)
     return { inputValue }
   },
 }

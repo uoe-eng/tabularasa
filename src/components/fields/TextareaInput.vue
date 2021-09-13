@@ -20,13 +20,13 @@ import Textarea from 'primevue/textarea'
 
 import fieldBase from '../fieldBase.js'
 
-let { useProps, fieldBaseMethods } = fieldBase()
+let { useProps, fieldBaseValue } = fieldBase()
 export default {
   components: { Textarea },
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let { inputValue } = fieldBaseMethods(useProps)
+    let { inputValue } = fieldBaseValue(useProps)
     return { inputValue }
   },
 }

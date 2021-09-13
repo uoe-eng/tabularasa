@@ -1,5 +1,5 @@
 import { computed, ref, toRefs, watch } from 'vue'
-import { getFieldValue } from '../helpers'
+import { getFieldIterable, getFieldValue } from '../helpers'
 
 export default () => {
   let useProps = {
@@ -21,7 +21,24 @@ export default () => {
     },
   }
 
-  const fieldBaseMethods = (props) => {
+  const fieldBaseIterable = (props) => {
+    let data = ref([])
+    let fieldName = ref('')
+
+    let { item, field } = toRefs(props)
+
+    // Update data and fieldName if item or field props change
+    watch(
+      [item, field],
+      ([newItem, newField]) => {
+        ;[data, fieldName] = getFieldIterable(newItem, newField)
+      },
+      { immediate: true }
+    )
+    return { data, fieldName }
+  }
+
+  const fieldBaseValue = (props) => {
     // v-model bound version (for input widgets)
     let inputValue
 
@@ -39,9 +56,8 @@ export default () => {
       },
       { immediate: true }
     )
-
     return { displayValue, inputValue }
   }
 
-  return { useProps, fieldBaseMethods }
+  return { useProps, fieldBaseIterable, fieldBaseValue }
 }
