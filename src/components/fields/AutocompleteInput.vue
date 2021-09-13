@@ -65,9 +65,10 @@ export default {
 
     let { item, field, methods } = toRefs(props)
 
-    let onComplete = (query) => {
+    let onComplete = async (query) => {
       if ('onComplete' in methods.value) {
-        suggestions.value = methods.value.onComplete(query.query)
+        // Use await as method might return a promise/be async
+        suggestions.value = await methods.value.onComplete(query.query)
       } else {
         // Blank the suggestions, as if not modified the AC ui 'blocks' forever.
         suggestions.value = []
