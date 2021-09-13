@@ -11,98 +11,83 @@
   </div>
 </template>
 
-<script>
-import { computed, reactive, watch } from 'vue'
+<script setup>
+import { computed, inject, reactive, watch } from 'vue'
 import { useStore } from 'vuex'
 import config from './config'
 import { fakeData } from './fakedata'
 
-export default {
-  name: 'App',
-  setup() {
-    const store = useStore()
-    let conf = reactive(config(store))
-    let items = {}
+const trBus = inject('trBus')
 
-    const collections = computed(() => {
-      return store.getters.getCollections
-    })
+const store = useStore()
+let conf = reactive(config(store))
 
-    // Update totalRecords count if collections changes
-    watch(
-      collections,
-      () => {
-        for (let key of Object.keys(conf)) {
-          if (!('properties' in conf[key].TRList)) {
-            conf[key].TRList.properties = {}
-          }
-          conf[key].TRList.properties.totalRecords = store.getters.itemCount(key)
-        }
+const collections = computed(() => {
+  return store.getters.getCollections
+})
+
+const eventMethods = {
+  addRow: () => {
+    // Test that updating the store is reactive
+    // Table data should update, as should totalRecords/pagination count
+    console.log('addRow')
+    store.commit('save', {
+      people: {
+        100: {
+          id: 100,
+          last_name: 'XXXXX',   // eslint-disable-line
+          email: 'none@example.com',
+        },
       },
-      { immediate: true }
-    )
-
-    return { conf, items, collections }
+    })
+    console.log('NEWSTATE', store.state)
   },
-  created() {
-    // Register callbacks for tr events
-    this.$trBus.on('*', this.event)
-    this.$trBus.on('reload', this.trReload)
-    this.$trBus.on('update', this.trUpdate)
-    this.$trBus.on('save', this.trSave)
+  reload: (collection) => {
+    // Repopulate with fresh fakeData
+    console.log('trReload', collection)
+    store.commit('save', fakeData())
   },
-  methods: {
-    addRow() {
-      // Test that updating the store is reactive
-      // Table data should update, as should totalRecords/pagination count
-      console.log('addRow')
-      this.$store.commit('save', {
-        people: {
-          100: {
-            id: 100,
-            last_name: 'XXXXX',   // eslint-disable-line
-            email: 'none@example.com',
-          },
-        },
-      })
-      console.log('NEWSTATE', this.$store.state)
-    },
-    event(label, event) {
-      // Split a wildcard captured event into it's parts
-      let component = ''
-      let collection = ''
-      ;[component, label, collection] = label.split(':') // eslint-disable-line no-unused-vars
-      // Look for a method with the same name as the event label, and call it.
-      if (label in this) {
-        this[label](collection, event)
-      }
-    },
-    page(collection, event) {
-      console.log('trPage', collection, event)
-    },
-    reload(collection) {
-      console.log('trReload', collection)
-      // Repopulate with fresh fakeData
-      this.$store.commit('save', fakeData())
-    },
-    rowSelect(collection, event) {
-      console.log('trRow', collection, event)
-    },
-    save(collection, [oldObj, newObj]) {
-      console.log('SAVE', collection, oldObj, newObj)
-      let id = newObj['id'] || oldObj['id']
-      let newData = {
-        [collection]: {
-          [id]: newObj,
-        },
-      }
-      this.$store.commit('save', newData)
-    },
-    update(collection, [oldObj, newObj]) {
-      console.log('UPDATE', collection, oldObj, newObj)
-    },
+  save: (collection, [oldObj, newObj]) => {
+    // Update 'db' after detail change
+    console.log('SAVE', collection, oldObj, newObj)
+    let id = newObj['id'] || oldObj['id']
+    let newData = {
+      [collection]: {
+        [id]: newObj,
+      },
+    }
+    store.commit('save', newData)
   },
 }
+
+const event = (label, event) => {
+  // Split a wildcard captured event into it's parts
+  console.log('EVENT', label, event)
+  let component = ''
+  let collection = ''
+  ;[component, label, collection] = label.split(':') // eslint-disable-line no-unused-vars
+  // Look for an 'event' method with the same name as the event label, and call it.
+  if (eventMethods[label]) {
+    eventMethods[label](collection, event)
+  }
+}
+
+// Update totalRecords count if collections changes
+watch(
+  collections,
+  () => {
+    for (let key of Object.keys(conf)) {
+      if (!('properties' in conf[key].TRList)) {
+        conf[key].TRList.properties = {}
+      }
+      conf[key].TRList.properties.totalRecords = store.getters.itemCount(key)
+    }
+  },
+  { immediate: true }
+)
+
+// Register callbacks for tr events
+trBus.on('*', event)
 </script>
 
 <style></style>

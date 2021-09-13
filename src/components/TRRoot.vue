@@ -16,40 +16,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { defineProps, ref, watch } from 'vue'
 import { trBus } from '@/index'
 import TabPanel from 'primevue/tabpanel'
 import TabView from 'primevue/tabview'
 
-export default {
-  name: 'TRRoot',
-  components: {
-    TabView,
-    TabPanel,
+let props = defineProps({
+  configuration: {
+    type: Object,
+    required: true,
   },
-  props: {
-    configuration: {
-      type: Object,
-      required: true,
-    },
-    collections: {
-      type: Object,
-      default: () => ({}),
-    },
+  collections: {
+    type: Object,
+    default: () => ({}),
   },
-  data() {
-    return {
-      activeTab: 0,
-    }
+})
+
+let activeTab = ref(0)
+
+watch(
+  activeTab,
+  (newTab) => {
+    trBus.emit(`TRRoot:activeTab`, Object.keys(props.configuration)[newTab])
   },
-  watch: {
-    activeTab: {
-      // emit the collection_name 'key' from configuration
-      immediate: true,
-      handler(newTab) {
-        trBus.emit(`TRRoot:activeTab`, Object.keys(this.configuration)[newTab])
-      },
-    },
-  },
-}
+  { immediate: true }
+)
 </script>

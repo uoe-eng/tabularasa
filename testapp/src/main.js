@@ -28,7 +28,7 @@ app.component('DateInput', DateInput)
 app.component('NumberInput', NumberInput)
 app.component('TextInput', TextInput)
 app.component('TextareaInput', TextareaInput)
-app.config.globalProperties.$trBus = tr.trBus
+app.provide('trBus', tr.trBus)
 app.use(tr)
 
 app.mount('#app')
