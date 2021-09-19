@@ -44,7 +44,7 @@
     <Dialog
       v-if="configuration.TRDetail"
       v-model:visible="dialogVisible"
-      :content-style="{overflow: 'visible'}"
+      v-bind="configuration.TRDetail.properties"
       :header="dialogHeader"
     >
       <TRDetail
@@ -150,4 +150,13 @@ watch(
 trBus.emit(`TRList:load:${props.name}`)
 </script>
 
-<style scoped></style>
+<style>
+.p-dialog {
+  display: flex;
+  max-height: 100%;
+}
+
+.p-dialog-content {
+  overflow-y: auto;
+}
+</style>
