@@ -44,6 +44,7 @@
     <Dialog
       v-if="configuration.TRDetail"
       v-model:visible="dialogVisible"
+      :maximizable="true"
       v-bind="configuration.TRDetail.properties"
       :header="dialogHeader"
     >
