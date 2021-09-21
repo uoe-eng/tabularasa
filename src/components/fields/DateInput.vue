@@ -32,8 +32,8 @@ export default {
       // Subtract timezone offset from time to 'convert' to UTC
       // and prevent processing in local time and potentially cross the day boundary
       event.setMinutes(event.getMinutes() - event.getTimezoneOffset())
-      // Send event as ISO8601 string
-      context.emit('update', event.toISOString())
+      // Send event as ISO8601 string,removing time part
+      context.emit('update', event.toISOString().strip('T')[0])
     }
     return { inputValue, onUpdate }
   },
