@@ -7,8 +7,8 @@
       <Checkbox
         :id="'input' + field"
         v-model="inputValue"
-        v-bind="properties"
         :binary="true"
+        v-bind="properties"
         @update:modelValue="$emit('update', $event)"
       />
     </div>

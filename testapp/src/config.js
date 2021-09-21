@@ -148,6 +148,9 @@ export default (store) => {
             label: 'Date created',
             field: 'date',
             component: 'DateInput',
+            properties: {
+              dateFormat: 'dd-mm-yy',
+            },
           },
           {
             label: 'Contributors',

@@ -9,7 +9,7 @@
         v-model="data"
         :field="fieldName"
         :delay="600"
-        :forceSelection="true"
+        :force-selection="true"
         :suggestions="suggestions"
         v-bind="properties"
         placeholder="Search..."

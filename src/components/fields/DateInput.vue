@@ -8,6 +8,7 @@
         :id="'input' + field"
         v-model="date"
         date-format="yy-mm-dd"
+        v-bind="properties"
         @update:modelValue="onUpdate($event)"
       />
     </div>
