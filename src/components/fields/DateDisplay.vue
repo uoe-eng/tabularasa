@@ -23,7 +23,13 @@ export default {
   setup(useProps) {
     let { displayValue } = fieldBaseValue(useProps)
     let date = computed(() => {
-      return new Date(displayValue.value)
+      // Convert date string to date object for Calendar
+      // only if inputValue is defined (Date(undefined) == 'now')
+      let date
+      if (displayValue.value) {
+        date = new Date(displayValue.value)
+      }
+      return date
     })
 
     return { date }
