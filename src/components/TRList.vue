@@ -27,8 +27,8 @@
       </Column>
       <template #paginatorLeft>
         <button
+          :id="'newButton_' + name"
           type="submit"
-          class="icon"
           @click="onRowSelect"
         >
           New
