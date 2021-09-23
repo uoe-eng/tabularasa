@@ -108,6 +108,7 @@ export default (store) => {
             field: 'date',
             component: 'DateDisplay',
             properties: {
+              showTime: true,
               dateFormat: 'dd MM yy',
             },
           },
@@ -153,6 +154,8 @@ export default (store) => {
             field: 'date',
             component: 'DateInput',
             properties: {
+              showTime: true,
+              hourFormat: '12',
               dateFormat: 'dd-mm-yy',
             },
           },
