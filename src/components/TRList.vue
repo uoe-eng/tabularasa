@@ -1,7 +1,7 @@
 <template>
   <div :id="'listtable-' + name">
     <DataTable
-      :value="processedRows"
+      :value="collection"
       :class="'listtable-' + name"
       v-bind="dtProps"
       @page="onPage($event)"
@@ -127,14 +127,6 @@ const onRowSelect = (event) => {
   trBus.emit(`TRList:rowSelect:${props.name}`, selectedRow.value)
   dialogVisible.value = true
 }
-
-const processedRows = computed(() => {
-  // Trim the data for pagination
-  if (offset && dtProps.value.limit) {
-    return props.collection.slice(offset.value, offset.value + dtProps.value.limit)
-  }
-  return props.collection
-})
 
 watch(
   props.configuration,

@@ -2,6 +2,10 @@ export default (store) => {
   return {
     people: {
       TRList: {
+        properties: {
+          lazy: false,
+          paginatorPosition: 'top',
+        },
         fields: [
           {
             label: 'ID',
@@ -29,9 +33,6 @@ export default (store) => {
             component: 'ChipsDisplay',
           },
         ],
-        properties: {
-          paginatorPosition: 'top',
-        },
       },
       TRDetail: {
         fields: [
@@ -94,6 +95,10 @@ export default (store) => {
     },
     blogs: {
       TRList: {
+        properties: {
+          lazy: false,
+          paginatorPosition: 'top',
+        },
         fields: [
           {
             label: 'ID',
@@ -123,9 +128,6 @@ export default (store) => {
             component: 'ChipsDisplay',
           },
         ],
-        properties: {
-          paginatorPosition: 'top',
-        },
       },
       TRDetail: {
         fields: [
@@ -172,6 +174,9 @@ export default (store) => {
     },
     articles: {
       TRList: {
+        properties: {
+          lazy: false,
+        },
         fields: [
           {
             label: 'ID',
@@ -187,9 +192,6 @@ export default (store) => {
             component: 'BooleanDisplay',
           },
         ],
-        properties: {
-          paginatorPosition: 'both',
-        },
       },
       TRDetail: {
         fields: [
