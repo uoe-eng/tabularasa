@@ -22,20 +22,19 @@ export default () => {
   }
 
   const fieldBaseIterable = (props) => {
-    let data = ref([])
-    let fieldName = ref('')
-
+    let fieldIter = ref({})
     let { item, field } = toRefs(props)
 
-    // Update data and fieldName if item or field props change
+    // Update data and name if item or field props change
     watch(
       [item, field],
       ([newItem, newField]) => {
-        ;[data, fieldName] = getFieldIterable(newItem, newField)
+        let result = getFieldIterable(newItem, newField)
+        fieldIter.value = { data: result[0], name: result[1] }
       },
       { immediate: true }
     )
-    return { data, fieldName }
+    return fieldIter
   }
 
   const fieldBaseValue = (props) => {
