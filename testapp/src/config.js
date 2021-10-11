@@ -10,6 +10,9 @@ export default (store) => {
           {
             label: 'ID',
             field: 'id',
+            properties: {
+              sortable: true,
+            },
           },
           {
             label: 'First Name',

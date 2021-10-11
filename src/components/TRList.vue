@@ -4,7 +4,9 @@
       :value="collection"
       :class="'listtable-' + name"
       v-bind="dtProps"
-      @page="onPage($event)"
+      @filter="onLazy('filter', $event)"
+      @sort="onLazy('sort', $event)"
+      @page="onLazy('page', $event)"
       @row-select="onRowSelect"
     >
       <Column
@@ -12,6 +14,7 @@
         :key="col.field"
         :field="col.field"
         :header="col.label"
+        v-bind="col.properties"
       >
         <template #body="slotProps">
           <component
@@ -74,6 +77,7 @@ const DT_PROPS = {
   lazy: true,
   paginator: true,
   paginatorPosition: 'both',
+  removableSort: true,
   rows: 20,
   selectionMode: 'single',
 }
@@ -99,17 +103,15 @@ let dialogVisible = ref(false)
 // Use ref, not reactive, as we replace the whole object, rather than modify its properties
 let dtProps = ref({})
 let selectedRow = ref({})
-let offset = ref(0)
 
 const columns = computed(() => {
   // Get column metadata from collections
   return props.configuration.TRList.fields
 })
 
-const onPage = (event) => {
-  offset.value = event.first
+const onLazy = (type, event) => {
   dtProps.value.limit = event.rows
-  trBus.emit(`TRList:page:${props.name}`, { offset: offset.value, limit: dtProps.value.limit })
+  trBus.emit(`TRList:${type}:${props.name}`, event)
 }
 
 const onReload = () => {
