@@ -60,7 +60,15 @@ It takes the following structure:
         // Property in the data object. Can use dot-notation - e.g. 'author.surname' for nested objects.
         field: 'fieldName',
         component: 'CustomDisplay', // A custom widget used to display this field.
+        properties: {
+          // Properties to be passed direct to the 'Column' widget
+        },
       ],
+      filters: {
+        // Fields to enable filtering on
+        // Properties are optional but can be used to set initial filter state
+        field: { value: null, matchMode: 'contains' },
+      },
       properties: {
         // Properties to be passed direct to DataTable (for styling etc)
       },

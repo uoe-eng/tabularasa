@@ -6,6 +6,9 @@ export default (store) => {
           lazy: false,
           paginatorPosition: 'top',
         },
+        filters: {
+          last_name: {},
+        },
         fields: [
           {
             label: 'ID',

@@ -1,6 +1,7 @@
 <template>
   <div :id="'listtable-' + name">
     <DataTable
+      v-model:filters="filters"
       :value="collection"
       :class="'listtable-' + name"
       v-bind="dtProps"
@@ -16,6 +17,17 @@
         :header="col.label"
         v-bind="col.properties"
       >
+        <template
+          v-if="col.field in filters"
+          #filter
+        >
+          <InputText
+            v-model="filters[col.field].value"
+            type="text"
+            class="p-column-filter"
+            placeholder="Filter..."
+          />
+        </template>
         <template #body="slotProps">
           <component
             :is="col.component"
@@ -67,6 +79,7 @@ import { trBus } from '@/index'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import Dialog from 'primevue/dialog'
+import InputText from 'primevue/inputtext'
 import merge from 'lodash.merge'
 import { getFieldValue } from '@/helpers'
 
@@ -103,6 +116,7 @@ let dialogVisible = ref(false)
 // Use ref, not reactive, as we replace the whole object, rather than modify its properties
 let dtProps = ref({})
 let selectedRow = ref({})
+let filters = ref({})
 
 const columns = computed(() => {
   // Get column metadata from collections
@@ -135,6 +149,11 @@ watch(
   (newVal) => {
     // Merge defaults with passed-in property
     dtProps.value = merge(dtProps.value, DT_PROPS, newVal.TRList.properties)
+    if ('filters' in newVal.TRList) {
+      // Enable filtering in UI
+      dtProps.value.filterDisplay = 'row'
+      filters.value = newVal.TRList.filters
+    }
   },
   {
     immediate: true,
