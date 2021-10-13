@@ -19,13 +19,14 @@
       >
         <template
           v-if="col.field in filters"
-          #filter
+          #filter="{filterModel,filterCallback}"
         >
           <InputText
-            v-model="filters[col.field].value"
+            v-model="filterModel.value"
             type="text"
             class="p-column-filter"
             placeholder="Filter..."
+            @keydown.enter="filterCallback()"
           />
         </template>
         <template #body="slotProps">
