@@ -7,7 +7,7 @@ export default (store) => {
           paginatorPosition: 'top',
         },
         filters: {
-          last_name: {},
+          last_name: { operator: 'and', constraints: [{ matchMode: 'contains' }] },
         },
         fields: [
           {

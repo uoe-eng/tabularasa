@@ -148,13 +148,13 @@ const onRowSelect = (event) => {
 watch(
   props.configuration,
   (newVal) => {
-    // Merge defaults with passed-in property
-    dtProps.value = merge(dtProps.value, DT_PROPS, newVal.TRList.properties)
     if ('filters' in newVal.TRList) {
       // Enable filtering in UI
-      dtProps.value.filterDisplay = 'row'
+      DT_PROPS.filterDisplay = 'menu'
       filters.value = newVal.TRList.filters
     }
+    // Merge defaults with passed-in property
+    dtProps.value = merge(dtProps.value, DT_PROPS, newVal.TRList.properties)
   },
   {
     immediate: true,
