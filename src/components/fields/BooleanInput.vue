@@ -6,7 +6,7 @@
     <div class="p-col">
       <Checkbox
         :id="'input' + field"
-        v-model="inputValue"
+        v-model="fieldValue"
         :binary="true"
         v-bind="properties"
         @update:modelValue="$emit('update', $event)"
@@ -29,8 +29,8 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let { inputValue } = fieldBaseValue(useProps)
-    return { inputValue }
+    let { fieldValue } = fieldBaseValue(useProps)
+    return { fieldValue }
   },
 }
 </script>

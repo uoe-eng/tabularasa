@@ -7,7 +7,7 @@
     <div class="p-col">
       <Textarea
         :id="'input' + field"
-        v-model="inputValue"
+        v-model="fieldValue"
         v-bind="properties"
         @update:modelValue="$emit('update', $event)"
       />
@@ -26,8 +26,8 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let { inputValue } = fieldBaseValue(useProps)
-    return { inputValue }
+    let { fieldValue } = fieldBaseValue(useProps)
+    return { fieldValue }
   },
 }
 </script>

@@ -28,7 +28,7 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps, context) {
-    let { inputValue } = fieldBaseValue(useProps)
+    let { fieldValue } = fieldBaseValue(useProps)
 
     let onUpdate = (event) => {
       if (!get(useProps, ['properties', 'showTime'])) {
@@ -39,21 +39,21 @@ export default {
       // Send event as ISO8601 string,removing time part
       context.emit('update', event.toISOString())
     }
-    return { inputValue, onUpdate }
+    return { fieldValue, onUpdate }
   },
   computed: {
     date: {
       get() {
         // Convert date string to date object for Calendar
-        // only if inputValue is defined (Date(undefined) == 'now')
+        // only if fieldValue is defined (Date(undefined) == 'now')
         let date
-        if (this.inputValue) {
-          date = new Date(this.inputValue)
+        if (this.fieldValue) {
+          date = new Date(this.fieldValue)
         }
         return date
       },
       set(newDate) {
-        this.inputValue = newDate
+        this.fieldValue = newDate
       },
     },
   },

@@ -1,8 +1,8 @@
 <template>
   <div>
     <Checkbox
-      :id="'checkbox' + displayValue"
-      :model-value="displayValue"
+      :id="'checkbox' + fieldValue"
+      :model-value="fieldValue"
       :binary="true"
       v-bind="properties"
       readonly="true"
@@ -19,8 +19,8 @@ export default {
   components: { Checkbox },
   props: useProps,
   setup(useProps) {
-    let { displayValue } = fieldBaseValue(useProps)
-    return { displayValue }
+    let { fieldValue } = fieldBaseValue(useProps)
+    return { fieldValue }
   },
 }
 </script>

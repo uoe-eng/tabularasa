@@ -1,4 +1,4 @@
-import { computed, ref, toRefs, watch } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import { getFieldIterable, getFieldValue } from '../helpers'
 
 export default () => {
@@ -38,24 +38,18 @@ export default () => {
   }
 
   const fieldBaseValue = (props) => {
-    // v-model bound version (for input widgets)
-    let inputValue
-
-    // Read-only version (for diplay widgets)
-    let displayValue = computed(() => {
-      return getFieldValue(props.item, props.field)
-    })
-
+    let fieldValue
     let { item, field } = toRefs(props)
-    // Update inputValue if either of item or field props changes
+
+    // Update fieldValue if either of item or field props changes
     watch(
       [item, field],
       ([newItem, newField]) => {
-        inputValue = ref(getFieldValue(newItem, newField))
+        fieldValue = ref(getFieldValue(newItem, newField))
       },
       { immediate: true }
     )
-    return { displayValue, inputValue }
+    return { fieldValue }
   }
 
   return { useProps, fieldBaseIterable, fieldBaseValue }
