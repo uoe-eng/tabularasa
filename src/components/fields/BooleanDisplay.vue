@@ -19,7 +19,7 @@ export default {
   components: { Checkbox },
   props: useProps,
   setup(useProps) {
-    let { fieldValue } = fieldBaseValue(useProps)
+    let fieldValue = fieldBaseValue(useProps)
     return { fieldValue }
   },
 }

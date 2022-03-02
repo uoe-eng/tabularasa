@@ -29,7 +29,7 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let { fieldValue } = fieldBaseValue(useProps)
+    let fieldValue = fieldBaseValue(useProps)
     return { fieldValue }
   },
 }

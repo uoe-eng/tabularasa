@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import get from 'lodash.get'
 import Calendar from 'primevue/calendar'
 import fieldBase from '../fieldBase.js'
@@ -28,16 +29,19 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps, context) {
-    let { fieldValue } = fieldBaseValue(useProps)
+    let fieldValue = ref(fieldBaseValue(useProps))
 
     let onUpdate = (event) => {
-      if (!get(useProps, ['properties', 'showTime'])) {
-        // Subtract timezone offset from time to 'convert' to UTC
-        // and prevent processing in local time and potentially cross the day boundary
-        event.setMinutes(event.getMinutes() - event.getTimezoneOffset())
+      // Ignore field being cleared
+      if (event) {
+        if (!get(useProps, ['properties', 'showTime'])) {
+          // Subtract timezone offset from time to 'convert' to UTC
+          // and prevent processing in local time and potentially cross the day boundary
+          event.setMinutes(event.getMinutes() - event.getTimezoneOffset())
+        }
+        // Send event as ISO8601 string,removing time part
+        context.emit('update', event.toISOString())
       }
-      // Send event as ISO8601 string,removing time part
-      context.emit('update', event.toISOString())
     }
     return { fieldValue, onUpdate }
   },
@@ -53,7 +57,10 @@ export default {
         return date
       },
       set(newDate) {
-        this.fieldValue = newDate
+        // Ignore falsey values
+        if (newDate) {
+          this.fieldValue = newDate
+        }
       },
     },
   },

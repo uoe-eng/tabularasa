@@ -21,15 +21,16 @@ export default {
   components: { Calendar },
   props: useProps,
   setup(useProps) {
-    let { fieldValue } = fieldBaseValue(useProps)
+
     let date = computed(() => {
       // Convert date string to date object for Calendar
       // only if fieldValue is defined (Date(undefined) == 'now')
-      let date
-      if (fieldValue.value) {
-        date = new Date(fieldValue.value)
+      let newDate
+      let val = fieldBaseValue(useProps)
+      if (val) {
+        newDate = new Date(val)
       }
-      return date
+      return newDate
     })
 
     return { date }
