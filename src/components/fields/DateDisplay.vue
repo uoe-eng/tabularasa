@@ -21,7 +21,6 @@ export default {
   components: { Calendar },
   props: useProps,
   setup(useProps) {
-
     let date = computed(() => {
       // Convert date string to date object for Calendar
       // only if fieldValue is defined (Date(undefined) == 'now')

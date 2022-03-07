@@ -1,7 +1,7 @@
 <template>
   <div :id="'detailcard-' + name">
-    <div class="p-grid">
-      <div class="p-col p-fluid">
+    <div class="grid">
+      <div class="col fluid">
         <component
           :is="field.component"
           v-for="field in fields"

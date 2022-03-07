@@ -2,6 +2,7 @@
   <div>
     <Checkbox
       :id="'checkbox' + fieldValue"
+      class="pointer-events-none"
       :model-value="fieldValue"
       :binary="true"
       v-bind="properties"
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 import Checkbox from 'primevue/checkbox'
 import fieldBase from '../fieldBase.js'
 
@@ -19,7 +21,7 @@ export default {
   components: { Checkbox },
   props: useProps,
   setup(useProps) {
-    let fieldValue = fieldBaseValue(useProps)
+    let fieldValue = computed(() => fieldBaseValue(useProps))
     return { fieldValue }
   },
 }

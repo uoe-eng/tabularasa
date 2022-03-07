@@ -1,9 +1,9 @@
 <template>
-  <div class="p-grid">
-    <div class="p-col">
+  <div class="grid">
+    <div class="col">
       <label :for="'input' + fieldName">{{ label }}</label>
     </div>
-    <div class="p-col">
+    <div class="col">
       <AutoComplete
         :id="'input' + fieldName"
         v-model="data"

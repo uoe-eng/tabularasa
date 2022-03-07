@@ -1,11 +1,11 @@
 <template>
-  <div class="p-grid">
-    <div class="p-col">
-      <label :for="'input' + field">{{ label }}</label>
+  <div class="grid">
+    <div class="col">
+      <label :for="'input' + fieldValue">{{ label }}</label>
     </div>
-    <div class="p-col">
+    <div class="col">
       <Calendar
-        :id="'input' + field"
+        :id="'input' + fieldValue"
         v-model="date"
         date-format="yy-mm-dd"
         v-bind="properties"

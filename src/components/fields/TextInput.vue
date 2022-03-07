@@ -1,11 +1,11 @@
 <template>
-  <div class="p-grid">
-    <div class="p-col">
-      <label :for="'input' + field">{{ label }}</label>
+  <div class="grid">
+    <div class="col">
+      <label :for="'input' + fieldValue">{{ label }}</label>
     </div>
-    <div class="p-col">
+    <div class="col">
       <InputText
-        :id="'input' + field"
+        :id="'input' + fieldValue"
         v-model="fieldValue"
         v-bind="properties"
         @update:modelValue="$emit('update', $event)"

@@ -1,11 +1,11 @@
 <template>
-  <div class="p-grid">
-    <div class="p-col">
-      <label :for="'input' + field">{{ label }}</label>
+  <div class="grid">
+    <div class="col">
+      <label :for="'input' + fieldValue">{{ label }}</label>
     </div>
-    <div class="p-col">
+    <div class="col">
       <Checkbox
-        :id="'input' + field"
+        :id="'input' + fieldValue"
         v-model="fieldValue"
         :binary="true"
         v-bind="properties"
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import Checkbox from 'primevue/checkbox'
 import fieldBase from '../fieldBase.js'
 
@@ -29,7 +30,7 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let fieldValue = fieldBaseValue(useProps)
+    let fieldValue = ref(fieldBaseValue(useProps))
     return { fieldValue }
   },
 }

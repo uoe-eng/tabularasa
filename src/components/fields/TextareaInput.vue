@@ -1,12 +1,12 @@
 <template>
-  <div class="p-grid">
-    <div class="p-col">
+  <div class="grid">
+    <div class="col">
       <!-- <span>{{ label }}</span> -->
-      <label :for="'input' + field">{{ label }}</label>
+      <label :for="'input' + fieldValue">{{ label }}</label>
     </div>
-    <div class="p-col">
+    <div class="col">
       <Textarea
-        :id="'input' + field"
+        :id="'input' + fieldValue"
         v-model="fieldValue"
         v-bind="properties"
         @update:modelValue="$emit('update', $event)"
