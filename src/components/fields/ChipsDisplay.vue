@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { computed } from 'vue'
 import Chip from 'primevue/chip'
 import fieldBase from '../fieldBase.js'
 let { useProps, fieldBaseIterable } = fieldBase()
@@ -23,7 +24,7 @@ export default {
   components: { Chip },
   props: useProps,
   setup(useProps) {
-    let field = fieldBaseIterable(useProps)
+    let field = computed(() => fieldBaseIterable(useProps))
     return { field }
   },
 }
