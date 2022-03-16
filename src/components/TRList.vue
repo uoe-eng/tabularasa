@@ -167,9 +167,8 @@ trBus.emit(`TRList:load:${props.name}`)
 
 <style>
 .p-dialog {
-  display: flex;
-  max-height: 100%;
-  min-width: 50vw;
+  /* Set a dialog 'initial' width */
+  width: 66%;
 }
 
 .p-dialog-content {

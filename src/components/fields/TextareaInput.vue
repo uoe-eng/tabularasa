@@ -1,10 +1,10 @@
 <template>
   <div class="grid">
-    <div class="col">
+    <div class="col-4">
       <!-- <span>{{ label }}</span> -->
       <label :for="'input' + fieldValue">{{ label }}</label>
     </div>
-    <div class="col">
+    <div class="col-8">
       <Textarea
         :id="'input' + fieldValue"
         v-model="fieldValue"

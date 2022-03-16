@@ -1,16 +1,27 @@
 <template>
   <div :id="'detailcard-' + name">
-    <div class="grid">
-      <div class="col fluid">
+    <div
+      v-for="field in fields"
+      :key="field.label"
+      class="grid grid-nogutter"
+    >
+      <div class="component col">
         <component
           :is="field.component"
-          v-for="field in fields"
-          :key="field.label"
           :configuration="configuration"
           :item="item"
           v-bind="field"
           @blur="onBlur(field.field)"
           @update="onUpdate(field.field, $event)"
+        />
+      </div>
+      <div :class="`col-${maxButtonCount}`">
+        <Button
+          v-for="button in field.buttons"
+          :key="button"
+          :icon="`pi pi-${button.icon}`"
+          class="buttons"
+          @click="onButton(button, field, item)"
         />
       </div>
     </div>
@@ -24,7 +35,8 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, reactive, toRefs } from 'vue'
+import { computed, defineEmits, defineProps, reactive, toRefs } from 'vue'
+import Button from 'primevue/button'
 import { trBus } from '@/index'
 import set from 'lodash.set'
 import { TYPERE } from '@/helpers'
@@ -60,6 +72,27 @@ const onBlur = (field) => {
   }
 }
 
+const maxButtonCount = computed(() => {
+  // Count buttons to decide on column width
+  let count = []
+  for (let field of fields) {
+    if ('buttons' in field) {
+      count.push(field.buttons.length)
+    }
+  }
+  // Default to col width of 1
+  let width = 1
+  if (count.length) {
+    // Can fit several buttons in 1 col, so scale things
+    width = Math.ceil(Math.max(...count) / 2)
+  }
+  return width
+})
+
+const onButton = (button, field, item) => {
+  trBus.emit(`TRDetail:button:${button.name}`, [button, field, item])
+}
+
 const onUpdate = (field, event) => {
   // Update newItem with field changes
   // Remove brackets to avoid creating empty arrays/objects
@@ -77,4 +110,13 @@ const onSave = () => {
 }
 </script>
 
-<style></style>
+<style>
+/* Stretch field components to fit column - don't resize buttons */
+.component .p-component:not(button) {
+  width: 100%;
+}
+
+.buttons {
+  margin-left: 1px;
+}
+</style>

@@ -1,9 +1,9 @@
 <template>
   <div class="grid">
-    <div class="col">
+    <div class="col-4">
       <label :for="'input' + fieldValue">{{ label }}</label>
     </div>
-    <div class="col">
+    <div class="col-8">
       <Calendar
         :id="'input' + fieldValue"
         v-model="date"
