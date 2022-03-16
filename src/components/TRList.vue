@@ -62,7 +62,7 @@
       :header="dialogHeader"
       :configuration="configuration"
       :visible="dialogVisible"
-      v-bind="configuration"
+      v-bind="configuration.TRDetail"
       :item="selectedRow"
       :name="name"
     />

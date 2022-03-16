@@ -26,6 +26,7 @@ import { defineProps, defineEmits, ref, toRefs, watch } from 'vue'
 import AutoComplete from 'primevue/autocomplete'
 import { getFieldIterable } from '../../helpers'
 
+// FIXME: Why not useProps from fieldBase ?
 let props = defineProps({
   events: {
     type: Object,

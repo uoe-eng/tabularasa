@@ -3,8 +3,8 @@
     <Dialog
       v-model:visible="dialogVisible"
       :maximizable="true"
-      v-bind="configuration.TRDetail.properties"
       :header="header"
+      v-bind="properties"
     >
       <TRDetail
         :configuration="configuration.TRDetail"
@@ -44,6 +44,10 @@ let props = defineProps({
   name: {
     type: String,
     default: '',
+  },
+  properties: {
+    type: Object,
+    default: () => ({}),
   },
   visible: {
     type: Boolean,
