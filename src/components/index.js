@@ -1,4 +1,5 @@
 import TRDetail from '@/components/TRDetail.vue'
+import TRDialog from '@/components/TRDialog.vue'
 import TRList from '@/components/TRList.vue'
 import TRRoot from '@/components/TRRoot.vue'
 
@@ -16,6 +17,7 @@ import TextareaInput from '@/components/fields/TextareaInput'
 
 export {
   TRDetail,
+  TRDialog,
   TRList,
   TRRoot,
   BooleanDisplay,

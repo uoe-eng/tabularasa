@@ -57,20 +57,15 @@
         </button>
       </template>
     </DataTable>
-    <Dialog
+    <TRDialog
       v-if="configuration.TRDetail"
-      v-model:visible="dialogVisible"
-      :maximizable="true"
-      v-bind="configuration.TRDetail.properties"
       :header="dialogHeader"
-    >
-      <TRDetail
-        :configuration="configuration.TRDetail"
-        :item="selectedRow"
-        :name="name"
-        @close="dialogVisible = false"
-      />
-    </Dialog>
+      :configuration="configuration"
+      :visible="dialogVisible"
+      v-bind="configuration"
+      :item="selectedRow"
+      :name="name"
+    />
   </div>
 </template>
 
@@ -79,7 +74,6 @@ import { computed, defineProps, ref, watch } from 'vue'
 import { trBus } from '@/index'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
-import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import merge from 'lodash.merge'
 import { getFieldValue } from '@/helpers'
@@ -142,7 +136,8 @@ const onRowSelect = (event) => {
     selectedRow.value = event.data
   }
   trBus.emit(`TRList:rowSelect:${props.name}`, selectedRow.value)
-  dialogVisible.value = true
+  // Updating the prop value will open dialog (actual boolean value is irrelevant)
+  dialogVisible.value = !dialogVisible.value
 }
 
 watch(
@@ -165,13 +160,4 @@ watch(
 trBus.emit(`TRList:load:${props.name}`)
 </script>
 
-<style>
-.p-dialog {
-  /* Set a dialog 'initial' width */
-  width: 66%;
-}
-
-.p-dialog-content {
-  overflow-y: auto;
-}
-</style>
+<style></style>
