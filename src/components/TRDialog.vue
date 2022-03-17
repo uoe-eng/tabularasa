@@ -68,10 +68,14 @@ watch(visible, () => {
 <style>
 .p-dialog {
   /* Set dialog 'initial' width */
-  min-width: 60%;
+  height: 60%;
+  width: 60%;
+  border: 5px solid #aaaaaa;
 }
 
 .p-dialog-content {
+  height: 100%;
+  width: 100%;
   overflow-y: auto;
 }
 </style>
