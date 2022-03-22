@@ -21,7 +21,7 @@
           :key="button"
           :icon="`pi pi-${button.icon}`"
           class="buttons"
-          @click="onButton(button, field, item)"
+          @click="onButton(button, name, field, item)"
         />
       </div>
     </div>
@@ -89,8 +89,13 @@ const maxButtonCount = computed(() => {
   return width
 })
 
-const onButton = (button, field, item) => {
-  trBus.emit(`TRDetail:button:${button.name}`, [button, field, item])
+const onButton = (button, name, field, item) => {
+  trBus.emit(`TRDetail:button:${button.name}`, {
+    button: button,
+    cardName: name,
+    field: field,
+    item: item,
+  })
 }
 
 const onUpdate = (field, event) => {

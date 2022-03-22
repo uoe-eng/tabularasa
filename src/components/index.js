@@ -15,6 +15,9 @@ import NumberInput from '@/components/fields/NumberInput'
 import TextInput from '@/components/fields/TextInput'
 import TextareaInput from '@/components/fields/TextareaInput'
 
+// Helper functions
+import { TYPERE } from '@/helpers'
+
 export {
   TRDetail,
   TRDialog,
@@ -29,4 +32,5 @@ export {
   NumberInput,
   TextInput,
   TextareaInput,
+  TYPERE,
 }
