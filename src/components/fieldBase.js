@@ -3,6 +3,10 @@ import { getFieldIterable, getFieldValue } from '../helpers'
 
 export default () => {
   let useProps = {
+    events: {
+      type: Object,
+      default: () => ({}),
+    },
     field: {
       type: String,
       default: '',
@@ -14,6 +18,10 @@ export default () => {
     label: {
       type: String,
       default: '',
+    },
+    methods: {
+      type: Object,
+      default: () => ({}),
     },
     properties: {
       type: Object,

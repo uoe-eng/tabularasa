@@ -8,6 +8,7 @@
     >
       <TRDetail
         :configuration="configuration.TRDetail"
+        :dirty="dirty"
         :item="item"
         :name="name"
         @close="dialogVisible = false"
@@ -29,6 +30,10 @@ let props = defineProps({
   collection: {
     type: Array,
     default: () => [],
+  },
+  dirty: {
+    type: Boolean,
+    default: false,
   },
   // Header for Dialog window
   header: {

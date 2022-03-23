@@ -6,7 +6,7 @@
     <div class="col-8">
       <AutoComplete
         :id="'input' + fieldName"
-        v-model="data"
+        v-model="fieldValue"
         :field="fieldName"
         :delay="600"
         :force-selection="true"
@@ -21,62 +21,44 @@
   </div>
 </template>
 
-<script setup>
-import { defineProps, defineEmits, ref, toRefs, watch } from 'vue'
+<script>
+import { ref, toRefs, watch } from 'vue'
 import AutoComplete from 'primevue/autocomplete'
-import { getFieldIterable } from '../../helpers'
+import fieldBase from '../fieldBase.js'
 
-// FIXME: Why not useProps from fieldBase ?
-let props = defineProps({
-  events: {
-    type: Object,
-    default: () => ({}),
-  },
-  field: {
-    type: String,
-    default: '',
-  },
-  item: {
-    type: Object,
-    default: () => ({}),
-  },
-  label: {
-    type: String,
-    default: '',
-  },
-  methods: {
-    type: Object,
-    default: () => ({}),
-  },
-  properties: {
-    type: Object,
-    default: () => ({}),
-  },
-})
+let { useProps, fieldBaseIterable } = fieldBase()
 
-defineEmits(['update'])
+export default {
+  components: { AutoComplete },
+  props: useProps,
+  emits: ['update'],
+  setup(useProps) {
+    let props = toRefs(useProps)
+    let fieldValue = ref([])
+    let fieldName = ref('')
+    let suggestions = ref([])
 
-let data = ref([])
-let fieldName = ref('')
-let suggestions = ref([])
+    watch(
+      [props.item, props.field],
+      () => {
+        let result = fieldBaseIterable(useProps)
+        fieldName.value = result.name
+        fieldValue.value = result.data
+      },
+      { immediate: true }
+    )
 
-let { item, field, methods } = toRefs(props)
+    let onComplete = async (query) => {
+      if ('onComplete' in props.methods.value) {
+        // Use await as method might return a promise/be async
+        suggestions.value = await props.methods.value.onComplete(query.query)
+      } else {
+        // Blank the suggestions, as if not modified the AC ui 'blocks' forever.
+        suggestions.value = []
+      }
+    }
 
-let onComplete = async (query) => {
-  if ('onComplete' in methods.value) {
-    // Use await as method might return a promise/be async
-    suggestions.value = await methods.value.onComplete(query.query)
-  } else {
-    // Blank the suggestions, as if not modified the AC ui 'blocks' forever.
-    suggestions.value = []
-  }
+    return { fieldName, fieldValue, onComplete, suggestions }
+  },
 }
-
-watch(
-  [item, field],
-  ([newItem, newField]) => {
-    ;[data.value, fieldName.value] = getFieldIterable(newItem, newField)
-  },
-  { immediate: true }
-)
 </script>

@@ -1,13 +1,14 @@
 <template>
   <div :id="'detailcard-' + name">
     <div
-      v-for="field in fields"
-      :key="field.label"
+      v-for="(field, index) in fields"
+      :key="index"
       class="grid grid-nogutter"
     >
       <div class="component col">
         <component
           :is="field.component"
+          :ref="(el) => { fieldComponents.push(el) }"
           :configuration="configuration"
           :item="item"
           v-bind="field"
@@ -35,7 +36,7 @@
 </template>
 
 <script setup>
-import { computed, defineEmits, defineProps, reactive, toRefs } from 'vue'
+import { computed, defineEmits, defineProps, onMounted, reactive, ref, toRefs } from 'vue'
 import Button from 'primevue/button'
 import { trBus } from '@/index'
 import set from 'lodash.set'
@@ -55,15 +56,31 @@ let props = defineProps({
     type: String,
     default: '',
   },
+  // If true, 'item' values should be considered 'new' and added to newItem
+  dirty: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['close'])
 
-let { configuration } = toRefs(props)
+let { configuration, dirty, item } = toRefs(props)
+// Array of refs to the field components
+let fieldComponents = ref([])
 // We start with an empty object and update it as fields change
 let newItem = reactive({})
 // Fields to display in the card (from schema)
 let fields = configuration.value.fields
+
+onMounted(() => {
+  if (dirty.value) {
+    // Add field name and value from input component to newItem
+    for (let field of fieldComponents.value) {
+      set(newItem, field.field, field.fieldValue)
+    }
+  }
+})
 
 const onBlur = (field) => {
   // Emit if the blurred field's value has changed
