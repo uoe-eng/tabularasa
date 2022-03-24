@@ -83,19 +83,33 @@ It takes the following structure:
           properties: {
             // Properties to be passed direct to the Input (i.e. PrimeVue component config)
           }
+          buttons: [
+            // Buttons to add alongside each field
+            {
+              // button action added to event
+              action: 'add',
+              // primeicons icon name
+              icon: 'plus',
+              // Any other 'local' config to be included in the button event
+              foo: 'bar',
+            },
+          ],
+          events: {
+            // Events to be passed direct to TRDetail's child components/inputs (for custom events)
+          }
+          methods: {
+            // Methods to be passed direct to TRDetail's child components/inputs (for callbacks etc)
+          }
+          properties: {
+            // Properties to be passed direct to TRDetail's child components/inputs (for styling etc)
+          },
         },
       ],
-      events: {
-        // Events to be passed direct to TRDetail's child components/inputs (for custom events)
-      }
-      methods: {
-        // Methods to be passed direct to TRDetail's child components/inputs (for callbacks etc)
-      }
-      props: {
-        // Properties to be passed direct to TRDetail's child components/inputs (for styling etc)
-      }
-    }
-  }
+      properties: {
+        // Properties to pass to the 'whole' TRDetail card
+      },
+    },
+  },
 }
 ```
 ### Field values
@@ -125,7 +139,8 @@ There are 3 components in `tabularasa`, though in most cases you only need to us
 
 1. `TRRoot` - A `TabView` where each tab is a `TRList`.
 2. `TRList` - A `DataTable`.
-3. `TRDetail` - A 'pop-up' `Dialog` window, providing a view to a single row selected from the DataTable
+3. `TRDialog` - A popup Dialog window containing a `TRDetail` card.
+4. `TRDetail` - An editable form providing a view to a single row selected from the DataTable.
 
 
 ### Common Properties
@@ -147,14 +162,63 @@ The `TRList` component also takes the following properties:
 * `name` - The name of the generated table. This is used to identify the table, for example `TRRoot` will provide the tab title.
 * `collection` - An array of 'data' items.
 
+### TRDialog
+
+The `TRDialog` component also takes the following properties:
+
+* `header` - the dialog window title.
+* `visible` - if the dialog should be shown or hidden.
+* _Any of the properties to be passed to the `TRDetail` child component._
+
 ### TRDetail
 
-The `TRDetail` component is not usually called directly, being used inside a `Dialog` launched when a row is clicked on.
+The `TRDetail` component is not usually called directly, being used inside a `TRDialog` launched when a row is clicked on.
 
 It takes the following properties:
 
+* `dirty` - if set, the values passed in `item` will be added to the new `item` returned on `save`.
 * `name` - The name of the item being displayed (used in `Dialog` title).
 * `item` - The object containing all the item's data.
+
+Each TRDetail consists of rows containing a `label`, `field` (widget), and optional buttons.
+
+## Buttons
+
+TRDetail cards can have `buttons` displayed alongside each field. These are configurable in the schema, and require the following properties:
+
+* `action` - the button name, added to the button `event`.
+* `icon` - the name of a [primeicon](https://www.primefaces.org/primevue/#/icons) icon (excluding the `pi- prefix`).
+* _Any other 'local' properties that are needed by the event handler._
+
+An example `buttons` entry in the schema:
+
+```
+buttons: [
+  {
+    icon: 'plus',
+    action: 'add',
+    name: 'Email',
+    foo: 'bar',
+  }
+]
+```
+
+Clicking on this button will generate an event. for example, if the above config was added in the schema to a `Email` field, in a `Person` card, the result would be:
+
+`TRDetail:button:Email`
+```
+{
+  button: { // the button config from the schema
+    icon: 'plus',
+    action: 'add',
+    name: 'Email',
+    foo: 'bar',
+  }
+  cardName: "Person", // the `name` property of the TRDetail card.
+  field: 'email', // the `fieldName` of the widget associated with this button.
+  item: 'none@example.com', // the current value of the widget associated with this button.
+}
+```
 
 ## Widgets
 
