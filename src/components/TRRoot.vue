@@ -2,7 +2,7 @@
   <div>
     <TabView v-model:activeIndex="activeTab">
       <TabPanel
-        v-for="(conf, key) in configuration"
+        v-for="(conf, key) in listConf"
         :key="key"
         :header="key"
       >
@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, watch } from 'vue'
+import { defineProps, computed, ref, toRefs, watch } from 'vue'
 import { trBus } from '@/index'
 import TabPanel from 'primevue/tabpanel'
 import TabView from 'primevue/tabview'
@@ -34,6 +34,19 @@ let props = defineProps({
 })
 
 let activeTab = ref(0)
+
+let { configuration } = toRefs(props)
+
+let listConf = computed(() => {
+  let lc = {}
+  for (let [key, conf] of Object.entries(configuration.value)) {
+    if (conf.TRList) {
+      lc[key] = conf
+    }
+  }
+  console.log('lc', lc)
+  return lc
+})
 
 watch(
   activeTab,
