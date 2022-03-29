@@ -44,7 +44,6 @@ let listConf = computed(() => {
       lc[key] = conf
     }
   }
-  console.log('lc', lc)
   return lc
 })
 
