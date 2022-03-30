@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { ref, toRefs, watch } from 'vue'
 import InputNumber from 'primevue/inputnumber'
 import fieldBase from '../fieldBase.js'
 
@@ -24,7 +25,16 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let fieldValue = fieldBaseValue(useProps)
+    let fieldValue = ref()
+    let props = toRefs(useProps)
+    watch(
+      [props.field, props.item],
+      () => {
+        fieldValue.value = fieldBaseValue(useProps)
+      },
+      { immediate: true }
+    )
+
     return { fieldValue }
   },
 }

@@ -26,12 +26,27 @@
         />
       </div>
     </div>
-    <button
-      type="submit"
-      @click.once="onSave"
-    >
-      Save
-    </button>
+    <div class="flex justify-content-center">
+      <Button
+        class="flex-3 flex-grow-0 align-items-center action_button"
+        type="submit"
+        @click.once="onSave"
+      >
+        Save
+      </Button>
+      <Button
+        class="flex-3 flex-grow-0 align-items-center action_button"
+        @click="onRefresh"
+      >
+        Revert
+      </Button>
+      <Button
+        class="flex-3 flex-grow-0 align-items-center action_button"
+        @click="emit('close')"
+      >
+        Cancel
+      </Button>
+    </div>
   </div>
 </template>
 
@@ -63,9 +78,9 @@ let props = defineProps({
   },
 })
 
+let { configuration, dirty, item } = toRefs(props)
 const emit = defineEmits(['close'])
 
-let { configuration, dirty, item } = toRefs(props)
 // Array of refs to the field components
 let fieldComponents = ref([])
 // We start with an empty object and update it as fields change
@@ -89,6 +104,11 @@ const onBlur = (field) => {
   }
 }
 
+const onRefresh = () => {
+  // Empty any values already set in newItem
+  newItem = reactive({})
+  trBus.emit(`TRDetail:refresh:${props.name}`)
+}
 const maxButtonCount = computed(() => {
   // Count buttons to decide on column width
   let count = []
@@ -140,5 +160,11 @@ const onSave = () => {
 
 .buttons {
   margin-left: 1px;
+}
+
+/* space between Save/Cancel etc buttons */
+.action_button {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 </style>

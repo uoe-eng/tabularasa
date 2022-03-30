@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import get from 'lodash.get'
 import Calendar from 'primevue/calendar'
 import fieldBase from '../fieldBase.js'
@@ -29,7 +29,15 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps, context) {
-    let fieldValue = ref(fieldBaseValue(useProps))
+    let fieldValue = ref()
+    let props = toRefs(useProps)
+    watch(
+      [props.field, props.item],
+      () => {
+        fieldValue.value = fieldBaseValue(useProps)
+      },
+      { immediate: true }
+    )
 
     let onUpdate = (event) => {
       // Ignore field being cleared

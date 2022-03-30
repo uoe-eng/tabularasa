@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import Checkbox from 'primevue/checkbox'
 import fieldBase from '../fieldBase.js'
 
@@ -30,7 +30,16 @@ export default {
   props: useProps,
   emits: ['update'],
   setup(useProps) {
-    let fieldValue = ref(fieldBaseValue(useProps))
+    let fieldValue = ref()
+    let props = toRefs(useProps)
+    watch(
+      [props.field, props.item],
+      () => {
+        fieldValue.value = fieldBaseValue(useProps)
+      },
+      { immediate: true }
+    )
+
     return { fieldValue }
   },
 }

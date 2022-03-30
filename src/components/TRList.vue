@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, ref, watch } from 'vue'
+import { computed, defineProps, ref, toRefs, watch } from 'vue'
 import { trBus } from '@/index'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
@@ -106,11 +106,13 @@ let props = defineProps({
   },
 })
 
+const { collection } = toRefs(props)
 let dialogHeader = ref('')
 let dialogVisible = ref(false)
 // Use ref, not reactive, as we replace the whole object, rather than modify its properties
 let dtProps = ref({})
 let selectedRow = ref({})
+let rowIndex = ref()
 let filters = ref({})
 
 const columns = computed(() => {
@@ -127,6 +129,11 @@ const onReload = () => {
   trBus.emit(`TRList:reload:${props.name}`)
 }
 
+const onRefresh = () => {
+  // Create a new object with a new reference, or it won't be reactive if underlying data is unchanged
+  selectedRow.value = Object.assign({}, collection.value[rowIndex.value])
+}
+
 const onRowSelect = (event) => {
   // Existing data or empty object
   dialogHeader.value = 'New item'
@@ -134,11 +141,20 @@ const onRowSelect = (event) => {
   if (event.data) {
     dialogHeader.value = 'Edit item'
     selectedRow.value = event.data
+    // Preserve the rowIndex so we can access the item data in onRefresh
+    rowIndex.value = event.index
   }
   trBus.emit(`TRList:rowSelect:${props.name}`, selectedRow.value)
   // Updating the prop value will open dialog (actual boolean value is irrelevant)
   dialogVisible.value = !dialogVisible.value
 }
+
+// Listen for detail card refresh events
+trBus.on('*', (type) => {
+  if (type.startsWith('TRDetail:refresh')) {
+    onRefresh()
+  }
+})
 
 watch(
   props.configuration,
