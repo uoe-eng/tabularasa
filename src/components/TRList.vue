@@ -62,6 +62,7 @@
           <i class="icon pi pi-replay" />
         </button>
       </template>
+      <template #paginatorend />
     </DataTable>
     <TRDialog
       v-if="configuration.TRDetail"
