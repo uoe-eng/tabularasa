@@ -37,11 +37,17 @@
             :configuration="configuration"
             :item="slotProps.data"
             v-bind="col"
+            v-on="col.events || {}"
           />
-          <span v-else>{{ getFieldValue(slotProps.data, slotProps.column.key) }}</span>
+          <div
+            v-else
+            v-on="col.events || {}"
+          >
+            {{ getFieldValue(slotProps.data, slotProps.column.key) }}
+          </div>
         </template>
       </Column>
-      <template #paginatorLeft>
+      <template #paginatorstart>
         <button
           :id="'newButton_' + name"
           type="submit"
