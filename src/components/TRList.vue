@@ -94,7 +94,6 @@ const DT_PROPS = {
   paginatorPosition: 'both',
   removableSort: true,
   rows: 20,
-  selectionMode: 'single',
 }
 
 let props = defineProps({
@@ -166,6 +165,10 @@ trBus.on('*', (type) => {
 watch(
   props.configuration,
   (newVal) => {
+    // Enable row selection if TRDetail defined
+    if ('TRDetail' in newVal) {
+      DT_PROPS.selectionMode = 'single'
+    }
     if ('filters' in newVal.TRList) {
       // Enable filtering in UI
       DT_PROPS.filterDisplay = 'menu'

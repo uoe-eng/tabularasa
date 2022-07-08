@@ -5,6 +5,7 @@ import TRRoot from '@/components/TRRoot.vue'
 
 // Display fields
 import BooleanDisplay from '@/components/fields/BooleanDisplay'
+import ButtonDisplay from '@/components/fields/ButtonDisplay'
 import ChipsDisplay from '@/components/fields/ChipsDisplay'
 import DateDisplay from '@/components/fields/DateDisplay'
 // Input fields
@@ -24,6 +25,7 @@ export {
   TRList,
   TRRoot,
   BooleanDisplay,
+  ButtonDisplay,
   ChipsDisplay,
   DateDisplay,
   AutocompleteInput,
