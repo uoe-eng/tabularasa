@@ -5,8 +5,9 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import mitt from 'mitt'
 import { install } from '@/install'
+import { TYPERE } from '@/helpers'
 
 // Set up an event bus
 const trBus = mitt()
 
-export { trBus, install }
+export { trBus, install, TYPERE }
