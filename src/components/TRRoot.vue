@@ -50,7 +50,7 @@ let listConf = computed(() => {
 watch(
   activeTab,
   (newTab) => {
-    trBus.emit(`TRRoot:activeTab`, Object.keys(props.configuration)[newTab])
+    trBus.emit(`TRRoot:activeTab`, Object.keys(listConf.value)[newTab])
   },
   { immediate: true }
 )
