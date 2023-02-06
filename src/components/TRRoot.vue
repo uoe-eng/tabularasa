@@ -48,9 +48,12 @@ let listConf = computed(() => {
 })
 
 watch(
-  activeTab,
-  (newTab) => {
-    trBus.emit(`TRRoot:activeTab`, Object.keys(listConf.value)[newTab])
+  [activeTab, listConf],
+  ([newTab, newConf]) => {
+    // Only send event if config is populated
+    if (Object.keys(newConf).length) {
+      trBus.emit(`TRRoot:activeTab`, Object.keys(listConf.value)[newTab])
+    }
   },
   { immediate: true }
 )
