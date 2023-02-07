@@ -1,6 +1,6 @@
 {
   "name": "@uoe-eng/tabularasa",
-  "version": "1.21.2",
+  "version": "1.22.0",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name tabularasa src/index.js",
