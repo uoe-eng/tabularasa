@@ -1,14 +1,14 @@
 <template>
   <div :id="'detailcard-' + name">
-    <div
-      v-for="(field, index) in fields"
-      :key="index"
-      class="grid grid-nogutter"
-    >
+    <div v-for="(field, index) in fields" :key="index" class="grid grid-nogutter">
       <div class="component col">
         <component
           :is="field.component"
-          :ref="(el) => { fieldComponents.push(el) }"
+          :ref="
+            (el) => {
+              fieldComponents.push(el)
+            }
+          "
           :configuration="configuration"
           :item="item"
           v-bind="field"
@@ -27,25 +27,11 @@
       </div>
     </div>
     <div class="flex justify-content-center">
-      <Button
-        class="flex-3 flex-grow-0 align-items-center action_button"
-        type="submit"
-        @click.once="onSave"
-      >
+      <Button class="flex-3 flex-grow-0 align-items-center action_button" type="submit" @click.once="onSave">
         Save
       </Button>
-      <Button
-        class="flex-3 flex-grow-0 align-items-center action_button"
-        @click="onRefresh"
-      >
-        Revert
-      </Button>
-      <Button
-        class="flex-3 flex-grow-0 align-items-center action_button"
-        @click="emit('close')"
-      >
-        Cancel
-      </Button>
+      <Button class="flex-3 flex-grow-0 align-items-center action_button" @click="onRefresh"> Revert </Button>
+      <Button class="flex-3 flex-grow-0 align-items-center action_button" @click="emit('close')"> Cancel </Button>
     </div>
   </div>
 </template>
@@ -54,7 +40,7 @@
 import { computed, defineEmits, defineProps, onMounted, reactive, ref, toRefs } from 'vue'
 import Button from 'primevue/button'
 import { trBus } from '@/index'
-import set from 'lodash.set'
+import set from 'lodash/set'
 import { TYPERE } from '@/helpers'
 
 let props = defineProps({

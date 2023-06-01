@@ -1,11 +1,6 @@
 <template>
   <div :id="'TRDialog-' + name">
-    <Dialog
-      v-model:visible="dialogVisible"
-      :maximizable="true"
-      :header="header"
-      v-bind="properties"
-    >
+    <Dialog v-model:visible="dialogVisible" :maximizable="true" :header="header" v-bind="properties">
       <TRDetail
         :configuration="configuration.TRDetail"
         :dirty="dirty"

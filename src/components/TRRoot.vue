@@ -1,16 +1,8 @@
 <template>
   <div>
     <TabView v-model:activeIndex="activeTab">
-      <TabPanel
-        v-for="(conf, key) in listConf"
-        :key="key"
-        :header="key"
-      >
-        <TRList
-          :configuration="conf"
-          :name="key"
-          :collection="collections[key]"
-        />
+      <TabPanel v-for="(conf, key) in listConf" :key="key" :header="key">
+        <TRList :configuration="conf" :name="key" :collection="collections[key]" />
       </TabPanel>
     </TabView>
   </div>

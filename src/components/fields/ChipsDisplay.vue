@@ -1,13 +1,7 @@
 <template>
   <div class="p-d-flex p-ai-center p-flex-column p-flex-sm-row">
-    <div
-      v-for="(chip, index) in field.data"
-      :key="index"
-    >
-      <Chip
-        v-bind="properties"
-        class="p-mr-2 p-mb-2"
-      >
+    <div v-for="(chip, index) in field.data" :key="index">
+      <Chip v-bind="properties" class="p-mr-2 p-mb-2">
         {{ chip[field.name] }}
       </Chip>
     </div>
