@@ -1,23 +1,18 @@
 <template>
   <div>
-    <Button
-      :id="'button' + fieldValue"
-      :label="fieldValue"
-      v-bind="properties"
-      @click="onClick"
-    />
+    <pvButton :id="'button' + fieldValue" :label="fieldValue" v-bind="properties" @click="onClick" />
   </div>
 </template>
 
 <script>
 import { computed } from 'vue'
-import Button from 'primevue/button'
+import pvButton from 'primevue/button'
 import fieldBase from '../fieldBase.js'
 import { trBus } from '@/index'
 
 let { useProps, fieldBaseValue } = fieldBase()
 export default {
-  components: { Button },
+  components: { pvButton },
   props: useProps,
   emits: ['click'],
   setup(useProps) {

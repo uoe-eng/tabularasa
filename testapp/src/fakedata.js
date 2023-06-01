@@ -3,8 +3,8 @@ import faker from 'faker'
   Generate fake data representing an imaginary blog service.
 
   people:
-    first_name
-    last_name
+    firstName
+    lastName
     email
     city
     blogs: (one) people -> (many) blogs
@@ -59,8 +59,8 @@ const generators = {
   people: function (i) {
     return {
       id: i,
-      first_name: { nested_first_name: faker.name.firstName() },
-      last_name: faker.name.lastName(),
+      firstName: { nestedFirstName: faker.name.firstName() },
+      lastName: faker.name.lastName(),
       email: faker.internet.email(),
       city: faker.address.city(),
       blogs: [],

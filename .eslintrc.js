@@ -1,12 +1,5 @@
 module.exports = {
   extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'plugin:prettier-vue/recommended'],
-  settings: {
-    'prettier-vue': {
-      SFCBlocks: {
-        template: false,
-      },
-    },
-  },
   env: {
     browser: true,
     es6: true,
@@ -14,13 +7,14 @@ module.exports = {
     node: true,
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@babel/eslint-parser',
+    requireConfigFile: false,
     ecmaVersion: 2018,
     sourceType: 'module',
   },
   rules: {
-    'prettier-vue/prettier': 'warn',
-    camelcase: ['error', { properties: 'never' }],
+    'prettier-vue/prettier': 'error',
+    camelcase: 'error',
     'no-console': process.env.NODE_ENV === 'production' ? ['error', { allow: ['error'] }] : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },

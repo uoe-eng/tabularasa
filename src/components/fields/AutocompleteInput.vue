@@ -15,7 +15,7 @@
         v-bind="properties"
         v-on="events"
         @complete="onComplete"
-        @update:modelValue="$emit('update', $event)"
+        @update:model-value="$emit('update', $event)"
       />
     </div>
   </div>

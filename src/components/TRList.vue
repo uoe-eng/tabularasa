@@ -10,17 +10,8 @@
       @page="onLazy('page', $event)"
       @row-select="onRowSelect"
     >
-      <Column
-        v-for="col of columns"
-        :key="col.field"
-        :field="col.field"
-        :header="col.label"
-        v-bind="col.properties"
-      >
-        <template
-          v-if="col.field in filters"
-          #filter="{filterModel,filterCallback}"
-        >
+      <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.label" v-bind="col.properties">
+        <template v-if="col.field in filters" #filter="{ filterModel, filterCallback }">
           <InputText
             v-model="filterModel.value"
             type="text"
@@ -39,26 +30,14 @@
             v-bind="col"
             v-on="col.events || {}"
           />
-          <div
-            v-else
-            v-on="col.events || {}"
-          >
+          <div v-else v-on="col.events || {}">
             {{ getFieldValue(slotProps.data, slotProps.column.key) }}
           </div>
         </template>
       </Column>
       <template #paginatorstart>
-        <button
-          :id="'newButton_' + name"
-          type="submit"
-          @click="onRowSelect"
-        >
-          New
-        </button>
-        <button
-          type="submit"
-          @click="onReload"
-        >
+        <button :id="'newButton_' + name" type="submit" @click="onRowSelect">New</button>
+        <button type="submit" @click="onReload">
           <i class="icon pi pi-replay" />
         </button>
       </template>
@@ -82,7 +61,7 @@ import { trBus } from '@/index'
 import Column from 'primevue/column'
 import DataTable from 'primevue/datatable'
 import InputText from 'primevue/inputtext'
-import merge from 'lodash.merge'
+import merge from 'lodash/merge'
 import { getFieldValue } from '@/helpers'
 
 // Default config values

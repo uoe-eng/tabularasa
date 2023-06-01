@@ -7,7 +7,7 @@ export default (store) => {
           paginatorPosition: 'top',
         },
         filters: {
-          last_name: { operator: 'and', constraints: [{ matchMode: 'contains' }] },
+          lastName: { operator: 'and', constraints: [{ matchMode: 'contains' }] },
         },
         fields: [
           {
@@ -19,11 +19,11 @@ export default (store) => {
           },
           {
             label: 'First Name',
-            field: 'first_name.nested_first_name',
+            field: 'firstName.nestedFirstName',
           },
           {
             label: 'Last Name',
-            field: 'last_name',
+            field: 'lastName',
           },
           {
             label: 'Email',
@@ -52,12 +52,12 @@ export default (store) => {
           },
           {
             label: 'First Name',
-            field: 'first_name.nested_first_name',
+            field: 'firstName.nestedFirstName',
             component: 'TextInput',
           },
           {
             label: 'Last Name',
-            field: 'last_name',
+            field: 'lastName',
             component: 'TextInput',
           },
           {
@@ -125,7 +125,7 @@ export default (store) => {
           },
           {
             label: 'Contributors',
-            field: 'articles[].authors[].last_name',
+            field: 'articles[].authors[].lastName',
             component: 'ChipsDisplay',
           },
           {
@@ -149,7 +149,7 @@ export default (store) => {
           },
           {
             label: 'Author',
-            field: 'author.last_name',
+            field: 'author.lastName',
             component: 'AutocompleteInput',
             methods: {
               onComplete: (query) => {
@@ -169,7 +169,7 @@ export default (store) => {
           },
           {
             label: 'Contributors',
-            field: 'articles[].authors[].last_name',
+            field: 'articles[].authors[].lastName',
             component: 'AutocompleteInput',
             properties: {
               multiple: true,
@@ -218,7 +218,7 @@ export default (store) => {
           },
           {
             label: 'Authors',
-            field: 'authors[].last_name',
+            field: 'authors[].lastName',
             component: 'AutocompleteInput',
             properties: {
               multiple: true,

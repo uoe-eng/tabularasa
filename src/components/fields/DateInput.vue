@@ -9,7 +9,7 @@
         v-model="date"
         date-format="yy-mm-dd"
         v-bind="properties"
-        @update:modelValue="onUpdate($event)"
+        @update:model-value="onUpdate($event)"
       />
     </div>
   </div>
@@ -17,7 +17,7 @@
 
 <script>
 import { ref, toRefs, watch } from 'vue'
-import get from 'lodash.get'
+import get from 'lodash/get'
 import Calendar from 'primevue/calendar'
 import fieldBase from '../fieldBase.js'
 

@@ -5,11 +5,11 @@
       <label :for="'input' + fieldValue">{{ label }}</label>
     </div>
     <div class="col-8">
-      <Textarea
+      <pvTextarea
         :id="'input' + fieldValue"
         v-model="fieldValue"
         v-bind="properties"
-        @update:modelValue="$emit('update', $event)"
+        @update:model-value="$emit('update', $event)"
       />
     </div>
   </div>
@@ -17,13 +17,13 @@
 
 <script>
 import { ref, toRefs, watch } from 'vue'
-import Textarea from 'primevue/textarea'
+import pvTextarea from 'primevue/textarea'
 
 import fieldBase from '../fieldBase.js'
 
 let { useProps, fieldBaseValue } = fieldBase()
 export default {
-  components: { Textarea },
+  components: { pvTextarea },
   props: useProps,
   emits: ['update'],
   setup(useProps) {

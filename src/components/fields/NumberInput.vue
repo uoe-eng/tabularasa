@@ -8,7 +8,7 @@
         :id="'input' + fieldValue"
         v-model="fieldValue"
         v-bind="properties"
-        @update:modelValue="$emit('update', $event)"
+        @update:model-value="$emit('update', $event)"
       />
     </div>
   </div>
