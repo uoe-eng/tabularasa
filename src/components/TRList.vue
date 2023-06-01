@@ -162,24 +162,47 @@ trBus.on('*', (type) => {
   }
 })
 
+// Use computed properties to avoid errors trying to watch optional/undefined objects props
+const confTRDetail = computed(() => props.configuration.TRDetail)
+const confFilters = computed(() => props.configuration.TRList.filters)
+
 watch(
-  props.configuration,
-  (newVal) => {
-    // Enable row selection if TRDetail defined
-    if ('TRDetail' in newVal) {
+  confTRDetail,
+  (newDetail) => {
+    if (newDetail) {
+      // Enable row selection if TRDetail defined
       DT_PROPS.selectionMode = 'single'
     }
-    if ('filters' in newVal.TRList) {
-      // Enable filtering in UI
-      DT_PROPS.filterDisplay = 'menu'
-      filters.value = newVal.TRList.filters
-    }
-    // Merge defaults with passed-in property
-    dtProps.value = merge(dtProps.value, DT_PROPS, newVal.TRList.properties)
   },
   {
     immediate: true,
-    deep: true,
+  }
+)
+
+watch(
+  confFilters,
+  (newFilters) => {
+    if (newFilters) {
+      // Enable filtering in UI
+      DT_PROPS.filterDisplay = 'menu'
+      filters.value = newFilters
+    }
+  },
+  {
+    immediate: true,
+  }
+)
+
+watch(
+  props.configuration.TRList.properties,
+  (newProps) => {
+    if (newProps) {
+      // Merge defaults with passed-in properties
+      dtProps.value = merge(dtProps.value, DT_PROPS, newProps)
+    }
+  },
+  {
+    immediate: true,
   }
 )
 
