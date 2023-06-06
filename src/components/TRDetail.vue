@@ -11,6 +11,7 @@
           "
           :configuration="configuration"
           :item="item"
+          :new-item="newItem"
           v-bind="field"
           @blur="onBlur(field.field)"
           @update="onUpdate(field.field, $event)"
