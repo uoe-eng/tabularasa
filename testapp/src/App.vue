@@ -1,13 +1,10 @@
 <template>
   <div id="app">
     <h1>Tabularasa - Test app</h1>
-    <button @click="addRow">
-      Add a person
-    </button>
-    <TRRoot
-      :configuration="conf"
-      :collections="collections"
-    />
+    <button @click="showConfig">Show Configuration (new Tab)</button>
+    <button @click="showCollections">Log Data (console)</button>
+    <button @click="addRow">Add a New Person</button>
+    <TRRoot :configuration="conf" :collections="collections" />
   </div>
 </template>
 
