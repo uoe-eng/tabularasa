@@ -44,11 +44,11 @@
       <template #paginatorend />
     </DataTable>
     <TRDialog
-      v-if="configuration.TRDetail"
+      v-if="configuration.detail"
       :header="dialogHeader"
-      :configuration="configuration"
+      :configuration="configuration.detail"
       :visible="dialogVisible"
-      v-bind="configuration.TRDetail"
+      v-bind="configuration.detail"
       :item="selectedRow"
       :name="name"
     />
@@ -102,7 +102,7 @@ let filters = ref({})
 
 const columns = computed(() => {
   // Get column metadata from collections
-  return props.configuration.TRList.fields
+  return props.configuration.fields
 })
 
 const onLazy = (type, event) => {
@@ -142,8 +142,8 @@ trBus.on('*', (type) => {
 })
 
 // Use computed properties to avoid errors trying to watch optional/undefined objects props
-const confTRDetail = computed(() => props.configuration.TRDetail)
-const confFilters = computed(() => props.configuration.TRList.filters)
+const confTRDetail = computed(() => props.configuration.detail)
+const confFilters = computed(() => props.configuration.filters)
 
 watch(
   confTRDetail,
@@ -173,7 +173,7 @@ watch(
 )
 
 watch(
-  props.configuration.TRList.properties,
+  props.configuration.properties,
   (newProps) => {
     if (newProps) {
       // Merge defaults with passed-in properties

@@ -2,7 +2,7 @@
   <div :id="'TRDialog-' + name">
     <Dialog v-model:visible="dialogVisible" :maximizable="true" :header="header" v-bind="properties">
       <TRDetail
-        :configuration="configuration.TRDetail"
+        :configuration="configuration"
         :dirty="dirty"
         :item="item"
         :name="name"

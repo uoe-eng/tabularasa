@@ -73,11 +73,11 @@ const event = (label, event) => {
 watch(
   collections,
   () => {
-    for (let key of Object.keys(conf)) {
-      if (!('properties' in conf[key].TRList)) {
-        conf[key].TRList.properties = {}
+    for (let [key, entry] of Object.entries(conf.TRRoot)) {
+      if (!('properties' in entry.list)) {
+        entry.list.properties = {}
       }
-      conf[key].TRList.properties.totalRecords = store.getters.itemCount(key)
+      entry.list.properties.totalRecords = store.getters.itemCount(key)
     }
   },
   { immediate: true }
