@@ -9,14 +9,17 @@
         v-model="date"
         date-format="yy-mm-dd"
         v-bind="properties"
+        :class="{ 'p-invalid': errorMessage }"
         @update:model-value="onUpdate($event)"
       />
+      <small v-if="errorMessage" class="p-error">{{ errorMessage }}</small>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, toRefs, watch } from 'vue'
+import { toRefs, watch } from 'vue'
+import { useField } from 'vee-validate'
 import get from 'lodash/get'
 import Calendar from 'primevue/calendar'
 import fieldBase from '../fieldBase.js'
@@ -27,10 +30,19 @@ export default {
   name: 'DateInput',
   components: { Calendar },
   props: useProps,
-  emits: ['update'],
-  setup(useProps, context) {
-    let fieldValue = ref()
+  emits: ['update', 'valid'],
+  setup(useProps, { emit }) {
     let props = toRefs(useProps)
+    let field = useField(props.label.value, props.validator.value)
+    let errorMessage = field.errorMessage
+    let fieldValue = field.value
+    let meta = field.meta
+
+    watch(meta, () => {
+      // Emit validation events when field VV meta changes
+      emit('valid', meta.valid)
+    })
+
     watch(
       [props.field, props.item],
       () => {
@@ -48,10 +60,10 @@ export default {
           event.setMinutes(event.getMinutes() - event.getTimezoneOffset())
         }
         // Send event as ISO8601 string,removing time part
-        context.emit('update', event.toISOString())
+        emit('update', event.toISOString())
       }
     }
-    return { fieldValue, onUpdate }
+    return { errorMessage, fieldValue, onUpdate }
   },
   computed: {
     date: {

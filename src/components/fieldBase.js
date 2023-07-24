@@ -31,6 +31,9 @@ export default () => {
       type: Object,
       default: () => ({}),
     },
+    validator: {
+      type: [Function, Object],
+    },
   }
 
   const fieldBaseIterable = (props) => {

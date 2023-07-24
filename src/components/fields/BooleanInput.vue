@@ -9,14 +9,17 @@
         v-model="fieldValue"
         :binary="true"
         v-bind="properties"
+        :class="{ 'p-invalid': errorMessage }"
         @update:model-value="$emit('update', $event)"
       />
+      <small v-if="errorMessage" class="p-error">{{ errorMessage }}</small>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, toRefs, watch } from 'vue'
+import { toRefs, watch } from 'vue'
+import { useField } from 'vee-validate'
 import Checkbox from 'primevue/checkbox'
 import fieldBase from '../fieldBase.js'
 
@@ -28,10 +31,19 @@ export default {
     Checkbox,
   },
   props: useProps,
-  emits: ['update'],
-  setup(useProps) {
-    let fieldValue = ref()
+  emits: ['update', 'valid'],
+  setup(useProps, { emit }) {
     let props = toRefs(useProps)
+    let field = useField(props.label.value, props.validator.value)
+    let errorMessage = field.errorMessage
+    let fieldValue = field.value
+    let meta = field.meta
+
+    watch(meta, () => {
+      // Emit validation events when field VV meta changes
+      emit('valid', meta.valid)
+    })
+
     watch(
       [props.field, props.item],
       () => {
@@ -40,7 +52,7 @@ export default {
       { immediate: true }
     )
 
-    return { fieldValue }
+    return { errorMessage, fieldValue }
   },
 }
 </script>

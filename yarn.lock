@@ -2040,6 +2040,11 @@
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.15.tgz#ad7cb384e062f165bcf9c83732125bffbc2ad83d"
   integrity sha512-quBx4Jjpexo6KDiNUGFr/zF/2A4srKM9S9v2uHgMXSU//hjgq1eGzqkIFql8T9gfX5ZaVOUzYBP3jIdIR3PKIA==
 
+"@vue/devtools-api@^6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.5.0.tgz#98b99425edee70b4c992692628fa1ea2c1e57d07"
+  integrity sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==
+
 "@vue/reactivity-transform@3.3.4":
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@vue/reactivity-transform/-/reactivity-transform-3.3.4.tgz#52908476e34d6a65c6c21cd2722d41ed8ae51929"
@@ -7724,6 +7729,11 @@ type-fest@^0.8.1:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==
 
+type-fest@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.0.0.tgz#1c87b05c3f0304a2f911b5a47bb45fa4d62031db"
+  integrity sha512-d/oYtUnPM9zar2fqqGLYPzgcY0qUlYK0evgNVti93xpzfjGkMgZHu9Lvgrkn0rqGXTgsFRxFamzjGoD9Uo+dgw==
+
 type-is@~1.6.18:
   version "1.6.18"
   resolved "https://registry.yarnpkg.com/type-is/-/type-is-1.6.18.tgz#4e552cd05df09467dcbc4ef739de89f2cf37c131"
@@ -7858,6 +7868,14 @@ vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
+
+vee-validate@^4.10.8:
+  version "4.10.8"
+  resolved "https://registry.yarnpkg.com/vee-validate/-/vee-validate-4.10.8.tgz#0e3ba44463cf52a12e85e6c11609a9422350f983"
+  integrity sha512-4VWziid3tdlIMGWr0D24YG/e+Q+M6TMK2DQg8dMvufgNyHFIpKxkMKwWoSMuQS0Pi0wKJEo5F5Kok8pXlei4vA==
+  dependencies:
+    "@vue/devtools-api" "^6.5.0"
+    type-fest "^4.0.0"
 
 vue-eslint-parser@^9.3.0:
   version "9.3.0"

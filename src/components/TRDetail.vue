@@ -15,6 +15,7 @@
           v-bind="field"
           @blur="onBlur(field.field)"
           @update="onUpdate(field.field, $event)"
+          @valid="onValid(field.field, $event)"
         />
       </div>
       <div :class="`col-${maxButtonCount}`">
@@ -28,7 +29,12 @@
       </div>
     </div>
     <div class="flex justify-content-center">
-      <Button class="flex-3 flex-grow-0 align-items-center action_button" type="submit" @click.once="onSave">
+      <Button
+        class="flex-3 flex-grow-0 align-items-center action_button"
+        :disabled="saveDisabled"
+        type="submit"
+        @click.once="onSave"
+      >
         Save
       </Button>
       <Button class="flex-3 flex-grow-0 align-items-center action_button" @click="onRefresh"> Revert </Button>
@@ -38,7 +44,7 @@
 </template>
 
 <script setup>
-import { computed, defineEmits, defineProps, onMounted, reactive, ref, toRefs } from 'vue'
+import { computed, defineEmits, defineProps, onMounted, reactive, ref, toRefs, watch } from 'vue'
 import Button from 'primevue/button'
 import { trBus } from '@/index'
 import set from 'lodash/set'
@@ -74,6 +80,10 @@ let fieldComponents = ref([])
 let newItem = reactive({})
 // Fields to display in the card (from schema)
 let fields = configuration.value.fields
+// Update field validity on 'valid' events
+let validFields = ref({})
+// Toggle for disabling save button
+let saveDisabled = ref(true)
 
 onMounted(() => {
   if (dirty.value) {
@@ -133,10 +143,24 @@ const onUpdate = (field, event) => {
   trBus.emit(`TRDetail:update:${props.name}`, [props.item, newObj])
 }
 
+const onValid = (field, event) => {
+  // Update field validity status from event
+  validFields.value[field] = event
+}
+
 const onSave = () => {
   trBus.emit(`TRDetail:save:${props.name}`, [props.item, newItem])
   emit('close')
 }
+
+watch(validFields.value, (newValid) => {
+  // If there are any False values in valid, disable Save button
+  if (Object.values(newValid).some((x) => x === false)) {
+    saveDisabled.value = true
+  } else {
+    saveDisabled.value = false
+  }
+})
 </script>
 
 <style>
