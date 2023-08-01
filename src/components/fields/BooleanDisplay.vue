@@ -6,7 +6,7 @@
       :model-value="fieldValue"
       :binary="true"
       v-bind="properties"
-      readonly="true"
+      :readonly="true"
     />
   </div>
 </template>
