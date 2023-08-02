@@ -2,8 +2,8 @@
   <div>
     <Calendar
       v-model="date"
-      disabled="true"
-      readonly="true"
+      :disabled="true"
+      :readonly="true"
       date-format="yy-mm-dd"
       v-bind="properties"
       class="date-display"
