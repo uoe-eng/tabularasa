@@ -9,7 +9,7 @@
         v-model="fieldValue"
         v-bind="properties"
         :class="{ 'p-invalid': errorMessage }"
-        @update:model-value="$emit('update', $event)"
+        @input="$emit('update', $event)"
       />
       <small v-if="errorMessage" class="p-error">{{ errorMessage }}</small>
     </div>
