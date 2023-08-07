@@ -36,21 +36,21 @@
         </template>
       </Column>
       <template #paginatorstart>
-        <button :id="'newButton_' + name" type="submit" @click="onRowSelect">New</button>
         <button type="submit" @click="onReload">
           <i class="icon pi pi-replay" />
         </button>
+        <button v-if="newButton" :id="'newButton_' + name" type="submit" @click="onRowSelect">New</button>
       </template>
       <template #paginatorend />
     </DataTable>
     <TRDialog
       v-if="configuration.TRDetail"
       :header="dialogHeader"
-      :configuration="configuration"
+      :configuration="dialogConfig"
       :visible="dialogVisible"
-      v-bind="configuration.TRDetail"
+      v-bind="dialogConfig.TRDetail"
       :item="selectedRow"
-      :name="name"
+      :name="dialogName"
     />
   </div>
 </template>
@@ -92,6 +92,8 @@ let props = defineProps({
 })
 
 const { collection } = toRefs(props)
+let dialogConfig = ref(props.configuration)
+let dialogName = ref(props.name)
 let dialogHeader = ref('')
 let dialogVisible = ref(false)
 // Use ref, not reactive, as we replace the whole object, rather than modify its properties
@@ -120,16 +122,22 @@ const onRefresh = () => {
 }
 
 const onRowSelect = (event) => {
-  // Existing data or empty object
-  dialogHeader.value = 'New item'
-  selectedRow.value = {}
   if (event.data) {
-    dialogHeader.value = 'Edit item'
+    // Editing existing row
+    dialogConfig.value = props.configuration
+    dialogName.value = props.name
+    dialogHeader.value = `Edit: ${dialogName.value}`
     selectedRow.value = event.data
     // Preserve the rowIndex so we can access the item data in onRefresh
     rowIndex.value = event.index
+  } else {
+    // New button
+    selectedRow.value = {}
+    dialogConfig.value = newButton.value.config || props.configuration
+    dialogName.value = newButton.value.name || props.name
+    dialogHeader.value = `New: ${dialogName.value}`
   }
-  trBus.emit(`TRList:rowSelect:${props.name}`, selectedRow.value)
+  trBus.emit(`TRList:rowSelect:${dialogName.value}`, selectedRow.value)
   // Updating the prop value will open dialog (actual boolean value is irrelevant)
   dialogVisible.value = !dialogVisible.value
 }
@@ -144,6 +152,17 @@ trBus.on('*', (type) => {
 // Use computed properties to avoid errors trying to watch optional/undefined objects props
 const confTRDetail = computed(() => props.configuration.TRDetail)
 const confFilters = computed(() => props.configuration.TRList.filters)
+const newButton = computed(() => {
+  // newButton defined but Falsey disables button
+  if ('newButton' in props.configuration.TRList) {
+    if (props.configuration.TRList.newButton) {
+      return props.configuration.TRList.newButton
+    } else {
+      return false
+    }
+  }
+  return true
+})
 
 watch(
   confTRDetail,
