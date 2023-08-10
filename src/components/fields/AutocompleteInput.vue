@@ -54,7 +54,12 @@ export default {
       () => {
         let result = fieldBaseIterable(useProps)
         fieldName.value = result.name
-        fieldValue.value = result.data
+        if (result.data.length === 0) {
+          // An empty array is incorrectly 'cast' to '' in AutoComplete input field
+          fieldValue.value = undefined
+        } else {
+          fieldValue.value = result.data
+        }
       },
       { immediate: true }
     )
