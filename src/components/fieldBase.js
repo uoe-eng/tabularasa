@@ -37,8 +37,7 @@ export default () => {
   }
 
   const fieldBaseIterable = (props) => {
-    let { item, field } = toRefs(props)
-    let result = getFieldIterable(item.value, field.value)
+    let result = getFieldIterable(props.item, props.field)
     return { data: result[0], name: result[1] }
   }
 
