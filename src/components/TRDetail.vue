@@ -153,9 +153,9 @@ const onSave = () => {
   emit('close')
 }
 
-watch(validFields.value, (newValid) => {
-  // If there are any False values in valid, disable Save button
-  if (Object.values(newValid).some((x) => x === false)) {
+watch([newItem, validFields.value], ([nNewItem, newValid]) => {
+  // If there are no edits, or any False values in valid, disable Save button
+  if (Object.keys(nNewItem).length == 0 || Object.values(newValid).some((x) => x === false)) {
     saveDisabled.value = true
   } else {
     saveDisabled.value = false
