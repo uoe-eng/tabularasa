@@ -103,7 +103,7 @@ const onBlur = (field) => {
 
 const onRefresh = () => {
   // Empty any values already set in newItem
-  newItem = reactive({})
+  Object.keys(newItem).forEach((key) => delete newItem[key])
   trBus.emit(`TRDetail:refresh:${props.name}`)
 }
 const maxButtonCount = computed(() => {
