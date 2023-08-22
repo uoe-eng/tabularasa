@@ -132,7 +132,7 @@ const onRowSelect = (event) => {
     rowIndex.value = event.index
   } else {
     // New button
-    selectedRow.value = {}
+    selectedRow.value = newButton.value.value || {}
     dialogConfig.value = newButton.value.config || props.configuration
     dialogName.value = newButton.value.name || props.name
     dialogHeader.value = `New: ${dialogName.value}`
