@@ -6652,10 +6652,10 @@ primeicons@^5.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-5.0.0.tgz#73a0b6028a77c58a9eeb331ad13aaf085e8451ee"
   integrity sha512-heygWF0X5HFI1otlZE62pp6ye7sZ8om78J9au2BRkg8O7Y8AHTZ9qKMRzchZUHLe8zUAvdi6hZzzm9XxgwIExw==
 
-primevue@^3.12.2:
-  version "3.12.2"
-  resolved "https://registry.yarnpkg.com/primevue/-/primevue-3.12.2.tgz#3ae06fd9e944fbc8f30470c394a5f18d703845d9"
-  integrity sha512-v0ZphJSphbyisj9BnqSJWzEZxOEJKUqvTPEi120/x1ZplrupHJtSitDl7mw+d/OoyRQ19V1BplM0vlqJeiAMEg==
+primevue@^3.30.2:
+  version "3.32.1"
+  resolved "https://registry.yarnpkg.com/primevue/-/primevue-3.32.1.tgz#74bb97bfeae63674ec08854623459de633675009"
+  integrity sha512-SXeakYM2ZrRm7JHJ3pCqI0Nw2lHwZGXelt8oEsaG00uzHP+E2bDc2dLL2DrcHG5eLtp0E4ZSFmIYW4+q5joJFw==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -7917,7 +7917,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^3.2.47:
+vue@^3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.3.4.tgz#8ed945d3873667df1d0fcf3b2463ada028f88bd6"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==

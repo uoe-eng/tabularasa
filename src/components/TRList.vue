@@ -51,6 +51,7 @@
       v-bind="dialogConfig.TRDetail"
       :item="selectedRow"
       :name="dialogName"
+      :dirty="dirty"
     />
   </div>
 </template>
@@ -96,6 +97,7 @@ let dialogConfig = ref(props.configuration)
 let dialogName = ref(props.name)
 let dialogHeader = ref('')
 let dialogVisible = ref(false)
+let dirty = ref(false)
 // Use ref, not reactive, as we replace the whole object, rather than modify its properties
 let dtProps = ref({})
 let selectedRow = ref({})
@@ -133,6 +135,10 @@ const onRowSelect = (event) => {
   } else {
     // New button
     selectedRow.value = newButton.value.value || {}
+    // If values in new record, flag as dirty for TRDetail to use them when saving
+    if (Object.keys(selectedRow.value).length > 0) {
+      dirty.value = true
+    }
     dialogConfig.value = newButton.value.config || props.configuration
     dialogName.value = newButton.value.name || props.name
     dialogHeader.value = `New: ${dialogName.value}`
