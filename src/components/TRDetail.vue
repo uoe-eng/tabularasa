@@ -89,7 +89,9 @@ onMounted(() => {
   if (dirty.value) {
     // Add field name and value from input component to newItem
     for (let field of fieldComponents.value) {
-      set(newItem, field.field, field.fieldValue)
+      if (field.fieldValue) {
+        set(newItem, field.field, field.fieldValue)
+      }
     }
   }
 })
