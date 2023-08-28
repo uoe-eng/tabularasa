@@ -16,7 +16,7 @@
         :class="{ 'p-invalid': errorMessage }"
         v-on="events"
         @complete="onComplete"
-        @item-select="$emit('update', $event.value)"
+        @update:model-value="$emit('update', $event)"
       />
       <small v-if="errorMessage" class="p-error">{{ errorMessage }}</small>
     </div>
