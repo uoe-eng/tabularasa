@@ -8,6 +8,7 @@
         :id="'input' + fieldValue"
         v-model="date"
         date-format="yy-mm-dd"
+        :show-button-bar="true"
         v-bind="properties"
         :class="{ 'p-invalid': errorMessage }"
         @update:model-value="onUpdate($event)"
@@ -61,6 +62,9 @@ export default {
         }
         // Send event as ISO8601 string,removing time part
         emit('update', event.toISOString())
+      } else {
+        // Date value cleared
+        emit('update', event)
       }
     }
     return { errorMessage, fieldValue, onUpdate }
@@ -77,10 +81,7 @@ export default {
         return date
       },
       set(newDate) {
-        // Ignore falsey values
-        if (newDate) {
-          this.fieldValue = newDate
-        }
+        this.fieldValue = newDate
       },
     },
   },
