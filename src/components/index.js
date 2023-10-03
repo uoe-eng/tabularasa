@@ -8,6 +8,7 @@ import BooleanDisplay from '@/components/fields/BooleanDisplay'
 import ButtonDisplay from '@/components/fields/ButtonDisplay'
 import ChipsDisplay from '@/components/fields/ChipsDisplay'
 import DateDisplay from '@/components/fields/DateDisplay'
+import TableDisplay from '@/components/fields/TableDisplay'
 // Input fields
 import AutocompleteInput from '@/components/fields/AutocompleteInput'
 import BooleanInput from '@/components/fields/BooleanInput'
@@ -25,6 +26,7 @@ export {
   ButtonDisplay,
   ChipsDisplay,
   DateDisplay,
+  TableDisplay,
   AutocompleteInput,
   BooleanInput,
   DateInput,
