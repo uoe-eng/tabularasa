@@ -14,7 +14,7 @@
           :new-item="newItem"
           v-bind="field"
           @blur="onBlur(field.field)"
-          @update="onUpdate(field.field, $event)"
+          @update="onUpdate(field, $event)"
           @valid="onValid(field.field, $event)"
         />
       </div>
@@ -47,6 +47,7 @@
 import { computed, defineEmits, defineProps, onMounted, reactive, ref, toRefs, watch } from 'vue'
 import Button from 'primevue/button'
 import { trBus } from '@/index'
+import merge from 'lodash/merge'
 import set from 'lodash/set'
 import { TYPERE } from '@/helpers'
 
@@ -137,12 +138,14 @@ const onButton = (button, name, field, item) => {
 const onUpdate = (field, event) => {
   // Update newItem with field changes
   // Remove brackets to avoid creating empty arrays/objects
-  field = field.replace(TYPERE, '')
+  let fld = field.field.replace(TYPERE, '')
   // Parse dot-notation field name into a nested object using _.set
-  let newObj = set({}, field, event)
-  Object.assign(newItem, newObj)
-  // Emit just the changed field
-  trBus.emit(`TRDetail:update:${props.name}`, [props.item, newObj])
+  let newObj = set({}, fld, event)
+  merge(newItem, newObj)
+  if (!field.ignoreField) {
+    // Emit just the changed field
+    trBus.emit(`TRDetail:update:${props.name}`, [props.item, newObj])
+  }
 }
 
 const onValid = (field, event) => {
@@ -150,8 +153,36 @@ const onValid = (field, event) => {
   validFields.value[field] = event
 }
 
+const recurseRemove = (obj, props) => {
+  let childProp = props.shift()
+  // Skip fields that don't appear in saved data
+  if (!Object.hasOwn(obj, childProp)) {
+    return obj
+  }
+  if (props.length === 0) {
+    // Delete the last prop
+    delete obj[childProp]
+    return obj
+  } else {
+    // 'Step down' into the child prop
+    recurseRemove(obj[childProp], props)
+  }
+  if (Object.keys(obj[childProp]).length === 0) {
+    // Delete the child prop if it is (now) empty
+    delete obj[childProp]
+  }
+  return obj
+}
+
 const onSave = () => {
-  trBus.emit(`TRDetail:save:${props.name}`, [props.item, newItem])
+  // Remove ignored fields from save data
+  let saveItem = newItem
+  for (let field of fields) {
+    if (field.ignoreField) {
+      saveItem = recurseRemove(saveItem, field.field.split('.'))
+    }
+  }
+  trBus.emit(`TRDetail:save:${props.name}`, [props.item, saveItem])
   emit('close')
 }
 
