@@ -24,17 +24,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Test Suite
-        run: |
-          yarn
-          yarn lint
-
       - name: Setup Node.js
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
         uses: actions/setup-node@v3
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Test Suite
+        run: |
+          yarn
+          yarn lint
 
       - name: Publish to NPM
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
