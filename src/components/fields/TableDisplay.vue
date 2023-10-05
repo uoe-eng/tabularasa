@@ -27,7 +27,6 @@ export default {
     let item = toRef(useProps, 'item')
     let methods = toRef(useProps, 'methods')
     let columns = methods.value.columns()
-    console.log('METHODS', methods.value)
 
     const onRowSelect = (event) => {
       trBus.emit(`TRDetail:TableDisplay`, {
