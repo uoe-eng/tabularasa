@@ -1,6 +1,6 @@
 # Tabularasa - A Table UI built using a schema.
 
-`Tabularasa` is a Vue plugin which acts as a wrapper around a variety of [PrimeVue]{https://www.primefaces.org/primevue/} widgets to provide a Search-List-Detail interface.
+`Tabularasa` is a Vue plugin which acts as a wrapper around a variety of [PrimeVue](https://www.primefaces.org/primevue/) widgets to provide a Search-List-Detail interface.
 
 `tabularasa` takes in a `configuration` 'schema' (which defines the look and feel of the UI, and how data is presented), and `collections` data, which contains data items to be displayed.
 
