@@ -4,7 +4,7 @@
       <label :for="'input' + field.name">{{ label }}</label>
     </div>
     <div class="col-8">
-      <DataTable :value="field.data" selection-mode="single" @row-select="onRowSelect">
+      <DataTable :value="field.data" :striped-rows="true" :selection-mode="selectionMode" @row-select="onRowSelect">
         <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.label"></Column>
       </DataTable>
     </div>
@@ -28,6 +28,14 @@ export default {
     let methods = toRef(useProps, 'methods')
     let columns = methods.value.columns()
 
+    const selectionMode = computed(() => {
+      // Enable row selection if config schema is defined
+      if (Object.hasOwn(methods.value, 'config')) {
+        return 'single'
+      }
+      return null
+    })
+
     const onRowSelect = (event) => {
       trBus.emit(`TRDetail:TableDisplay`, {
         config: methods.value.config,
@@ -35,7 +43,7 @@ export default {
       })
     }
 
-    return { columns, field, item, onRowSelect }
+    return { columns, field, item, onRowSelect, selectionMode }
   },
 }
 </script>
