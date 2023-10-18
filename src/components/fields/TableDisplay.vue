@@ -23,7 +23,15 @@ export default {
   components: { Column, DataTable },
   props: useProps,
   setup(useProps) {
-    let field = computed(() => fieldBaseIterable(useProps))
+    let field = computed(() => {
+      let fld = fieldBaseIterable(useProps)
+      // Convert single objects to an array for DataTable to display
+      if (!Array.isArray(fld)) {
+        fld = [fld]
+      }
+      return fld
+    })
+
     let item = toRef(useProps, 'item')
     let methods = toRef(useProps, 'methods')
     let columns = methods.value.columns()
