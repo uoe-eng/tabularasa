@@ -45,8 +45,8 @@
       </template>
       <template #paginatorend>
         <div class="trlist-paginator">
-          <span v-if="dtProps.globalFilterFields" class="p-input-icon-left">
-            <i class="pi pi-search" />
+          <span v-if="dtProps.globalFilterFields" class="p-input-icon-right">
+            <i class="pi pi-times clear-button" @click="onClearGlobalFilter(dtProps.globalFilterFields[0])" />
             <InputText
               v-model="filters[dtProps.globalFilterFields[0]].constraints[0].value"
               placeholder="Quick search..."
@@ -125,6 +125,14 @@ const columns = computed(() => {
   // Get column metadata from collections
   return props.configuration.TRList.fields
 })
+
+const onClearGlobalFilter = (field) => {
+  let val = filters.value[field].constraints[0]
+  if (val.value) {
+    val.value = ''
+    onLazy('filter', { filters: filters.value })
+  }
+}
 
 const onClearFilters = () => {
   // Remove all values from all filters
@@ -245,5 +253,9 @@ trBus.emit(`TRList:load:${props.name}`)
 <style>
 .trlist-paginator {
   padding: 5px;
+}
+
+.clear-button {
+  cursor: pointer;
 }
 </style>
