@@ -36,12 +36,29 @@
         </template>
       </Column>
       <template #paginatorstart>
-        <button type="submit" @click="onReload">
-          <i class="icon pi pi-replay" />
-        </button>
-        <button v-if="newButton" :id="'newButton_' + name" type="submit" @click="onRowSelect">New</button>
+        <div class="trlist-paginator">
+          <button type="submit" @click="onReload">
+            <i class="icon pi pi-replay" />
+          </button>
+          <button v-if="newButton" :id="'newButton_' + name" type="submit" @click="onRowSelect">New</button>
+        </div>
       </template>
-      <template #paginatorend />
+      <template #paginatorend>
+        <div class="trlist-paginator">
+          <span v-if="dtProps.globalFilterFields" class="p-input-icon-left">
+            <i class="pi pi-search" />
+            <InputText
+              v-model="filters[dtProps.globalFilterFields[0]].constraints[0].value"
+              placeholder="Quick search..."
+              size="small"
+              @keydown.enter="onLazy('filter', { filters: filters })"
+            />
+          </span>
+          <button type="submit" @click="onClearFilters">
+            <i class="icon pi pi-filter-slash" />
+          </button>
+        </div>
+      </template>
     </DataTable>
     <TRDialog
       v-if="configuration.TRDetail"
@@ -225,4 +242,8 @@ watch(
 trBus.emit(`TRList:load:${props.name}`)
 </script>
 
-<style></style>
+<style>
+.trlist-paginator {
+  padding: 5px;
+}
+</style>
