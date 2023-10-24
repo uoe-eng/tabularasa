@@ -109,6 +109,18 @@ const columns = computed(() => {
   return props.configuration.TRList.fields
 })
 
+const onClearFilters = () => {
+  // Remove all values from all filters
+  for (let filt of Object.values(filters.value)) {
+    for (let constraint of filt['constraints']) {
+      if ('value' in constraint) {
+        delete constraint.value
+      }
+    }
+  }
+  onLazy('filter', { filters: filters.value })
+}
+
 const onLazy = (type, event) => {
   dtProps.value.limit = event.rows
   trBus.emit(`TRList:${type}:${props.name}`, event)
