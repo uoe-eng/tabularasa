@@ -152,7 +152,7 @@ const onLazy = (type, event) => {
 }
 
 const onReload = () => {
-  trBus.emit(`TRList:reload:${props.name}`)
+  trBus.emit(`TRList:reload:${props.name}`, { filters: filters.value })
 }
 
 const onRefresh = () => {
