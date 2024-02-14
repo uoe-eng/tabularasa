@@ -136,9 +136,12 @@ const onClearGlobalFilter = (field) => {
 const onClearFilters = () => {
   // Remove all values from all filters
   for (let filt of Object.values(filters.value)) {
-    for (let constraint of filt['constraints']) {
-      if ('value' in constraint) {
-        delete constraint.value
+    delete filt.value
+    if ('constraints' in filt) {
+      for (let constraint of filt['constraints']) {
+        if ('value' in constraint) {
+          delete constraint.value
+        }
       }
     }
   }
