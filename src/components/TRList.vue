@@ -85,7 +85,6 @@ import { getFieldValue } from '@/helpers'
 // Default config values
 const DT_PROPS = {
   // Define props to be passed 'direct' to DataTable
-  autoLayout: true,
   lazy: true,
   paginator: true,
   paginatorPosition: 'both',
