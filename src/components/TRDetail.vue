@@ -44,10 +44,9 @@
 </template>
 
 <script setup>
-import { computed, defineEmits, defineProps, onMounted, reactive, ref, toRefs, watch } from 'vue'
+import { computed, defineEmits, defineProps, onMounted, ref, toRefs, watch } from 'vue'
 import Button from 'primevue/button'
 import { trBus } from '@/index'
-import merge from 'lodash/merge'
 import set from 'lodash/set'
 import { TYPERE } from '@/helpers'
 
@@ -78,7 +77,7 @@ const emit = defineEmits(['close'])
 // Array of refs to the field components
 let fieldComponents = ref([])
 // We start with an empty object and update it as fields change
-let newItem = reactive({})
+let newItem = ref({})
 // Fields to display in the card (from schema)
 let fields = configuration.value.fields
 // Update field validity on 'valid' events
@@ -91,7 +90,7 @@ onMounted(() => {
     // Add field name and value from input component to newItem
     for (let field of fieldComponents.value) {
       if (field.fieldValue) {
-        set(newItem, field.field, field.fieldValue)
+        set(newItem.value, field.field, field.fieldValue)
       }
     }
   }
@@ -99,8 +98,8 @@ onMounted(() => {
 
 const onBlur = (field) => {
   // Emit if the blurred field's value has changed
-  if (field in newItem) {
-    trBus.emit(`TRDetail:blur:${props.name}`, [props.item, { [field]: newItem[field] }])
+  if (field in newItem.value) {
+    trBus.emit(`TRDetail:blur:${props.name}`, [props.item, { [field]: newItem.value[field] }])
   }
 }
 
@@ -110,7 +109,7 @@ const onClose = () => {
 }
 const onRefresh = () => {
   // Empty any values already set in newItem
-  Object.keys(newItem).forEach((key) => delete newItem[key])
+  Object.keys(newItem.value).forEach((key) => delete newItem.value[key])
   trBus.emit(`TRDetail:refresh:${props.name}`)
 }
 const maxButtonCount = computed(() => {
@@ -145,7 +144,8 @@ const onUpdate = (field, event) => {
   let fld = field.field.replace(TYPERE, '')
   // Parse dot-notation field name into a nested object using _.set
   let newObj = set({}, fld, event)
-  merge(newItem, newObj)
+  // Use spread notation to shallow copy - Object.assign causes side-effects in deep/recursive objects
+  newItem.value = { ...newItem.value, ...newObj }
   if (!field.ignoreField) {
     // Emit just the changed field
     trBus.emit(`TRDetail:update:${props.name}`, [props.item, newObj])
@@ -180,7 +180,7 @@ const recurseRemove = (obj, props) => {
 
 const onSave = () => {
   // Remove ignored fields from save data
-  let saveItem = newItem
+  let saveItem = newItem.value
   for (let field of fields) {
     if (field.ignoreField) {
       saveItem = recurseRemove(saveItem, field.field.split('.'))
@@ -190,14 +190,39 @@ const onSave = () => {
   emit('close')
 }
 
-watch([newItem, validFields.value], ([nNewItem, newValid]) => {
-  // If there are no edits, or any False values in valid, disable Save button
-  if (Object.keys(nNewItem).length == 0 || Object.values(newValid).some((x) => x === false)) {
-    saveDisabled.value = true
-  } else {
-    saveDisabled.value = false
+const toggleSave = () => {
+  saveDisabled.value = true
+  if (Object.keys(newItem.value).length == 0 || Object.values(validFields.value).some((x) => x === false)) {
+    // Leave disabled if no new items, or invalid fields
+    return
   }
+  for (let [key, val] of Object.entries(newItem.value)) {
+    // Allow saving if new key or changed value
+    if (!(key in item.value) || (key in item.value && item.value[key] !== val)) {
+      saveDisabled.value = false
+      break
+    }
+  }
+}
+
+watch(newItem, () => {
+  // Update save status when field values change
+  toggleSave()
 })
+
+// FIXME: validFields has to be watched as well due to PrimeVue bug: https://github.com/primefaces/primevue/issues/4338
+// This triggers updates when autocomplete is mid-edit, firing watcher for newItem
+// Field is still valid until focus is lost, so Save is enabled
+// We therefore watch validFields as well to disable Save when it eventually catches up
+// We can't combine this into a single watcher with newItem, since it can be recursive which breaks with 'deep: true'
+watch(
+  validFields,
+  () => {
+    // Update save status when field validity changes
+    toggleSave()
+  },
+  { deep: true }
+)
 </script>
 
 <style>
