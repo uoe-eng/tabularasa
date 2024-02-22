@@ -38,7 +38,7 @@
         Save
       </Button>
       <Button class="flex-3 flex-grow-0 align-items-center action_button" @click="onRefresh"> Revert </Button>
-      <Button class="flex-3 flex-grow-0 align-items-center action_button" @click="emit('close')"> Cancel </Button>
+      <Button class="flex-3 flex-grow-0 align-items-center action_button" @click="onClose"> Cancel </Button>
     </div>
   </div>
 </template>
@@ -104,6 +104,10 @@ const onBlur = (field) => {
   }
 }
 
+const onClose = () => {
+  trBus.emit(`TRDetail:close:${props.name}`)
+  emit('close')
+}
 const onRefresh = () => {
   // Empty any values already set in newItem
   Object.keys(newItem).forEach((key) => delete newItem[key])
