@@ -50,7 +50,7 @@ export default {
     })
 
     const onRowSelect = (event) => {
-      trBus.emit(`TRDetail:TableDisplay`, {
+      trBus.emit(`TRDetail:TableDisplay:${useProps.name}`, {
         config: methods.value.config,
         data: event.data,
       })

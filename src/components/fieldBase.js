@@ -23,6 +23,10 @@ export default () => {
       type: Object,
       default: () => ({}),
     },
+    name: {
+      type: String,
+      default: '',
+    },
     newItem: {
       type: Object,
       default: () => ({}),
