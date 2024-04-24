@@ -130,9 +130,9 @@ const columns = computed(() => {
 const getUIState = () => {
   // Return current state of filters and sorting params
   let uiState = { filters: filters.value }
-  if (sortField.value && sortOrder.value) {
-    uiState['sortField'] = sortField.value
-    uiState['sortOrder'] = sortOrder.value
+  if (sortField && sortOrder) {
+    uiState['sortField'] = sortField
+    uiState['sortOrder'] = sortOrder
   }
   return uiState
 }
@@ -163,8 +163,8 @@ const onClearFilters = () => {
 const onLazy = (type, event) => {
   // Cache sort params for getUIState
   if (type === 'sort') {
-    sortField.value = event.sortField
-    sortOrder.value = event.sortOrder
+    sortField = event.sortField
+    sortOrder = event.sortOrder
   }
   dtProps.value.limit = event.rows
   trBus.emit(`TRList:${type}:${props.name}`, event)
