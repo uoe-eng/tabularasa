@@ -51,7 +51,7 @@
               v-model="filters[dtProps.globalFilterFields[0]].constraints[0].value"
               placeholder="Quick search..."
               size="small"
-              @keydown.enter="onLazy('filter', { filters: filters })"
+              @keydown.enter="onLazy('filter', getUIState())"
             />
           </span>
           <button type="submit" @click="onClearFilters">
