@@ -119,17 +119,29 @@ let dtProps = ref({})
 let selectedRow = ref({})
 let rowIndex = ref()
 let filters = ref({})
+let sortField = undefined
+let sortOrder = undefined
 
 const columns = computed(() => {
   // Get column metadata from collections
   return props.configuration.TRList.fields
 })
 
+const getUIState = () => {
+  // Return current state of filters and sorting params
+  let uiState = { filters: filters.value }
+  if (sortField.value && sortOrder.value) {
+    uiState['sortField'] = sortField.value
+    uiState['sortOrder'] = sortOrder.value
+  }
+  return uiState
+}
+
 const onClearGlobalFilter = (field) => {
   let val = filters.value[field].constraints[0]
   if (val.value) {
     val.value = ''
-    onLazy('filter', { filters: filters.value })
+    onLazy('filter', getUIState())
   }
 }
 
@@ -145,16 +157,21 @@ const onClearFilters = () => {
       }
     }
   }
-  onLazy('filter', { filters: filters.value })
+  onLazy('filter', getUIState())
 }
 
 const onLazy = (type, event) => {
+  // Cache sort params for getUIState
+  if (type === 'sort') {
+    sortField.value = event.sortField
+    sortOrder.value = event.sortOrder
+  }
   dtProps.value.limit = event.rows
   trBus.emit(`TRList:${type}:${props.name}`, event)
 }
 
 const onReload = () => {
-  trBus.emit(`TRList:reload:${props.name}`, { filters: filters.value })
+  trBus.emit(`TRList:reload:${props.name}`, getUIState())
 }
 
 const onRefresh = () => {
