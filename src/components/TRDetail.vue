@@ -10,6 +10,7 @@
             }
           "
           :configuration="configuration"
+          :ignored="ignored"
           :item="item"
           :new-item="newItem"
           v-bind="field"
@@ -47,6 +48,7 @@
 import { computed, defineEmits, defineProps, onMounted, ref, toRefs, watch } from 'vue'
 import Button from 'primevue/button'
 import { trBus } from '@/index'
+import merge from 'lodash/merge'
 import set from 'lodash/set'
 import { TYPERE } from '@/helpers'
 
@@ -78,6 +80,9 @@ const emit = defineEmits(['close'])
 let fieldComponents = ref([])
 // We start with an empty object and update it as fields change
 let newItem = ref({})
+// Store changed but ignored fields for e.g. onComplete methods
+let ignored = ref({})
+
 // Fields to display in the card (from schema)
 let fields = configuration.value.fields
 // Update field validity on 'valid' events
@@ -143,13 +148,17 @@ const onUpdate = (field, event) => {
   // Remove brackets to avoid creating empty arrays/objects
   let fld = field.field.replace(TYPERE, '')
   // Parse dot-notation field name into a nested object using _.set
-  let newObj = set({}, fld, event)
-  // Use spread notation to shallow copy - Object.assign causes side-effects in deep/recursive objects
-  newItem.value = { ...newItem.value, ...newObj }
-  if (!field.ignoreField) {
-    // Emit just the changed field
-    trBus.emit(`TRDetail:update:${props.name}`, [props.item, newObj])
+  let parsed = set({}, fld, event)
+  if (field.ignoreField) {
+    // Save ignored field change, but don't emit update
+    // Use merge as ignored fields may be nested with shared 'root' property
+    merge(ignored.value, parsed)
+    return
   }
+  // Use spread notation to shallow copy - Object.assign causes side-effects in deep/recursive objects
+  newItem.value = { ...newItem.value, ...parsed }
+  // Emit just the changed field
+  trBus.emit(`TRDetail:update:${props.name}`, [props.item, parsed])
 }
 
 const onValid = (field, event) => {

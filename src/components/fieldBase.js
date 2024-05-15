@@ -11,6 +11,10 @@ export default () => {
       type: String,
       default: '',
     },
+    ignored: {
+      type: Object,
+      default: () => ({}),
+    },
     item: {
       type: Object,
       default: () => ({}),
