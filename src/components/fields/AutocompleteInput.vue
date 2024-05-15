@@ -67,7 +67,12 @@ export default {
     let onComplete = async (query) => {
       if ('onComplete' in props.methods.value) {
         // Use await as method might return a promise/be async
-        suggestions.value = await props.methods.value.onComplete(query.query, props.item.value, props.newItem.value)
+        suggestions.value = await props.methods.value.onComplete(
+          query.query,
+          props.item.value,
+          props.newItem.value,
+          props.ignored.value
+        )
       } else {
         // Blank the suggestions, as if not modified the AC ui 'blocks' forever.
         suggestions.value = []
