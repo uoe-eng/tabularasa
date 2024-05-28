@@ -42,7 +42,12 @@ export default {
     watch(
       [props.field, props.item],
       () => {
-        fieldValue.value = fieldBaseValue(useProps)
+        // FIXME: fbv is the 'store' value, fieldValue is the current edits
+        // We should have logic here to handle the store changing while editing, and decide what to do
+        // This would then need replicating to all other fields, potentially with different behaviours.
+        let fbv = fieldBaseValue(useProps)
+        console.log('Vals', fieldValue.value, fbv)
+        fieldValue.value = fbv
       },
       { immediate: true }
     )

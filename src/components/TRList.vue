@@ -116,8 +116,8 @@ let dialogVisible = ref(false)
 let dirty = ref(false)
 // Use ref, not reactive, as we replace the whole object, rather than modify its properties
 let dtProps = ref({})
+let selectedIndex = undefined
 let selectedRow = ref({})
-let rowIndex = ref()
 let filters = ref({})
 let sortField = undefined
 let sortOrder = undefined
@@ -175,19 +175,21 @@ const onReload = () => {
 }
 
 const onRefresh = () => {
-  // Create a new object with a new reference, or it won't be reactive if underlying data is unchanged
-  selectedRow.value = Object.assign({}, collection.value[rowIndex.value])
+  // Reset detail card data to the selected row
+  selectedRow.value = collection.value[selectedIndex]
 }
 
 const onRowSelect = (event) => {
-  if (event.data) {
+  if ('index' in event) {
     // Editing existing row
     dialogConfig.value = props.configuration
     dialogName.value = props.name
     dialogHeader.value = `Edit: ${dialogName.value}`
-    selectedRow.value = event.data
-    // Preserve the rowIndex so we can access the item data in onRefresh
-    rowIndex.value = event.index
+    // Save the index of the selected row for later re-use in onRefresh
+    // FIXME: Array index is a 'poor' key since arrays can reorder, change length etc
+    // But we can't guarantee/mandate unique array entries to key off
+    selectedIndex = event.index
+    selectedRow.value = collection.value[selectedIndex]
   } else {
     // New button
     selectedRow.value = newButton.value.value || {}
@@ -224,6 +226,11 @@ const newButton = computed(() => {
     }
   }
   return true
+})
+
+watch(collection, () => {
+  // Update selectedRow if the collection changes (based on selected row index)
+  selectedRow.value = collection.value[selectedIndex]
 })
 
 watch(
