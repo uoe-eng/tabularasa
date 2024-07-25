@@ -9,6 +9,8 @@
         v-model="date"
         date-format="yy-mm-dd"
         :show-button-bar="true"
+        :show-on-focus="false"
+        :show-icon="true"
         v-bind="properties"
         :class="{ 'p-invalid': errorMessage }"
         @update:model-value="onUpdate($event)"
